@@ -39,8 +39,8 @@
 
 | 매개변수 | 유형 | 설명 |
 |------|------|------|
-| ModbusConnect | bool | Modbus 연결상태：`false` 未연결，`true` 已연결 |
-| ExternIOConnect | bool | 外部 IO 연결상태：`false` 未연결，`true` 已연결 |
+| ModbusConnect | bool | Modbus 연결상태：`false` 미연결，`true` 已연결 |
+| ExternIOConnect | bool | 外部 IO 연결상태：`false` 미연결，`true` 已연결 |
 | type | int | 연결유형：0:NAN, 1:RTU, 2:TCP |
 
 ---
@@ -53,15 +53,15 @@
 
 | 매개변수 | 유형 | 설명 |
 |------|------|------|
-| robot | int | 로봇号 |
-| jobFile | array | 작업파일열表 |
+| robot | int | 로봇번호 |
+| jobFile | array | 작업파일열테이블 |
 
 **jobFile 배열요소**:
 
 | 매개변수 | 유형 | 설명 |
 |------|------|------|
 | name | string | 작업파일이름 |
-| times | int | 실행회数 |
+| times | int | 실행회수 |
 
 요청包体：
 
@@ -121,7 +121,7 @@
 
 | 매개변수 | 유형 | 설명 |
 |------|------|------|
-| robot | int | 로봇号 |
+| robot | int | 로봇번호 |
 | remoteDefaultSpeed | int | 원격 모드속도，범위 1~100 |
 | reserveIsStart | int | 예약并시작：`1` 시작，`0` 닫기 |
 | reserveTrgTime | int | 确认시작시간，범위 200~1000ms |
@@ -173,7 +173,7 @@
 
 Lua파일存放在 `~/robot/job/lua` 디렉터리内。
 
-업로드파일和查看파일열表用 SCP 的방식。
+업로드파일和查看파일열테이블用 SCP 的방식。
 
 ### 실행프로그램
 
@@ -197,9 +197,9 @@ Lua파일存放在 `~/robot/job/lua` 디렉터리内。
 
 | 매개변수 | 유형 | 필수 | 설명 |
 |------|------|------|------|
-| fileName | string | 예 | Lua파일名 |
+| fileName | string | 예 | Lua파일이름 |
 | result | bool | 예 | 실행여부성공 |
-| error | string | 예 | 오류原因，성공时为空문자열 |
+| error | string | 예 | 오류原因，성공时을/를空문자열 |
 
 ---
 
@@ -215,7 +215,7 @@ Lua파일存放在 `~/robot/job/lua` 디렉터리内。
 
 | 매개변수 | 유형 | 필수 | 설명 |
 |------|------|------|------|
-| fileName | string | 예 | Lua파일名 |
+| fileName | string | 예 | Lua파일이름 |
 
 ---
 
@@ -242,8 +242,8 @@ Lua파일存放在 `~/robot/job/lua` 디렉터리内。
 
 | 매개변수 | 유형 | 필수 | 설명 |
 |------|------|------|------|
-| fileNames | array | 예 | 실행中的파일열表 |
-| fileNames[].fileName | string | 예 | Lua파일名 |
+| fileNames | array | 예 | 실행中的파일열테이블 |
+| fileNames[].fileName | string | 예 | Lua파일이름 |
 | fileNames[].status | int | 예 | 1-일시정지，2-실행 |
 
 ---
@@ -262,11 +262,11 @@ Lua파일存放在 `~/robot/job/lua` 디렉터리内。
 }
 ```
 
-| 매개변수名 | 유형 | 필수 | 설명 |
+| 매개변수이름 | 유형 | 필수 | 설명 |
 |--------|------|------|------|
 | robot | int | 예 | 로봇 번호，범위 1-4 |
 | programid | int | 예 | 프로그램 ID，범위 1-300 |
-| jobname | string | 예 | 작업파일名（不含后缀） |
+| jobname | string | 예 | 작업파일이름（아님含后缀） |
 
 ---
 
@@ -282,11 +282,11 @@ Lua파일存放在 `~/robot/job/lua` 디렉터리内。
 }
 ```
 
-| 매개변수名 | 유형 | 필수 | 설명 |
+| 매개변수이름 | 유형 | 필수 | 설명 |
 |--------|------|------|------|
 | robot | int | 예 | 로봇 번호，범위 1-4 |
-| startprogramid | int | 예 | 프로그램起始 ID |
-| num | int | 예 | 需要가져오기的프로그램번째数，범위 1-10 |
+| startprogramid | int | 예 | 프로그램시작 ID |
+| num | int | 예 | 필요가져오기的프로그램번째수，범위 1-10 |
 
 ---
 
@@ -302,11 +302,11 @@ Lua파일存放在 `~/robot/job/lua` 디렉터리内。
 }
 ```
 
-| 매개변수名 | 유형 | 필수 | 설명 |
+| 매개변수이름 | 유형 | 필수 | 설명 |
 |--------|------|------|------|
 | robot | int | 예 | 로봇 번호，범위 1-4 |
-| startprogramid | int | 예 | 프로그램起始 ID |
-| jobnamelist | array | 예 | 작업파일名열表，共 10 번째요소，没有则填空문자열 |
+| startprogramid | int | 예 | 프로그램시작 ID |
+| jobnamelist | array | 예 | 작업파일이름열테이블，共 10 번째요소，没有则填空문자열 |
 
 ---
 
@@ -332,17 +332,17 @@ Lua파일存放在 `~/robot/job/lua` 디렉터리内。
 }
 ```
 
-| 매개변수分클래스 | 매개변수名 | 유형 | 필수 | 설명 |
+| 매개변수分클래스 | 매개변수이름 | 유형 | 필수 | 설명 |
 |----------|--------|------|------|------|
-| RTU | baudrate | string | 예 | Modbus RTU 通信的Baud Rate |
-| RTU | port | int | 예 | Modbus RTU 通信的串口号 |
-| RTU | slaveId | int | 예 | Modbus RTU 通信的从设备 ID |
-| TCP | IP | string | 예 | Modbus TCP 通信的서버 IP 주소 |
-| TCP | port | int | 예 | Modbus TCP 通信的포트 번호 |
+| RTU | baudrate | string | 예 | Modbus RTU 통신Baud Rate |
+| RTU | port | int | 예 | Modbus RTU 통신串口번호 |
+| RTU | slaveId | int | 예 | Modbus RTU 통신从设备 ID |
+| TCP | IP | string | 예 | Modbus TCP 통신서버 IP 주소 |
+| TCP | port | int | 예 | Modbus TCP 통신포트 번호 |
 | 범용 | master-slave | string | 예 | 主从모드：0 의미主모드，1 의미从모드 |
 | 범용 | scancycle | int | 예 | 扫描주기，단위：ms |
-| 범용 | stoprun | bool | 예 | 실행정지标志：0 의미未정지，1 의미정지 |
-| 범용 | type | string | 예 | 通信유형，선택 RTU 或 TCP |
+| 범용 | stoprun | bool | 예 | 실행정지标志：0 의미미정지，1 의미정지 |
+| 범용 | type | string | 예 | 통신유형，선택 RTU 或 TCP |
 
 ---
 
@@ -375,18 +375,18 @@ Lua파일存放在 `~/robot/job/lua` 디렉터리内。
 }
 ```
 
-| 매개변수分클래스 | 매개변수名 | 유형 | 필수 | 설명 |
+| 매개변수分클래스 | 매개변수이름 | 유형 | 필수 | 설명 |
 |----------|--------|------|------|------|
-| RTU | baudrate | string | 예 | Modbus RTU 通信的Baud Rate |
-| RTU | port | int | 예 | Modbus RTU 通信的串口号 |
-| RTU | slaveId | int | 예 | Modbus RTU 通信的从设备 ID |
-| TCP | IP | string | 예 | Modbus TCP 通信的서버 IP 주소 |
-| TCP | port | int | 예 | Modbus TCP 通信的포트 번호 |
-| 범용 | enable | bool | 예 | 여부启用 Modbus 通信 |
+| RTU | baudrate | string | 예 | Modbus RTU 통신Baud Rate |
+| RTU | port | int | 예 | Modbus RTU 통신串口번호 |
+| RTU | slaveId | int | 예 | Modbus RTU 통신从设备 ID |
+| TCP | IP | string | 예 | Modbus TCP 통신서버 IP 주소 |
+| TCP | port | int | 예 | Modbus TCP 통신포트 번호 |
+| 범용 | enable | bool | 예 | 여부启用 Modbus 통신 |
 | 범용 | master-slave | string | 예 | 主从모드：0 의미主모드，1 의미从모드 |
 | 범용 | scancycle | int | 예 | 扫描주기，단위：ms |
-| 범용 | stoprun | bool | 예 | 실행정지标志：0 의미未정지，1 의미정지 |
-| 범용 | type | string | 예 | 通信유형，선택 RTU 或 TCP |
+| 범용 | stoprun | bool | 예 | 실행정지标志：0 의미미정지，1 의미정지 |
+| 범용 | type | string | 예 | 통신유형，선택 RTU 或 TCP |
 
 ---
 
@@ -400,9 +400,9 @@ Lua파일存放在 `~/robot/job/lua` 디렉터리内。
 }
 ```
 
-| 매개변수名 | 유형 | 필수 | 설명 |
+| 매개변수이름 | 유형 | 필수 | 설명 |
 |--------|------|------|------|
-| enable | bool | 예 | 여부启用 Modbus 通信：false 禁用，true 启用 |
+| enable | bool | 예 | 여부启用 Modbus 통신：false 禁用，true 启用 |
 
 ---
 
@@ -416,9 +416,9 @@ Lua파일存放在 `~/robot/job/lua` 디렉터리内。
 }
 ```
 
-| 매개변수名 | 유형 | 필수 | 설명 |
+| 매개변수이름 | 유형 | 필수 | 설명 |
 |--------|------|------|------|
-| checkheart | bool | 예 | Modbus 하트비트감지开关 |
+| checkheart | bool | 예 | Modbus 하트비트감지스위치 |
 
 ---
 
@@ -438,13 +438,13 @@ Lua파일存放在 `~/robot/job/lua` 디렉터리内。
 }
 ```
 
-| 매개변수名 | 유형 | 필수 | 설명 |
+| 매개변수이름 | 유형 | 필수 | 설명 |
 |--------|------|------|------|
 | checkheart | bool | 예 | Modbus 하트비트감지상태：true 开启，false 닫기 |
 
 ---
 
-### 9. 조회컨트롤러作为슬레이브여부연결
+### 9. 조회컨트롤러作을/를슬레이브여부연결
 
 **명령어**: `0x5718`
 
@@ -462,13 +462,13 @@ Lua파일存放在 `~/robot/job/lua` 디렉터리内。
 }
 ```
 
-| 매개변수名 | 유형 | 필수 | 설명 |
+| 매개변수이름 | 유형 | 필수 | 설명 |
 |--------|------|------|------|
-| ModbusConnect | bool | 예 | 연결상태：false 未연결，true 已연결 |
+| ModbusConnect | bool | 예 | 연결상태：false 미연결，true 已연결 |
 
 ---
 
-### 10. 컨트롤러作为主站的매개변수설정
+### 10. 컨트롤러作을/를마스터的매개변수설정
 
 **명령어**: `0x5719`
 
@@ -494,23 +494,23 @@ Lua파일存放在 `~/robot/job/lua` 디렉터리内。
 }
 ```
 
-| 매개변수分클래스 | 매개변수名 | 유형 | 필수 | 설명 |
+| 매개변수分클래스 | 매개변수이름 | 유형 | 필수 | 설명 |
 |----------|--------|------|------|------|
-| masterStation | type | string | 예 | 通信유형：RTU 或 TCP |
-| masterStation | processNumber | int | 예 | 프로세스号 |
+| masterStation | type | string | 예 | 통신유형：RTU 或 TCP |
+| masterStation | processNumber | int | 예 | 프로세스번호 |
 | masterStation.RTU | baudrate | int | 예 | Baud Rate |
-| masterStation.RTU | checkBit | string | 예 | 校验비트：如 "E"（偶校验）、"O"（奇校验）、"N"（없음校验） |
+| masterStation.RTU | checkBit | string | 예 | 검증비트：如 "E"（偶검증）、"O"（奇검증）、"N"（없음검증） |
 | masterStation.RTU | dataBit | int | 예 | 데이터비트 |
-| masterStation.RTU | port | int | 예 | 串口号 |
+| masterStation.RTU | port | int | 예 | 串口번호 |
 | masterStation.RTU | slaveId | int | 예 | 从设备 ID |
 | masterStation.RTU | stopBit | int | 예 | 정지비트 |
 | masterStation.TCP | IP | string | 예 | TCP 서버 IP 주소 |
 | masterStation.TCP | port | int | 예 | TCP 포트 번호 |
-| 범용 | startAddress | bool | 예 | 起始주소开关 |
+| 범용 | startAddress | bool | 예 | 시작주소스위치 |
 
 ---
 
-### 11. 조회컨트롤러作为主站时的정보
+### 11. 조회컨트롤러作을/를마스터时的정보
 
 **명령어**: `0x5744`
 
@@ -520,13 +520,13 @@ Lua파일存放在 `~/robot/job/lua` 디렉터리内。
 }
 ```
 
-| 매개변수名 | 유형 | 필수 | 설명 |
+| 매개변수이름 | 유형 | 필수 | 설명 |
 |--------|------|------|------|
-| processNumber | int | 예 | 프로세스号 |
+| processNumber | int | 예 | 프로세스번호 |
 
 ---
 
-### 12. 조회主站정보응답
+### 12. 조회마스터정보응답
 
 **명령어**: `0x5745`
 
@@ -551,20 +551,20 @@ Lua파일存放在 `~/robot/job/lua` 디렉터리内。
 }
 ```
 
-| 매개변수分클래스 | 매개변수名 | 유형 | 필수 | 설명 |
+| 매개변수分클래스 | 매개변수이름 | 유형 | 필수 | 설명 |
 |----------|--------|------|------|------|
 | RTU | baudrate | int | 예 | Baud Rate |
-| RTU | checkBit | string | 예 | 校验비트 |
+| RTU | checkBit | string | 예 | 검증비트 |
 | RTU | dataBit | int | 예 | 데이터비트 |
-| RTU | port | int | 예 | 串口号 |
+| RTU | port | int | 예 | 串口번호 |
 | RTU | slaveId | int | 예 | 从设备 ID |
 | RTU | stopBit | int | 예 | 정지비트 |
 | TCP | IP | string | 예 | TCP 서버 IP 주소 |
 | TCP | port | int | 예 | TCP 포트 번호 |
 | 범용 | modbus_state | bool | 예 | MODBUS 상태 |
 | 범용 | response_time_out | int | 예 | 응답타임아웃시간，단위：ms |
-| 범용 | startAddress | bool | 예 | 起始주소开关 |
-| 범용 | type | string | 예 | 通信유형：RTU 或 TCP |
+| 범용 | startAddress | bool | 예 | 시작주소스위치 |
+| 범용 | type | string | 예 | 통신유형：RTU 或 TCP |
 
 ---
 
@@ -583,15 +583,15 @@ Lua파일存放在 `~/robot/job/lua` 디렉터리内。
 | 0x5716 | 조회 Modbus 하트비트감지 | 호스트 컴퓨터 → 컨트롤러 |
 | 0x5717 | 조회 Modbus 하트비트감지응답 | 컨트롤러 → 호스트 컴퓨터 |
 | 0x5718 | 조회슬레이브연결상태 | 호스트 컴퓨터 → 컨트롤러 |
-| 0x5719 | 설정主站매개변수 | 호스트 컴퓨터 → 컨트롤러 |
-| 0x5744 | 조회主站정보 | 호스트 컴퓨터 → 컨트롤러 |
-| 0x5745 | 조회主站정보응답 | 컨트롤러 → 호스트 컴퓨터 |
+| 0x5719 | 설정마스터매개변수 | 호스트 컴퓨터 → 컨트롤러 |
+| 0x5744 | 조회마스터정보 | 호스트 컴퓨터 → 컨트롤러 |
+| 0x5745 | 조회마스터정보응답 | 컨트롤러 → 호스트 컴퓨터 |
 
 ---
 
 ## TCP통신
 
-### 설정网络매개변수
+### 설정네트워크매개변수
 
 **명령어**: `0x4180 MSGCOMM_PARAM_SET`
 
@@ -603,12 +603,12 @@ Lua파일存放在 `~/robot/job/lua` 디렉터리内。
 |------|------|------|
 | frameHeader | string | 帧头 |
 | ip | string | IP주소 |
-| numberSystem | int | 0: 十进制, 1: 十六进制 |
+| numberSystem | int | 0: 10진수, 1: 16진수 |
 | port | int | 포트 번호 |
 | separator | string | 分隔符 |
 | terminator | string | 종료符 |
-| craft | int | 프로세스号 (1~9) |
-| robot | int | 로봇号 |
+| craft | int | 프로세스번호 (1~9) |
+| robot | int | 로봇번호 |
 | type | int | 0: 서버, 1: 클라이언트 |
 
 **요청 예시**
@@ -637,12 +637,12 @@ Lua파일存放在 `~/robot/job/lua` 디렉터리内。
 |------|------|------|
 | frameHeader | string | 帧头 |
 | ip | string | IP주소 |
-| numberSystem | int | 0: 十进制, 1: 十六进制 |
+| numberSystem | int | 0: 10진수, 1: 16진수 |
 | port | int | 포트 번호 |
 | separator | string | 分隔符 |
 | terminator | string | 종료符 |
-| craft | int | 프로세스号 (1~9) |
-| robot | int | 로봇号 |
+| craft | int | 프로세스번호 (1~9) |
+| robot | int | 로봇번호 |
 | type | int | 0: 서버, 1: 클라이언트 |
 
 **요청 예시**
@@ -665,7 +665,7 @@ Lua파일存放在 `~/robot/job/lua` 디렉터리内。
 
 ---
 
-### 조회网络매개변수
+### 조회네트워크매개변수
 
 **명령어**: `0x4181 MSGCOMM_PARAM_INQUIRE`
 
@@ -673,8 +673,8 @@ Lua파일存放在 `~/robot/job/lua` 디렉터리内。
 
 | 필드 | 유형 | 설명 |
 |------|------|------|
-| robot | int | 로봇号 |
-| craft | int | 프로세스号 |
+| robot | int | 로봇번호 |
+| craft | int | 프로세스번호 |
 | type | int | 0: 서버, 1: 클라이언트 |
 
 **요청 예시**
@@ -689,7 +689,7 @@ Lua파일存放在 `~/robot/job/lua` 디렉터리内。
 
 ---
 
-### 응답网络매개변수조회
+### 응답네트워크매개변수조회
 
 **명령어**: `0x4182 MSGCOMM_PARAM_RESPOND`
 
@@ -701,13 +701,13 @@ Lua파일存放在 `~/robot/job/lua` 디렉터리内。
 |------|------|------|
 | frameHeader | string | 帧头 |
 | ip | string | IP주소 |
-| numberSystem | int | 0: 十进制, 1: 十六进制 |
+| numberSystem | int | 0: 10진수, 1: 16진수 |
 | port | int | 포트 번호 |
 | separator | string | 分隔符 |
 | terminator | string | 종료符 |
-| craft | int | 프로세스号 |
+| craft | int | 프로세스번호 |
 | netState | bool | true: 연결, false: 연결 해제 |
-| robot | int | 로봇号 |
+| robot | int | 로봇번호 |
 | type | int | 0: 서버, 1: 클라이언트 |
 
 **응답 예시**
@@ -737,13 +737,13 @@ Lua파일存放在 `~/robot/job/lua` 디렉터리内。
 |------|------|------|
 | frameHeader | string | 帧头 |
 | ip | string | IP주소 |
-| numberSystem | int | 0: 十进制, 1: 十六进制 |
+| numberSystem | int | 0: 10진수, 1: 16진수 |
 | port | int | 포트 번호 |
 | separator | string | 分隔符 |
 | terminator | string | 종료符 |
-| craft | int | 프로세스号 |
+| craft | int | 프로세스번호 |
 | netState | bool | true: 연결, false: 연결 해제 |
-| robot | int | 로봇号 |
+| robot | int | 로봇번호 |
 | type | int | 0: 서버, 1: 클라이언트 |
 
 **응답 예시**
@@ -767,7 +767,7 @@ Lua파일存放在 `~/robot/job/lua` 디렉터리内。
 
 ---
 
-### 연결MSGCOMM网络
+### 연결MSGCOMM네트워크
 
 **명령어**: `0x4183 MSGCOMM_DEVICE_CONNECT`
 
@@ -775,8 +775,8 @@ Lua파일存放在 `~/robot/job/lua` 디렉터리内。
 
 | 필드 | 유형 | 설명 |
 |------|------|------|
-| robot | int | 로봇号 |
-| craft | int | 프로세스号 |
+| robot | int | 로봇번호 |
+| craft | int | 프로세스번호 |
 
 **요청 예시**
 
@@ -789,7 +789,7 @@ Lua파일存放在 `~/robot/job/lua` 디렉터리内。
 
 ---
 
-### 닫기MSGCOMM网络
+### 닫기MSGCOMM네트워크
 
 **명령어**: `0x4184 MSGCOMM_DEVICE_CLOSE`
 
@@ -797,8 +797,8 @@ Lua파일存放在 `~/robot/job/lua` 디렉터리内。
 
 | 필드 | 유형 | 설명 |
 |------|------|------|
-| robot | int | 로봇号 |
-| craft | int | 프로세스号 |
+| robot | int | 로봇번호 |
+| craft | int | 프로세스번호 |
 
 **요청 예시**
 
