@@ -1,4 +1,5 @@
 # VitePress i18n redirects
 /zh/*   /zh/:splat   200  Language=zh
 /en/*   /en/:splat   200  Language=en
+/kr/*   /kr/:splat   200  Language=ko
 /*      /zh/:splat   302

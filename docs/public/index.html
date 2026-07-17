@@ -6,7 +6,14 @@
 <script>
 (function(){
   var lang = (navigator.languages && navigator.languages[0] || navigator.language || '').toLowerCase();
-  var target = /^zh/.test(lang) ? '/zh/' : '/en/';
+  var target;
+  if (/^zh/.test(lang)) {
+    target = '/zh/';
+  } else if (/^ko/.test(lang)) {
+    target = '/kr/';
+  } else {
+    target = '/en/';
+  }
   location.replace(target);
 })();
 </script>

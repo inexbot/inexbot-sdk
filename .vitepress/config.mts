@@ -87,6 +87,7 @@ const docsDir = join(process.cwd(), 'docs')
 // 各语言侧边栏
 const zhSidebar = await buildSidebar(join(docsDir, 'zh'), '/zh')
 const enSidebar = await buildSidebar(join(docsDir, 'en'), '/en')
+const krSidebar = await buildSidebar(join(docsDir, 'kr'), '/kr')
 
 // 搜索配置
 function searchOptions(useChineseTokenizer: boolean) {
@@ -164,6 +165,33 @@ export default defineConfig({
           }
         ],
         sidebar: enSidebar,
+        search: {
+          provider: 'local',
+          options: searchOptions(false)
+        }
+      }
+    },
+    kr: {
+      label: '한국어',
+      lang: 'ko-KR',
+      title: 'iNexBot 오픈 플랫폼',
+      description: 'iNexBot 공식 SDK 문서',
+      themeConfig: {
+        nav: [
+          { text: '홈', link: '/kr/' },
+          { text: '시작하기', link: '/kr/02.시작하기' },
+          {
+            text: '문서',
+            items: [
+              { text: '컨트롤러', link: '/kr/04.컨트롤러/' },
+              { text: '티치 펜던트', link: '/kr/05.티치-펜던트/' },
+              { text: '호스트 컴퓨터', link: '/kr/06.호스트-컴퓨터/' },
+              { text: 'JSON 프로토콜', link: '/kr/07.JSON-프로토콜/' },
+              { text: 'ROS', link: '/kr/08.ROS/' },
+            ]
+          }
+        ],
+        sidebar: krSidebar,
         search: {
           provider: 'local',
           options: searchOptions(false)
