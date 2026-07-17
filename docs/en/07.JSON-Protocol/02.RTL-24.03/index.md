@@ -1,0 +1,76 @@
+# RTL-24.03 Communication Protocol
+
+## Communication Protocol Summary-2403
+
+- System-1xx
+- System-10xx
+- Status
+- Version Upgrade
+- Log
+- Import/Export Controller Configuration
+- Backup System
+- Factory Reset
+- Restart, Shutdown
+- IP Settings
+- Time Settings
+- Set Language
+- License Key
+- Errors-11xx
+- Operation Parameters-12xx
+- Teach Pendant and Host Communication-13xx
+- Port 5000 Protocol-1Dxx
+- Port 7000 Protocol-1Exx
+- Robot-2xxx\3xxx\4xxx
+- Parameter Settings-2xxx
+- Robot Basic Parameters: DH parameters, joint parameters, Cartesian parameters, jog parameters, motion parameters
+- Robot Type Configuration
+- Follower Axis Configuration
+- Servo Parameters
+- Collaborative Robot Parameters
+- External Axis Parameters
+- Motion Control: Mode, servo settings, speed settings, move to point, jog, homing, switch coordinates, power on, clear error, emergency stop -30xx-34xx
+- Status -30xx-34xx
+- Tool-35xx
+- User Coordinate System-35xx
+- World Coordinate System-35xx
+- Zero Point-36xx
+- Reset Point-36xx
+- Calibration: 4-point calibration, 20-point calibration, external axis calibration-37xx
+- Interference Zone-38xx
+- Following Error, Motor Overload Protection-38xx
+- Dynamics-4xxx
+- Dynamics Parameters
+- Force Functions
+- Drag Teaching: Trajectory Replay
+- Adaptive Acceleration/Deceleration
+- Payload Enable
+- Teleoperation-4xxx
+- Program-5xxx
+- Program CRUD
+- Program Operations
+- Program Import/Export
+- Instruction CRUD
+- Instruction Operations
+- Program Run Control: Start, pause, stop, run count, reverse order, single step, trial run
+- Program Status
+- Remote Program
+- Program Auto-start
+- Variables-6xxx
+- Position
+- Value
+- Communication/Peripherals-7xxx
+- Fieldbus-70xx: ethercat, canopen
+- IO-71xx
+- Configuration
+- Status
+- Functions
+- Other Peripherals-72xx
+- modbus-730x
+- tcp communication-732x
+- Data Upload-733x
+- finstcp-734x
+- OPC_UA-735x
+
+## Custom-
+
+- Others-1fxx
