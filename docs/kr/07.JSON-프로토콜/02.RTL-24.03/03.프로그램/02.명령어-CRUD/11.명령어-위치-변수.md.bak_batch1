@@ -1,0 +1,666 @@
+# 명령어-위치변수类
+
+---
+
+## 사용자좌표수정 (USERFRAME_SET)
+
+**설명**：수정或者读取사용자좌표계某一축的값
+
+**명령어名**：USERFRAME_SET | **ID**：888
+
+### 매개변수 목록
+
+| 매개변수名 | 유형 | 取值범위 | 설명 |
+|--------|------|----------|------|
+| coord | string | UX、UY、UZ、UA、UB、UC、UCUSTOM(UX、UY、UZ) | 사용자좌표매개변수。UX、UY、UZ、UA、UB、UC：读取사용자좌표계某一축的값；UCUSTOM(UX、UY、UZ)：自定义，括号中为自定义选中的사용자좌표 |
+| logout | bool | true/false | 주석 처리 여부。true：在작업파일中将不执行该명령어；false：未주석 처리됨，可执行 |
+| m_varName | string | int或double유형변수，全局或局部 | 변수。写入时可手填int유형；取值범위[-2000,2000]。写入时：直接手填값수정좌표축的값，변수赋值的形式수정좌표축的값。读取时：用변수的形式将选择的좌표축的값读取出来 |
+| mode | int | [0,1] | 수정方式。0：读取사용자좌표某一축的值，1：수정사용자좌표某一축的值 |
+| type | int | 97 | 사용자좌표수정在열거형数列type中为97 |
+| userParamInt | int | - | 2차 개발에서 사용자 정의, 현재 의미 없음 |
+| userParamString | string | - | 2차 개발에서 사용자 정의, 현재 의미 없음 |
+| varType | int | [0,4] | 변수值유형。0：수동 입력 값，1：INT，2：DOUBLE，3：GINT，4：GDOUBLE |
+
+### JSON 예시
+
+```json
+{
+  "ID": 888,
+  "coord": "UCUSTOM(UX、UY、UZ)",
+  "logout": false,
+  "m_varName": "I001",
+  "mode": 1,
+  "type": 97,
+  "userParamInt": 0,
+  "userParamString": "",
+  "varType": 1
+}
+```
+
+---
+
+## 도구좌표수정 (TOOLFRAME_SET)
+
+**설명**：수정或者读取도구某一축的매개변수
+
+**명령어名**：TOOLFRAME_SET | **ID**：55
+
+### 매개변수 목록
+
+| 매개변수名 | 유형 | 取值범위 | 설명 |
+|--------|------|----------|------|
+| coord | string | TX、TY、TZ、TA、TB、TC、TCUSTOM(TZ、TA) | 도구좌표매개변수。TX、TY、TZ、TA、TB、TC：读取도구좌표계某一축的값；TCUSTOM(TZ、TA)：自定义，括号中为自定义选中的도구좌표 |
+| logout | bool | true/false | 주석 처리 여부。true：在작업파일中将不执行该명령어；false：未주석 처리됨，可执行 |
+| m_newValue | string | - | (未在설명中설명) |
+| m_varName | string | int或double유형변수，全局或局部 | 변수。写入时可手填int유형；取值범위[-2000,2000] |
+| mode | int | [0,1] | 수정方式。0：读取도구좌표某一축的值，1：수정도구좌표某一축的值 |
+| type | int | 98 | 도구좌표수정在열거형数列type中为98 |
+| userParamInt | int | - | 2차 개발에서 사용자 정의, 현재 의미 없음 |
+| userParamString | string | - | 2차 개발에서 사용자 정의, 현재 의미 없음 |
+| varType | int | [0,4] | 변수值유형。0：수동 입력 값，1：INT，2：DOUBLE，3：GINT，4：GDOUBLE |
+
+### JSON 예시
+
+```json
+{
+  "ID": 55,
+  "coord": "TCUSTOM(TZ、TA)",
+  "logout": false,
+  "m_newValue": "",
+  "m_varName": "I001",
+  "mode": 1,
+  "type": 98,
+  "userParamInt": 0,
+  "userParamString": "",
+  "varType": 1
+}
+```
+
+---
+
+## 读取포인트 (READPOS)
+
+**설명**：将위치변수的某个축的值读入到부동소수점형변수
+
+**명령어名**：READPOS | **type**：92
+
+### 매개변수 목록
+
+| 매개변수名 | 유형 | 取值범위 | 설명 |
+|--------|------|----------|------|
+| axis | int | [1,13] | 위치변수축。取值1~7:1~7축，取值8~13：외부 축O1~O6；현재구성有什么축，可以选什么축 |
+| coord | string | RF、BF、TF、UF | 위치변수좌표계。RF：관절좌표，BF：直角좌표，TF：도구좌표，UF：사용자좌표 |
+| logout | bool | true/false | 주석 처리 여부。true：在작업파일中将不执行该명령어；false：未주석 처리됨，可执行 |
+| posidname | string | P,GP,E,GE변수名 | 위치변수名。当문자열为空时表示현재读取的예로봇현재위치的좌표。P,GP,E,GE:将포인트存入변수，读取时只需要选择想要读取的目标변수即可 |
+| posidtype | int | [0,1] | 위치변수名标识。0：위치변수名固定，例：P001，G001；1：위치변수名不固定，例：P$I001，P$GI001，G$I001，G$GI001 |
+| type | int | 92 | 读取포인트在열거형数列type中为92 |
+| userParamInt | int | - | 2차 개발에서 사용자 정의, 현재 의미 없음 |
+| userParamString | string | - | 2차 개발에서 사용자 정의, 현재 의미 없음 |
+| varname | string | int유형변수名 | 目标변수名 |
+
+### JSON 예시
+
+```json
+{
+  "axis": 1,
+  "coord": "RF",
+  "logout": false,
+  "posidname": "GE$GI001",
+  "posidtype": 1,
+  "type": 92,
+  "userParamInt": 0,
+  "userParamString": "",
+  "varname": "D001"
+}
+```
+
+---
+
+## 포인트加 (POSADD)
+
+**설명**：在不同좌표계下给위치변수的某一个변수축增加값
+
+**注意**：
+- 수정目标포인트时注意超限问题和目标위치不可达，좌표없음法转换问题
+- 관절超限：例如로봇一축的正限位예180°,目标포인트一축的좌표예150°，在설정매개변수예给변수축一축赋值50°,실행명령어时就会出现관절超限问题
+- 좌표없음法转换问题：例如目标포인트예관절포인트,在설정매개변수时选择的변수좌표계예直角좌표계，给目标포인트的위치변수축赋值，执行포인트加명령어，포인트在运算过程中可能会出现좌표없음法转换问题
+
+**명령어名**：POSADD | **type**：93
+
+### 매개변수 목록
+
+| 매개변수名 | 유형 | 取值범위 | 설명 |
+|--------|------|----------|------|
+| axis | int | [1,13] | 위치변수축。取值1~7:1~7축，取值8~13：외부 축O1~O6；현재구성有什么축，可以选什么축 |
+| caltype | int | [0,2] | 运算유형。0：ADDTYPE포인트加；1：SUBTYPE포인트减；2：SETTYPE포인트改 |
+| coord | string | RF、BF、TF、UF | 위치변수좌표계。RF：관절좌표，BF：直角좌표，TF：도구좌표，UF：사용자좌표 |
+| datatype | int | [0,4] | 변수值유형。0：수동 입력 값，1：INT，2：DOUBLE，3：GINT，4：GDOUBLE |
+| desData | string | 수동 입력 값或int/double유형변수，全局或局部 | 위치변수。取值범위[-50000，50000] |
+| logout | bool | true/false | 주석 처리 여부。true：在작업파일中将不执行该명령어；false：未주석 처리됨，可执行 |
+| posidtype | int | [0,1] | 위치변수名标识。0：위치변수名固定，例：P001，G001；1：위치변수名不固定，例：P$I001，P$GI001，G$I001，G$GI001 |
+| positionId | string | P或GP或E或GE | 需要수정포인트的위치변수 |
+| type | int | 93 | 포인트加在열거형数列type中为93 |
+| userParamInt | int | - | 2차 개발에서 사용자 정의, 현재 의미 없음 |
+| userParamString | string | - | 2차 개발에서 사용자 정의, 현재 의미 없음 |
+
+### JSON 예시
+
+```json
+{
+  "axis": 5,
+  "caltype": 0,
+  "coord": "RF",
+  "datatype": 1,
+  "desData": "GI001",
+  "logout": false,
+  "posidtype": 0,
+  "positionId": "GP0001",
+  "type": 93,
+  "userParamInt": 0,
+  "userParamString": ""
+}
+```
+
+---
+
+## 포인트减 (POSSUB)
+
+**설명**：在不同좌표계下给위치변수的某一个변수축减少값
+
+**注意**：
+- 수정目标포인트时注意超限问题和目标위치不可达，좌표없음法转换问题
+- 관절超限：例如로봇二축的负限位예-50°,目标포인트二축的좌표예30°，在설정매개변수时给변수축二축赋值100°,실행명령어时就会出现관절超限问题
+- 좌표없음法转换问题：例如目标포인트예관절포인트,在설정매개변수时选择的변수좌표계예直角좌표계，给目标포인트的위치변수축赋值，执行포인트减명령어，포인트在运算过程中可能会出现좌표없음法转换问题
+
+**명령어名**：POSSUB | **type**：93
+
+### 매개변수 목록
+
+| 매개변수名 | 유형 | 取值범위 | 설명 |
+|--------|------|----------|------|
+| axis | int | [1,13] | 위치변수축。取值1~7:1~7축，取值8~13：외부 축O1~O6；현재구성有什么축，可以选什么축 |
+| caltype | int | [0,2] | 运算유형。0：ADDTYPE포인트加；1：SUBTYPE포인트减；2：SETTYPE포인트改 |
+| coord | string | RF、BF、TF、UF | 위치변수좌표계。RF：관절좌표，BF：直角좌표，TF：도구좌표，UF：사용자좌표 |
+| datatype | int | [0,4] | 변수值유형。0：수동 입력 값，1：INT，2：DOUBLE，3：GINT，4：GDOUBLE |
+| desData | string | 수동 입력 값或int/double유형변수，全局或局部 | 위치변수。取值범위[-50000，50000] |
+| logout | bool | true/false | 주석 처리 여부。true：在작업파일中将不执行该명령어；false：未주석 처리됨，可执行 |
+| posidtype | int | [0,1] | 위치변수名标识。0：위치변수名固定，例：P001，G001；1：위치변수名不固定，例：P$I001，P$GI001，G$I001，G$GI001 |
+| positionId | string | P或GP或E或GE | 需要수정포인트的위치변수 |
+| type | int | 93 | 포인트减在열거형数列type中为93 |
+| userParamInt | int | - | 2차 개발에서 사용자 정의, 현재 의미 없음 |
+| userParamString | string | - | 2차 개발에서 사용자 정의, 현재 의미 없음 |
+
+### JSON 예시
+
+```json
+{
+  "axis": 3,
+  "caltype": 1,
+  "coord": "RF",
+  "datatype": 0,
+  "desData": "666",
+  "logout": false,
+  "posidtype": 0,
+  "positionId": "GP0001",
+  "type": 93,
+  "userParamInt": 0,
+  "userParamString": ""
+}
+```
+
+---
+
+## 포인트改 (POSSET)
+
+**설명**：在不同좌표계下将위치변수的某一个변수축直接수정포인트좌표值
+
+**注意**：
+- 수정目标포인트时注意超限问题和目标위치不可达，좌표없음法转换问题
+- 관절超限：例如로봇三축的正限位예100°,在설정매개변수时给변수축二축赋值120°,실행명령어时就会出现관절超限问题
+- 좌표없음法转换问题：例如目标포인트예관절포인트,在설정매개변수时选择的변수좌표계예直角좌표계，给目标포인트的위치변수축赋值，执行포인트改명령어，포인트在运算过程中可能会出现좌표없음法转换问题
+
+**명령어名**：POSSET | **type**：93
+
+### 매개변수 목록
+
+| 매개변수名 | 유형 | 取值범위 | 설명 |
+|--------|------|----------|------|
+| axis | int | [1,13] | 위치변수축。取值1~7:1~7축，取值8~13：외부 축O1~O6；현재구성有什么축，可以选什么축 |
+| caltype | int | [0,2] | 运算유형。0：ADDTYPE포인트加；1：SUBTYPE포인트减；2：SETTYPE포인트改 |
+| coord | string | RF、BF、TF、UF | 위치변수좌표계。RF：관절좌표，BF：直角좌표，TF：도구좌표，UF：사용자좌표 |
+| datatype | int | [0,4] | 변수值유형。0：수동 입력 값，1：INT，2：DOUBLE，3：GINT，4：GDOUBLE |
+| desData | string | 수동 입력 값或int/double유형변수，全局或局部 | 위치변수。取值범위[-50000，50000] |
+| logout | bool | true/false | 주석 처리 여부。true：在작업파일中将不执行该명령어；false：未주석 처리됨，可执行 |
+| posidtype | int | [0,1] | 위치변수名标识。0：위치변수名固定，例：P001，G001；1：위치변수名不固定，例：P$I001，P$GI001，G$I001，G$GI001 |
+| positionId | string | P或GP或E或GE | 需要수정포인트的위치변수 |
+| type | int | 93 | 포인트改在열거형数列type中为93 |
+| userParamInt | int | - | 2차 개발에서 사용자 정의, 현재 의미 없음 |
+| userParamString | string | - | 2차 개발에서 사용자 정의, 현재 의미 없음 |
+
+### JSON 예시
+
+```json
+{
+  "axis": 6,
+  "caltype": 2,
+  "coord": "RF",
+  "datatype": 0,
+  "desData": "666",
+  "logout": false,
+  "posidtype": 0,
+  "positionId": "GP0001",
+  "type": 93,
+  "userParamInt": 0,
+  "userParamString": ""
+}
+```
+
+---
+
+## 복사포인트 (COPYPOS)
+
+**설명**：将一个위치변수的포인트데이터복사到另一个위치변수
+
+**注意**：最大支持연결5个외부 축，在복사외부 축포인트时只支持O1、O2、O3、O4、O5축的복사，如果在설정매개변수时勾选了O6、O7축，在执行복사포인트时O6、O7축不生效
+
+**명령어名**：COPYPOS | **type**：118
+
+### 매개변수 목록
+
+| 매개변수名 | 유형 | 取值범위 | 설명 |
+|--------|------|----------|------|
+| cpaxles | int[] | 배열，每个元素代表相应축号 | 选择需要복사的좌표축데이터 |
+| cpaxletype | int | [0,1] | 表示여부所有좌표축데이터都복사。0：表示所有좌표축데이터都복사，此时没有"cpaxles"节点；1：看"cpaxles"节点选择了什么 |
+| cpdposname | string | P或E，局部或全局 | 目标위치변수名 |
+| cpdpostype | int | [0,1] | 위치변수名标识。0：위치변수名固定，例：P001，G001；1：위치변수名不固定，例：P$I001，P$GI001，G$I001，G$GI001 |
+| cpposname | string | P,GP,E,GE변수名 | 源위치변수名。当문자열为空时表示현재读取的예로봇현재위치的좌표 |
+| cppostype | int | [0,1] | 위치변수名标识。0：위치변수名固定，例：P001，G001；1：위치변수名不固定，例：P$I001，P$GI001，G$I001，G$GI001 |
+| logout | bool | true/false | 주석 처리 여부。true：在작업파일中将不执行该명령어；false：未주석 처리됨，可执行 |
+| posidtype | int | [0,1] | 위치변수名标识。0：위치변수名固定，例：P001，G001；1：위치변수名不固定，例：P$I001，P$GI001，G$I001，G$GI001 |
+| type | int | 118 | 복사포인트在열거형数列type中为118 |
+| userParamInt | int | - | 2차 개발에서 사용자 정의, 현재 의미 없음 |
+| userParamString | string | - | 2차 개발에서 사용자 정의, 현재 의미 없음 |
+
+### JSON 예시
+
+```json
+{
+  "cpaxles": [2, 4, 6],
+  "cpaxletype": 1,
+  "cpdposname": "GE$GI001",
+  "cpdpostype": 1,
+  "cpposname": "P$GI001",
+  "cppostype": 1,
+  "logout": false,
+  "type": 118,
+  "userParamInt": 0,
+  "userParamString": ""
+}
+```
+
+---
+
+## 포인트全加 (POSADDALL)
+
+**설명**：在不同좌표계下给위치변수的若干个변수축增加값
+
+**注意**：수정目标포인트时注意超限问题和目标위치不可达，좌표없음法转换问题
+
+**명령어名**：POSADDALL | **type**：140
+
+### 매개변수 목록
+
+| 매개변수名 | 유형 | 取值범위 | 설명 |
+|--------|------|----------|------|
+| calData | string[] | 14个元素，每个元素为每个축的增加值 | 축增加값。可手填也可为int或double변수유형，全局或局部 |
+| caltype | int | [0,2] | 포인트全조작유형。0：포인트全加，1：포인트全减，2：포인트全改 |
+| coord | string | RF、BF、TF、UF | 위치변수좌표계。RF：관절좌표，BF：直角좌표，TF：도구좌표，UF：사용자좌표 |
+| datatype | int[] | 14个元素，与"calData"节点有对应关系 | 축值여부改变。1：该축有改变；2：该축不改变 |
+| logout | bool | true/false | 주석 처리 여부。true：在작업파일中将不执行该명령어；false：未주석 처리됨，可执行 |
+| posidname | string | P,GP,E,GE | 위치변수名。需要수정포인트的위치변수 |
+| posidtype | int | [0,1] | 위치변수名标识。0：위치변수名固定，例：P001，G001；1：위치변수名不固定，例：P$I001，P$GI001，G$I001，G$GI001 |
+| type | int | 140 | 포인트全加在열거형数列type中为140 |
+| userParamInt | int | - | 2차 개발에서 사용자 정의, 현재 의미 없음 |
+| userParamString | string | - | 2차 개발에서 사용자 정의, 현재 의미 없음 |
+
+### JSON 예시
+
+```json
+{
+  "calData": ["I002", "I034", "I056", "I069", "GI012", "GI023", "[-]", "GI047", "[-]", "[-]", "[-]", "[-]", "[-]", "[-]"],
+  "caltype": 0,
+  "coord": "UF",
+  "datatype": [1, 1, 1, 1, 1, 1, 2, 1, 2, 2, 2, 2, 2, 2],
+  "logout": false,
+  "posidname": "GE$GI001",
+  "posidtype": 1,
+  "type": 140,
+  "userParamInt": 0,
+  "userParamString": ""
+}
+```
+
+---
+
+## 포인트全减 (POSSUBALL)
+
+**설명**：在不同좌표계下给위치변수的若干个변수축减少값
+
+**注意**：수정目标포인트时注意超限问题和目标위치不可达，좌표없음法转换问题
+
+**명령어名**：POSSUBALL | **type**：140
+
+### 매개변수 목록
+
+| 매개변수名 | 유형 | 取值범위 | 설명 |
+|--------|------|----------|------|
+| calData | string[] | 14个元素，每个元素为每个축的增加值 | 축增加값（负值为减）。可手填也可为int或double변수유형，全局或局部 |
+| caltype | int | [0,2] | 포인트全조작유형。0：포인트全加，1：포인트全减，2：포인트全改 |
+| coord | string | RF、BF、TF、UF | 위치변수좌표계。RF：관절좌표，BF：直角좌표，TF：도구좌표，UF：사용자좌표 |
+| datatype | int[] | 14个元素，与"calData"节点有对应关系 | 축值여부改变。1：该축有改变；2：该축不改变 |
+| logout | bool | true/false | 주석 처리 여부。true：在작업파일中将不执行该명령어；false：未주석 처리됨，可执行 |
+| posidname | string | P,GP,E,GE | 위치변수名。需要수정포인트的위치변수 |
+| posidtype | int | [0,1] | 위치변수名标识。0：위치변수名固定，例：P001，G001；1：위치변수名不固定，例：P$I001，P$GI001，G$I001，G$GI001 |
+| type | int | 140 | 포인트全减在열거형数列type中为140 |
+| userParamInt | int | - | 2차 개발에서 사용자 정의, 현재 의미 없음 |
+| userParamString | string | - | 2차 개발에서 사용자 정의, 현재 의미 없음 |
+
+### JSON 예시
+
+```json
+{
+  "calData": ["I002", "I034", "I056", "I069", "GI012", "GI023", "[-]", "GI047", "[-]", "[-]", "[-]", "[-]", "[-]", "[-]"],
+  "caltype": 1,
+  "coord": "UF",
+  "datatype": [1, 1, 1, 1, 1, 1, 2, 1, 2, 2, 2, 2, 2, 2],
+  "logout": false,
+  "posidname": "GE$GI001",
+  "posidtype": 1,
+  "type": 140,
+  "userParamInt": 0,
+  "userParamString": ""
+}
+```
+
+---
+
+## 포인트全改 (POSSETALL)
+
+**설명**：在不同좌표계下给위치변수的若干个변수축直接수정为指定값
+
+**注意**：수정目标포인트时注意超限问题和目标위치不可达，좌표없음法转换问题
+
+**명령어名**：POSSETALL | **type**：140
+
+### 매개변수 목록
+
+| 매개변수名 | 유형 | 取值범위 | 설명 |
+|--------|------|----------|------|
+| calData | string[] | 14个元素，每个元素为每个축的目标值 | 축目标값。可手填也可为int或double변수유형，全局或局部 |
+| caltype | int | [0,2] | 포인트全조작유형。0：포인트全加，1：포인트全减，2：포인트全改 |
+| coord | string | RF、BF、TF、UF | 위치변수좌표계。RF：관절좌표，BF：直角좌표，TF：도구좌표，UF：사용자좌표 |
+| datatype | int[] | 14个元素，与"calData"节点有对应关系 | 축值여부改变。1：该축有改变；2：该축不改变 |
+| logout | bool | true/false | 주석 처리 여부。true：在작업파일中将不执行该명령어；false：未주석 처리됨，可执行 |
+| posidname | string | P,GP,E,GE | 위치변수名。需要수정포인트的위치변수 |
+| posidtype | int | [0,1] | 위치변수名标识。0：위치변수名固定，例：P001，G001；1：위치변수名不固定，例：P$I001，P$GI001，G$I001，G$GI001 |
+| type | int | 140 | 포인트全改在열거형数列type中为140 |
+| userParamInt | int | - | 2차 개발에서 사용자 정의, 현재 의미 없음 |
+| userParamString | string | - | 2차 개발에서 사용자 정의, 현재 의미 없음 |
+
+### JSON 예시
+
+```json
+{
+  "calData": ["I002", "I034", "I056", "I069", "GI012", "GI023", "[-]", "GI047", "[-]", "[-]", "[-]", "[-]", "[-]", "[-]"],
+  "caltype": 2,
+  "coord": "UF",
+  "datatype": [1, 1, 1, 1, 1, 1, 2, 1, 2, 2, 2, 2, 2, 2],
+  "logout": false,
+  "posidname": "GE$GI001",
+  "posidtype": 1,
+  "type": 140,
+  "userParamInt": 0,
+  "userParamString": ""
+}
+```
+
+---
+
+## 궤적偏移 (TOFFSETON / TOFFSETOFF)
+
+### 궤적偏移开始
+
+**설명**：
+- 该명령어能够对로봇的실행궤적进行实时偏移
+- 궤적偏移结束명령어后的모션궤적不再偏移
+- 프로그램的第一条명령어不能使用偏移명령어
+
+**명령어名**：TOFFSETON | **type**：141
+
+### 매개변수 목록
+
+| 매개변수名 | 유형 | 取值범위 | 설명 |
+|--------|------|----------|------|
+| calData | string[] | 7个元素，取值범위[-50000，50000] | 축增加값。每个元素为每个축的增加值；可手填也可为int或double변수유형，全局或局部 |
+| coord | string | RF、BF、TF、UF | 위치변수좌표계。RF：관절좌표，BF：直角좌표，TF：도구좌표，UF：사용자좌표 |
+| datatype | int[] | 7个元素，与"calData"节点有对应关系 | 축值여부改变。1：该축有改变；2：该축不改变 |
+| logout | bool | true/false | 주석 처리 여부。true：在작업파일中将不执行该명령어；false：未주석 처리됨，可执行 |
+| tool | int | [-1,999] | 도구。-1：不使用；0：현재；1-999：对应的도구 |
+| type | int | 141 | 궤적偏移开始在열거형数列type中为141 |
+| user | int | [-1,999] | 사용자。-1：不使用；0：현재；1-999：对应的사용자 |
+| userParamInt | int | - | 2차 개발에서 사용자 정의, 현재 의미 없음 |
+| userParamString | string | - | 2차 개발에서 사용자 정의, 현재 의미 없음 |
+
+### JSON 예시
+
+```json
+{
+  "calData": ["I001", "I002", "I003", "I004", "I005", "I006", "I007"],
+  "coord": "TF",
+  "datatype": [1, 1, 1, 1, 1, 1, 1],
+  "logout": false,
+  "tool": 666,
+  "type": 141,
+  "user": -1,
+  "userParamInt": 0,
+  "userParamString": ""
+}
+```
+
+---
+
+### 궤적偏移结束
+
+**명령어名**：TOFFSETOFF | **type**：142
+
+### 매개변수 목록
+
+| 매개변수名 | 유형 | 取值범위 | 설명 |
+|--------|------|----------|------|
+| logout | bool | true/false | 주석 처리 여부。true：在작업파일中将不执行该명령어；false：未주석 처리됨，可执行 |
+| type | int | 142 | 궤적偏移结束在열거형数列type中为142 |
+| userParamInt | int | - | 2차 개발에서 사용자 정의, 현재 의미 없음 |
+| userParamString | string | - | 2차 개발에서 사용자 정의, 현재 의미 없음 |
+
+### JSON 예시
+
+```json
+{
+  "logout": false,
+  "type": 142,
+  "userParamInt": 0,
+  "userParamString": ""
+}
+```
+
+---
+
+## 读取포인트信息 (READPOSMSG)
+
+**설명**：将目标위치的도구号、사용자좌표号、좌표계、姿态角도/弧도、形态信息的值读入到一个정수형변수
+
+**명령어名**：READPOSMSG | **type**：175
+
+### 매개변수 목록
+
+| 매개변수名 | 유형 | 取值범위 | 설명 |
+|--------|------|----------|------|
+| logout | bool | true/false | 주석 처리 여부。true：在작업파일中将不执行该명령어；false：未주석 처리됨，可执行 |
+| message | int | [0,4] | 信息读取值。0：도구号；1：사용자좌표号；2：좌표계；3：姿态角도/弧도；4：形态 |
+| positionId | string | - | 위치변수ID |
+| type | int | 175 | 读取포인트信息在열거형数列type中为175 |
+| userParamInt | int | - | 2차 개발에서 사용자 정의, 현재 의미 없음 |
+| userParamString | string | - | 2차 개발에서 사용자 정의, 현재 의미 없음 |
+| varName | string | int유형변수名 | 目标변수名 |
+| varType | int | - | 변수유형 |
+
+### message 매개변수详细설명
+
+| 值 | 설명 |
+|----|------|
+| 0 | 도구号：读取目标변수的도구编号 |
+| 1 | 사용자좌표号：读取目标변수的사용자좌표编号 |
+| 2 | 좌표계["0"관절좌표,"1"直角좌표,"2"도구좌표,"3"사용자좌표] |
+| 3 | 姿态角도/弧도：读取目标위치姿态축的姿态值 |
+| 4 | 形态：读取目标포인트的形态值 |
+
+### JSON 예시
+
+```json
+{
+  "logout": false,
+  "message": 4,
+  "positionId": "GP0001",
+  "type": 175,
+  "userParamInt": 0,
+  "userParamString": "",
+  "varName": "I001",
+  "varType": 0
+}
+```
+
+---
+
+## 포인트拉伸 (POS_STRETCH)
+
+**설명**：通过설정起点和终点的偏移量来拉伸或者缩短궤적的길이和圆弧的궤적形状
+
+**명령어名**：POS_STRETCH | **type**：177
+
+### 매개변수 목록
+
+| 매개변수名 | 유형 | 取值범위 | 설명 |
+|--------|------|----------|------|
+| logout | bool | true/false | 주석 처리 여부。true：在작업파일中将不执行该명령어；false：未주석 처리됨，可执行 |
+| position1Id | string | P、GP | 拉伸궤적的起始点 |
+| position1OutId | string | P、GP | 출력起点위치，偏移的起点위치 |
+| position2Id | string | P、GP | 圆弧궤적中间点 |
+| position2OutId | string | P、GP | 将偏移后的终点포인트存入到选择的위치변수 |
+| position3Id | string | P、GP | 拉伸궤적的终点 |
+| stretchL1 | double | [-10000,10000] | 설정偏移量，改变궤적起始点的포인트 |
+| stretchL2 | double | [-10000,10000] | 설정偏移量，改变궤적终点的포인트 |
+| stretchType | int | [0,1] | 拉伸유형。0：直线；1：曲线 |
+| type | int | 177 | 포인트拉伸在열거형数列type中为177 |
+| userParamInt | int | - | 2차 개발에서 사용자 정의, 현재 의미 없음 |
+| userParamString | string | - | 2차 개발에서 사용자 정의, 현재 의미 없음 |
+
+### JSON 예시
+
+```json
+{
+  "logout": false,
+  "position1Id": "GP0001",
+  "position1OutId": "GP0006",
+  "position2Id": "GP0002",
+  "position2OutId": "GP0007",
+  "position3Id": "GP0003",
+  "stretchL1": 4.0,
+  "stretchL2": 5.0,
+  "stretchType": 1,
+  "type": 177,
+  "userParamInt": 0,
+  "userParamString": ""
+}
+```
+
+---
+
+## 설정포인트信息 (SETPOSMSG)
+
+**설명**：通过설정起点和终点的偏移量来拉伸或者缩短궤적的길이和圆弧的궤적形状
+
+**명령어名**：SETPOSMSG | **type**：207
+
+### 매개변수 목록
+
+| 매개변수名 | 유형 | 取值범위 | 설명 |
+|--------|------|----------|------|
+| logout | bool | true/false | 주석 처리 여부。true：在작업파일中将不执行该명령어；false：未주석 처리됨，可执行 |
+| posData | string[] | 5个元素 | 위치데이터배열。元素1：좌표계(0-3)；元素2：姿态(0-角도/1-弧도)；元素3：形态매개변수(0-8)；元素4：도구编号(0-999)；元素5：사용자编号(0-999) |
+| posDataType | int[] | 5个元素 | 表示"posData"节点的各个元素여부使用。1：使用；2：不使用 |
+| posidname | string | P、GP、E、GE | 위치标量 |
+| posidtype | int | [0,1] | 위치변수名标识。0：위치변수名固定，例：P001，G001；1：위치변수名不固定，例：P$I001，P$GI001，G$I001，G$GI001 |
+| type | int | 207 | 설정포인트信息在열거형数列type中为207 |
+| userParamInt | int | - | 2차 개발에서 사용자 정의, 현재 의미 없음 |
+| userParamString | string | - | 2차 개발에서 사용자 정의, 현재 의미 없음 |
+
+### posData 배열元素설명
+
+| 인덱스 | 内容 | 取值범위 | 설명 |
+|------|------|----------|------|
+| 0 | 좌표계 | [0,3] | "0"관절좌표,"1"直角좌표,"2"도구좌표,"3"사용자좌표 |
+| 1 | 姿态 | [0,1] | 0：角도；1：弧도 |
+| 2 | 形态매개변수 | [0,8] | 설정目标위치的形态매개변수 |
+| 3 | 도구编号 | [0,999] | 설정目标위치的도구编号。"0"表示없음도구 |
+| 4 | 사용자编号 | [0,999] | 설정目标위치的사용자编号。"0"表示없음사용자 |
+
+### JSON 예시
+
+```json
+{
+  "logout": false,
+  "posData": ["GI002", "GI003", "I004", "GI005", "GI006"],
+  "posDataType": [1, 1, 1, 1, 1],
+  "posidname": "GP$GI001",
+  "posidtype": 1,
+  "type": 207,
+  "userParamInt": 0,
+  "userParamString": ""
+}
+```
+
+---
+
+## 计算目标形态值 (SOLVE_CONFIGURATION)
+
+**설명**：로봇从A点（현재实际위치）모션到B点时,可以计算出로봇能以多少种形态从A到B
+
+**명령어名**：SOLVE_CONFIGURATION | **type**：232
+
+### 매개변수 목록
+
+| 매개변수名 | 유형 | 取值범위 | 설명 |
+|--------|------|----------|------|
+| logout | bool | true/false | 주석 처리 여부。true：在작업파일中将不执行该명령어；false：未주석 처리됨，可执行 |
+| posidtype | int | [0,1] | 위치변수名标识。0：위치변수名固定，例：P001，G001；1：위치변수名不固定，例：P$I001，P$GI001，G$I001，G$GI001 |
+| positionId | string | P、GP、E、GE | 目标点。可以选择的위치변수유형 |
+| type | int | 232 | 计算目标形态值在열거형数列type中为232 |
+| userParamInt | int | - | 2차 개발에서 사용자 정의, 현재 의미 없음 |
+| userParamString | string | - | 2차 개발에서 사용자 정의, 현재 의미 없음 |
+| varName | object | INT或GINT변수 | 形态值首个변수。将计算出来的形态值存入到选择的目标변수，通过选择的首변수顺延저장计算出来的形态 |
+| varNumber | object | INT或GINT변수 | 形态值个数。将计算出来的形态值个数存入到选择的目标변수 |
+
+### JSON 예시
+
+```json
+{
+  "logout": false,
+  "posidtype": 0,
+  "positionId": "GP0001",
+  "type": 232,
+  "userParamInt": 0,
+  "userParamString": "",
+  "varName": {"data": 0.0, "secondvalue": 0, "value": 1, "varname": "I002"},
+  "varNumber": {"data": 0.0, "secondvalue": 0, "value": 1, "varname": "I001"}
+}
+```

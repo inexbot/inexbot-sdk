@@ -1,0 +1,1414 @@
+# 명령어-条件제어类
+
+## 호출子프로그램 (CALL)
+
+**설명**：호출另一个프로그램，被호출的프로그램실행完后반환主프로그램CALL명령어的下一行계속실행。
+
+**명령어名**：CALL
+
+| 매개변수名 | 유형 | 必填 | 설명 |
+|--------|------|------|------|
+| callInParaVarData | array | 아니오 | 입력매개변수个数及选择；有0-12个元素。元素형식：`{"data":0.0,"secondvalue":0,"value":2,"varname":"D001"}` |
+| callOutParaVarData | array | 아니오 | 출력매개변수个数及选择；有0-12个元素。元素형식：`{"data":0.0,"secondvalue":0,"value":2,"varname":"D001"}` |
+| jobName | string | 예 | 호출프로그램이름，不能예本身，호출的프로그램中须有매개변수声明 |
+| logout | bool | 아니오 | 주석 처리 여부；true：在작업파일中将不执行该명령어；false：未주석 처리됨，可执行 |
+| type | int | 예 | CALL在열거형数列中为15 |
+| userParamInt | int | 아니오 | 2차 개발에서 사용자 정의, 현재 의미 없음 |
+| userParamString | string | 아니오 | 2차 개발에서 사용자 정의, 현재 의미 없음 |
+
+**예시**：有两个매개변수
+
+```json
+{
+    "callInParaVarData": [
+        {
+            "data": 0.0,
+            "secondvalue": 0,
+            "value": 2,
+            "varname": "D001"
+        },
+        {
+            "data": 0.0,
+            "secondvalue": 0,
+            "value": 2,
+            "varname": "D002"
+        }
+    ],
+    "callOutParaVarData": [
+        {
+            "data": 0.0,
+            "secondvalue": 0,
+            "value": 5,
+            "varname": "GD003"
+        },
+        {
+            "data": 0.0,
+            "secondvalue": 0,
+            "value": 5,
+            "varname": "GD004"
+        }
+    ],
+    "jobName": "QQQQ",
+    "logout": false,
+    "type": 15,
+    "userParamInt": 0,
+    "userParamString": ""
+}
+```
+
+---
+
+## 종료 (RETURN)
+
+**설명**：종료현재실행的작업파일，例如：子프로그램、后台프로그램。
+
+**명령어名**：RETURN
+
+| 매개변수名 | 유형 | 必填 | 설명 |
+|--------|------|------|------|
+| logout | bool | 아니오 | 주석 처리 여부；true：在작업파일中将不执行该명령어；false：未주석 처리됨，可执行 |
+| type | int | 예 | RETURN在열거형数列中为251 |
+| userParamInt | int | 아니오 | 2차 개발에서 사용자 정의, 현재 의미 없음 |
+| userParamString | string | 아니오 | 2차 개발에서 사용자 정의, 현재 의미 없음 |
+
+**예시**：
+
+```json
+{
+    "logout": false,
+    "type": 251,
+    "userParamInt": 0,
+    "userParamString": ""
+}
+```
+
+---
+
+## 호출Lua파일 (CALL_LUAFILE)
+
+**설명**：매개변수定义好之后，直接업로드Lua파일，然后삽입호출Lua파일명령어，명령어실행结束后会把写好的所有매개변수변수传入和출력。
+
+**명령어名**：CALL_LUAFILE
+
+| 매개변수名 | 유형 | 必填 | 설명 |
+|--------|------|------|------|
+| logout | bool | 아니오 | 주석 처리 여부；true：在작업파일中将不执行该명령어；false：未주석 처리됨，可执行 |
+| type | int | 예 | CALL_LUAFILE在열거형数列中为218 |
+| userParamInt | int | 아니오 | 2차 개발에서 사용자 정의, 현재 의미 없음 |
+| userParamString | string | 아니오 | 2차 개발에서 사용자 정의, 현재 의미 없음 |
+| inParaVarData | array | 아니오 | 传入매개변수个数及选择；元素个数[0-12]。元素형식：`{"data":0.0,"secondvalue":0,"value":1,"varname":"I001"}` |
+| luafileName | string | 예 | 호출的lua파일 |
+| outParaVarData | array | 아니오 | 출력매개변수个数及选择；元素个数[0-12]。元素형식：`{"data":0.0,"secondvalue":0,"value":1,"varname":"I001"}` |
+| textEditType | bool | 아니오 | 文本编译유형；true：文本유형，false：语句유형 |
+
+**예시**：
+
+```json
+{
+    "logout": false,
+    "type": 218,
+    "userParamInt": 0,
+    "userParamString": "",
+    "inParaVarData": [
+        {
+            "data": 0.0,
+            "secondvalue": 0,
+            "value": 1,
+            "varname": "I001"
+        },
+        {
+            "data": 2.0,
+            "secondvalue": 0,
+            "value": 0,
+            "varname": ""
+        }
+    ],
+    "luafileName": "demo.lua",
+    "outParaVarData": [
+        {
+            "data": 3.0,
+            "secondvalue": 0,
+            "value": 0,
+            "varname": ""
+        },
+        {
+            "data": 6.0,
+            "secondvalue": 0,
+            "value": 0,
+            "varname": ""
+        }
+    ],
+    "textEditType": true
+}
+```
+
+---
+
+## 如果 (IF)
+
+**설명**：通过判断条件여부成立来执行下一目标的명령어，判断条件不满足时，执行ELSEIF语句。IF和ENDIF配对使用，不能单独삭제或更改，会导致프로그램실행出错。ELSE IF不可脱离IF单独使用。ELSE不可脱离IF单独使用。
+
+**명령어名**：IF
+
+| 매개변수名 | 유형 | 必填 | 설명 |
+|--------|------|------|------|
+| logout | bool | 아니오 | 주석 처리 여부；true：在작업파일中将不执行该명령어；false：未주석 처리됨，可执行 |
+| type | int | 예 | IF在열거형数列中为9 |
+| userParamInt | int | 아니오 | 2차 개발에서 사용자 정의, 현재 의미 없음 |
+| userParamString | string | 아니오 | 2차 개발에서 사용자 정의, 현재 의미 없음 |
+| ifconditionArrayFINAL | object | 예 | 表示if判断；{}内的为if判断的데이터 |
+
+**ifconditionArrayFINAL 结构**：
+
+| 매개변수名 | 유형 | 설명 |
+|--------|------|------|
+| conditionGroup | array | 元素个数表示有多少个判断 |
+| logic | array | if判断与if判断之间的关系，按배열内元素顺序；1：或，0：与 |
+| logicGroup | array | conditionGroup节点的元素的判断条件；1：或，0：与，null表示该层没有判断 |
+
+**conditionGroup 元素结构**：
+
+| 매개변수名 | 유형 | 설명 |
+|--------|------|------|
+| logicType | int | if判断条件比较方式；1：==，2：<，3：>，4：<=，5：>=，6：!= |
+| paraGroupOne | object | 변수1，형식：`{"data":0.0,"secondvalue":0,"value":1,"varname":"I002"}` |
+| paraGroupTwo | object | 변수2，형식：`{"data":0.0,"secondvalue":0,"value":1,"varname":"I002"}` |
+
+**예시**：
+
+```json
+{
+    "logout": false,
+    "type": 9,
+    "userParamInt": 0,
+    "userParamString": "",
+    "ifconditionArrayFINAL": {
+        "conditionGroup": [
+            [
+                {
+                    "logicType": 2,
+                    "paraGroupOne": {
+                        "data": 0.0,
+                        "secondvalue": 0,
+                        "value": 1,
+                        "varname": "I001"
+                    },
+                    "paraGroupTwo": {
+                        "data": 0.0,
+                        "secondvalue": 0,
+                        "value": 0,
+                        "varname": ""
+                    }
+                }
+            ],
+            [
+                {
+                    "logicType": 1,
+                    "paraGroupOne": {
+                        "data": 0.0,
+                        "secondvalue": 0,
+                        "value": 1,
+                        "varname": "I001"
+                    },
+                    "paraGroupTwo": {
+                        "data": 0.0,
+                        "secondvalue": 0,
+                        "value": 0,
+                        "varname": ""
+                    }
+                }
+            ],
+            [
+                {
+                    "logicType": 6,
+                    "paraGroupOne": {
+                        "data": 0.0,
+                        "secondvalue": 0,
+                        "value": 1,
+                        "varname": "I002"
+                    },
+                    "paraGroupTwo": {
+                        "data": 0.0,
+                        "secondvalue": 0,
+                        "value": 0,
+                        "varname": ""
+                    }
+                }
+            ]
+        ],
+        "logic": [1, 0]
+    }
+}
+```
+
+### 结束如果 (END IF)
+
+**명령어名**：END IF
+
+| 매개변수名 | 유형 | 必填 | 설명 |
+|--------|------|------|------|
+| logout | bool | 아니오 | 주석 처리 여부；true：在작업파일中将不执行该명령어；false：未주석 처리됨，可执行 |
+| type | int | 예 | END IF在열거형数列中为12 |
+| userParamInt | int | 아니오 | 2차 개발에서 사용자 정의, 현재 의미 없음 |
+| userParamString | string | 아니오 | 2차 개발에서 사용자 정의, 현재 의미 없음 |
+
+**예시**：
+
+```json
+{
+    "logout": false,
+    "type": 12,
+    "userParamInt": 0,
+    "userParamString": ""
+}
+```
+
+### 아니오则如果 (ELSE IF)
+
+**명령어名**：ELSE IF
+
+| 매개변수名 | 유형 | 必填 | 설명 |
+|--------|------|------|------|
+| logout | bool | 아니오 | 주석 처리 여부；true：在작업파일中将不执行该명령어；false：未주석 처리됨，可执行 |
+| type | int | 예 | ELSE IF在열거형数列中为11 |
+| userParamInt | int | 아니오 | 2차 개발에서 사용자 정의, 현재 의미 없음 |
+| userParamString | string | 아니오 | 2차 개발에서 사용자 정의, 현재 의미 없음 |
+| ifconditionArrayFINAL | object | 예 | 表示if判断；{}内的为if判断的데이터 |
+
+**ifconditionArrayFINAL 结构**：
+
+| 매개변수名 | 유형 | 설명 |
+|--------|------|------|
+| conditionGroup | array | 元素个数表示有多少个并列判断，元素的배열内的元素为并列判断 |
+| logic | array | if判断与if判断之间的关系，按배열内元素顺序；1：或，0：与 |
+| logicGroup | array | conditionGroup节点的元素的判断条件；1：或，0：与，null表示该层没有判断 |
+
+**예시**：
+
+```json
+{
+    "logout": false,
+    "type": 11,
+    "userParamInt": 0,
+    "userParamString": "",
+    "ifconditionArrayFINAL": {
+        "conditionGroup": [
+            [
+                {
+                    "logicType": 2,
+                    "paraGroupOne": {
+                        "data": 0.0,
+                        "secondvalue": 0,
+                        "value": 1,
+                        "varname": "I001"
+                    },
+                    "paraGroupTwo": {
+                        "data": 0.0,
+                        "secondvalue": 0,
+                        "value": 0,
+                        "varname": ""
+                    }
+                }
+            ],
+            [
+                {
+                    "logicType": 1,
+                    "paraGroupOne": {
+                        "data": 0.0,
+                        "secondvalue": 0,
+                        "value": 1,
+                        "varname": "I001"
+                    },
+                    "paraGroupTwo": {
+                        "data": 0.0,
+                        "secondvalue": 0,
+                        "value": 0,
+                        "varname": ""
+                    }
+                }
+            ],
+            [
+                {
+                    "logicType": 6,
+                    "paraGroupOne": {
+                        "data": 0.0,
+                        "secondvalue": 0,
+                        "value": 1,
+                        "varname": "I002"
+                    },
+                    "paraGroupTwo": {
+                        "data": 0.0,
+                        "secondvalue": 0,
+                        "value": 0,
+                        "varname": ""
+                    }
+                }
+            ]
+        ],
+        "logic": [1, 0]
+    }
+}
+```
+
+### 아니오则 (ELSE)
+
+**명령어名**：ELSE
+
+| 매개변수名 | 유형 | 必填 | 설명 |
+|--------|------|------|------|
+| logout | bool | 아니오 | 주석 처리 여부；true：在작업파일中将不执行该명령어；false：未주석 처리됨，可执行 |
+| type | int | 예 | ELSE在열거형数列中为10 |
+| userParamInt | int | 아니오 | 2차 개발에서 사용자 정의, 현재 의미 없음 |
+| userParamString | string | 아니오 | 2차 개발에서 사용자 정의, 현재 의미 없음 |
+
+**예시**：
+
+```json
+{
+    "logout": false,
+    "type": 10,
+    "userParamInt": 0,
+    "userParamString": ""
+}
+```
+
+---
+
+## 等待 (WAIT)
+
+**설명**：条件成立之前프로그램处于等待상태，条件成立后계속执行等待명령어后面的명령어。
+
+**명령어名**：WAIT
+
+| 매개변수名 | 유형 | 必填 | 설명 |
+|--------|------|------|------|
+| logout | bool | 아니오 | 주석 처리 여부；true：在작업파일中将不执行该명령어；false：未주석 처리됨，可执行 |
+| type | int | 예 | WAIT在열거형数列中为8 |
+| userParamInt | int | 아니오 | 2차 개발에서 사용자 정의, 현재 의미 없음 |
+| userParamString | string | 아니오 | 2차 개발에서 사용자 정의, 현재 의미 없음 |
+| m_filterTime | double | 아니오 | 滤波时间，입력信号需满足的时间；[0,9999]s。滤波时间要小于等待时间 |
+| paraTime | object | 아니오 | 等待时间；double유형；[0.01,9999]s |
+| para_wait_result_ | object | 아니오 | 等待结果，满足条件为true；bool유형 |
+| waitConditionFinal | object | 아니오 | {}内为参与判断的条件和변수 |
+| wait_value_check_ | bool | 아니오 | 여부接受结果；true：存在"para_wait_result_"节点，false：不存在 |
+
+**waitConditionFinal 结构**：
+
+| 매개변수名 | 유형 | 설명 |
+|--------|------|------|
+| conditionGroup | array | 元素个数表示有多少个并列判断，元素的배열内的元素为并列判断 |
+| logic | array | if判断与if判断之间的关系，按배열内元素顺序；1：或，0：与 |
+| logicGroup | array | conditionGroup节点的元素的判断条件；1：或，0：与，null表示该层没有判断 |
+
+**예시**：
+
+```json
+{
+    "logout": false,
+    "type": 8,
+    "userParamInt": 0,
+    "userParamString": "",
+    "m_filterTime": 66.0,
+    "paraTime": {
+        "data": 77.0,
+        "secondvalue": 0,
+        "value": 0,
+        "varname": ""
+    },
+    "para_wait_result_": {
+        "data": 0.0,
+        "secondvalue": 0,
+        "value": 3,
+        "varname": "B005"
+    },
+    "waitConditionFinal": {
+        "conditionGroup": [
+            [
+                {
+                    "logicType": 1,
+                    "paraGroupOne": {
+                        "data": 0.0,
+                        "secondvalue": 0,
+                        "value": 1,
+                        "varname": "I002"
+                    },
+                    "paraGroupTwo": {
+                        "data": 0.0,
+                        "secondvalue": 0,
+                        "value": 1,
+                        "varname": "I003"
+                    }
+                }
+            ],
+            [
+                {
+                    "logicType": 2,
+                    "paraGroupOne": {
+                        "data": 0.0,
+                        "secondvalue": 0,
+                        "value": 1,
+                        "varname": "I004"
+                    },
+                    "paraGroupTwo": {
+                        "data": 0.0,
+                        "secondvalue": 0,
+                        "value": 1,
+                        "varname": "I005"
+                    }
+                }
+            ],
+            [
+                {
+                    "logicType": 3,
+                    "paraGroupOne": {
+                        "data": 0.0,
+                        "secondvalue": 0,
+                        "value": 1,
+                        "varname": "I006"
+                    },
+                    "paraGroupTwo": {
+                        "data": 0.0,
+                        "secondvalue": 0,
+                        "value": 1,
+                        "varname": "I007"
+                    }
+                }
+            ]
+        ],
+        "logic": [1, 0]
+    },
+    "wait_value_check_": true
+}
+```
+
+---
+
+## WHILE 循环 (WHILE)
+
+**설명**：判断条件为真예反复执行循环语句里面的명령어。삽입WHILE명령어的同时会同时삽입ENDWHILE명령어。若要삭제WHILE명령어请同时删掉其对应的ENDWHILE명령어，아니오则会导致프로그램없음法실행。当프로그램的开头为WHILE且最后一样명령어为ENDWHILE时，请在프로그램的开头或结尾삽입一条TIMER（延时）명령어。아니오则当WHILE명령어的条件不满足时会导致프로그램陷入死机。当WHILE内部的명령어没有모션类명령어或在某种情况下可能会陷入死循环时，请在WHILE与ENDWHILE间삽입一条TIMER（延时）명령어，아니오则当WHILE명령어的条件满足时可能会导致프로그램陷入死机。当WHILE명령어的条件满足时，会循环실행WHILE与ENDWHILE两条명령어之间的명령어。在실행到WHILE명령어之前若判断条件不满足，在실행到WHILE명령어时会直接跳转到ENDWHILE명령어而不실행WHILE与ENDWHILE之间的명령어；若在실행WHILE与ENDWHILE之间的명령어过程中，判断条件变成不满足，会계속실행，直到실행到ENDWHILE行，不再循环而예계속실행ENDWHILE下面的명령어。
+
+**명령어名**：WHILE
+
+| 매개변수名 | 유형 | 必填 | 설명 |
+|--------|------|------|------|
+| logout | bool | 아니오 | 주석 처리 여부；true：在작업파일中将不执行该명령어；false：未주석 처리됨，可执行 |
+| type | int | 예 | WHILE在열거형数列中为13 |
+| userParamInt | int | 아니오 | 2차 개발에서 사용자 정의, 현재 의미 없음 |
+| userParamString | string | 아니오 | 2차 개발에서 사용자 정의, 현재 의미 없음 |
+| whileconditionArrayFINAL | object | 예 | 表示while判断；{}内的为while判断的데이터 |
+
+**whileconditionArrayFINAL 结构**：
+
+| 매개변수名 | 유형 | 설명 |
+|--------|------|------|
+| conditionGroup | array | 元素个数表示有多少个并列判断，元素的배열内的元素为并列判断 |
+| logic | array | while判断与while判断之间的关系，按배열内元素顺序；1：或，0：与 |
+| logicGroup | array | conditionGroup节点的元素的判断条件；1：或，0：与，null表示该层没有判断 |
+
+**예시**：
+
+```json
+{
+    "logout": false,
+    "type": 13,
+    "userParamInt": 0,
+    "userParamString": "",
+    "whileconditionArrayFINAL": {
+        "conditionGroup": [
+            [
+                {
+                    "logicType": 1,
+                    "paraGroupOne": {
+                        "data": 0.0,
+                        "secondvalue": 0,
+                        "value": 1,
+                        "varname": "I002"
+                    },
+                    "paraGroupTwo": {
+                        "data": 0.0,
+                        "secondvalue": 0,
+                        "value": 1,
+                        "varname": "I003"
+                    }
+                }
+            ],
+            [
+                {
+                    "logicType": 2,
+                    "paraGroupOne": {
+                        "data": 0.0,
+                        "secondvalue": 0,
+                        "value": 1,
+                        "varname": "I004"
+                    },
+                    "paraGroupTwo": {
+                        "data": 0.0,
+                        "secondvalue": 0,
+                        "value": 1,
+                        "varname": "I005"
+                    }
+                }
+            ],
+            [
+                {
+                    "logicType": 3,
+                    "paraGroupOne": {
+                        "data": 0.0,
+                        "secondvalue": 0,
+                        "value": 1,
+                        "varname": "I007"
+                    },
+                    "paraGroupTwo": {
+                        "data": 0.0,
+                        "secondvalue": 0,
+                        "value": 1,
+                        "varname": "I006"
+                    }
+                },
+                {
+                    "logicType": 4,
+                    "paraGroupOne": {
+                        "data": 0.0,
+                        "secondvalue": 0,
+                        "value": 1,
+                        "varname": "I008"
+                    },
+                    "paraGroupTwo": {
+                        "data": 0.0,
+                        "secondvalue": 0,
+                        "value": 1,
+                        "varname": "I009"
+                    }
+                }
+            ]
+        ],
+        "logic": [0, 1],
+        "logicGroup": [null, null, [0]]
+    }
+}
+```
+
+### 结束循环 (ENDWHILE)
+
+**명령어名**：ENDWHILE
+
+| 매개변수名 | 유형 | 必填 | 설명 |
+|--------|------|------|------|
+| logout | bool | 아니오 | 주석 처리 여부；true：在작업파일中将不执行该명령어；false：未주석 처리됨，可执行 |
+| type | int | 예 | ENDWHILE在열거형数列中为14 |
+| userParamInt | int | 아니오 | 2차 개발에서 사용자 정의, 현재 의미 없음 |
+| userParamString | string | 아니오 | 2차 개발에서 사용자 정의, 현재 의미 없음 |
+
+**예시**：
+
+```json
+{
+    "logout": false,
+    "type": 14,
+    "userParamInt": 0,
+    "userParamString": ""
+}
+```
+
+---
+
+## LABEL 标签 (LABEL)
+
+**설명**：指定跳转目标行的标签。同一프로그램없음法삽입两条标签名相同的标签명령어。标签명령어不支持上移、下移조작。
+
+**명령어名**：LABEL
+
+| 매개변수名 | 유형 | 必填 | 설명 |
+|--------|------|------|------|
+| logout | bool | 아니오 | 주석 처리 여부；true：在작업파일中将不执行该명령어；false：未주석 처리됨，可执行 |
+| type | int | 예 | LABEL在열거형数列中为51 |
+| userParamInt | int | 아니오 | 2차 개발에서 사용자 정의, 현재 의미 없음 |
+| userParamString | string | 아니오 | 2차 개발에서 사용자 정의, 현재 의미 없음 |
+| label | string | 예 | 标签名；형식：`[$......$]` |
+
+**예시**：
+
+```json
+{
+    "logout": false,
+    "type": 51,
+    "userParamInt": 0,
+    "userParamString": "",
+    "label": "[$EAFF$]"
+}
+```
+
+---
+
+## JUMP 跳转 (JUMP)
+
+**설명**：跳转至指定标签号的명령어行。判断条件成立则跳转到LABEL명령어行，若判断条件不成立则忽略JUMP명령어，계속실행JUMP명령어的下一行명령어。JUMP명령어필수与LABEL（标签）명령어配合使用。JUMP명령어不可跨프로그램跳转。例如主프로그램里面삽입LABEL [$Q1$]명령어，在子프로그램삽입JUMP [$Q1$]명령어，프로그램실행会报错。
+
+**명령어名**：JUMP
+
+| 매개변수名 | 유형 | 必填 | 설명 |
+|--------|------|------|------|
+| logout | bool | 아니오 | 주석 처리 여부；true：在작업파일中将不执行该명령어；false：未주석 처리됨，可执行 |
+| type | int | 예 | JUMP在열거형数列中为52 |
+| userParamInt | int | 아니오 | 2차 개발에서 사용자 정의, 현재 의미 없음 |
+| userParamString | string | 아니오 | 2차 개발에서 사용자 정의, 현재 의미 없음 |
+| jumpCondition | object | 아니오 | 表示if判断；{}内的为if判断的데이터 |
+| jumpConditionFlag | bool | 아니오 | 여부使用判断条件；true：使用，false：不使用 |
+| label | string | 예 | 标签名；형식：`[$......$]` |
+
+**jumpCondition 结构**：
+
+| 매개변수名 | 유형 | 설명 |
+|--------|------|------|
+| conditionGroup | array | 元素个数表示有多少个并列判断，元素的배열内的元素为并列判断 |
+| logic | array | if判断与if判断之间的关系，按배열内元素顺序；1：或，0：与 |
+| logicGroup | array | conditionGroup节点的元素的判断条件；1：或，0：与，null表示该层没有判断 |
+
+**예시**：
+
+```json
+{
+    "logout": false,
+    "type": 52,
+    "userParamInt": 0,
+    "userParamString": "",
+    "jumpCondition": {
+        "conditionGroup": [
+            [
+                {
+                    "logicType": 3,
+                    "paraGroupOne": {
+                        "data": 0.0,
+                        "secondvalue": 0,
+                        "value": 1,
+                        "varname": "I005"
+                    },
+                    "paraGroupTwo": {
+                        "data": 89.0,
+                        "secondvalue": 0,
+                        "value": 0,
+                        "varname": ""
+                    }
+                },
+                {
+                    "logicType": 3,
+                    "paraGroupOne": {
+                        "data": 0.0,
+                        "secondvalue": 0,
+                        "value": 1,
+                        "varname": "I001"
+                    },
+                    "paraGroupTwo": {
+                        "data": 88.0,
+                        "secondvalue": 0,
+                        "value": 0,
+                        "varname": ""
+                    }
+                }
+            ],
+            [
+                {
+                    "logicType": 6,
+                    "paraGroupOne": {
+                        "data": 0.0,
+                        "secondvalue": 0,
+                        "value": 1,
+                        "varname": "I089"
+                    },
+                    "paraGroupTwo": {
+                        "data": 78.0,
+                        "secondvalue": 0,
+                        "value": 0,
+                        "varname": ""
+                    }
+                }
+            ]
+        ],
+        "logic": [1],
+        "logicGroup": [[0]]
+    },
+    "jumpConditionFlag": true,
+    "label": "[$EAFF$]"
+}
+```
+
+---
+
+## UNTIL 直到 (UNTIL)
+
+**설명**：条件不成立时重复执行UNTIL和ENDUNTIL之间的명령어，条件成立时直接跳到ENDUNTIL下面的명령어실행。UNTIL명령어삽입的同时会삽입ENDUNTIL명령어。若要삭제UNTIL명령어请同时删掉其对应的ENDUNTIL명령어，아니오则会导致프로그램없음法실행。
+
+**명령어名**：UNTIL
+
+| 매개변수名 | 유형 | 必填 | 설명 |
+|--------|------|------|------|
+| logout | bool | 아니오 | 주석 처리 여부；true：在작업파일中将不执行该명령어；false：未주석 처리됨，可执行 |
+| type | int | 예 | UNTIL在열거형数列中为87 |
+| userParamInt | int | 아니오 | 2차 개발에서 사용자 정의, 현재 의미 없음 |
+| userParamString | string | 아니오 | 2차 개발에서 사용자 정의, 현재 의미 없음 |
+| untilconditionArrayFINAL | object | 예 | {}内的为判断的데이터 |
+
+**untilconditionArrayFINAL 结构**：
+
+| 매개변수名 | 유형 | 설명 |
+|--------|------|------|
+| conditionGroup | array | 元素个数表示有多少个并列判断，元素的배열内的元素为并列判断 |
+| logic | array | if判断与if判断之间的关系，按배열内元素顺序；1：或，0：与 |
+| logicGroup | array | conditionGroup节点的元素的判断条件；1：或，0：与，null表示该层没有判断 |
+
+**예시**：
+
+```json
+{
+    "logout": false,
+    "type": 87,
+    "userParamInt": 0,
+    "userParamString": "",
+    "untilconditionArrayFINAL": {
+        "conditionGroup": [
+            [
+                {
+                    "logicType": 1,
+                    "paraGroupOne": {
+                        "data": 0.0,
+                        "secondvalue": 0,
+                        "value": 1,
+                        "varname": "I001"
+                    },
+                    "paraGroupTwo": {
+                        "data": 0.0,
+                        "secondvalue": 0,
+                        "value": 1,
+                        "varname": "I002"
+                    }
+                },
+                {
+                    "logicType": 1,
+                    "paraGroupOne": {
+                        "data": 0.0,
+                        "secondvalue": 0,
+                        "value": 1,
+                        "varname": "I003"
+                    },
+                    "paraGroupTwo": {
+                        "data": 0.0,
+                        "secondvalue": 0,
+                        "value": 1,
+                        "varname": "I004"
+                    }
+                }
+            ],
+            [
+                {
+                    "logicType": 1,
+                    "paraGroupOne": {
+                        "data": 0.0,
+                        "secondvalue": 0,
+                        "value": 1,
+                        "varname": "I005"
+                    },
+                    "paraGroupTwo": {
+                        "data": 0.0,
+                        "secondvalue": 0,
+                        "value": 1,
+                        "varname": "I006"
+                    }
+                }
+            ]
+        ],
+        "logic": [0],
+        "logicGroup": [[1]]
+    }
+}
+```
+
+### 정지直到 (ENDUNTIL)
+
+**명령어名**：ENDUNTIL
+
+| 매개변수名 | 유형 | 必填 | 설명 |
+|--------|------|------|------|
+| logout | bool | 아니오 | 주석 처리 여부；true：在작업파일中将不执行该명령어；false：未주석 처리됨，可执行 |
+| type | int | 예 | ENDUNTIL在열거형数列中为88 |
+| userParamInt | int | 아니오 | 2차 개발에서 사용자 정의, 현재 의미 없음 |
+| userParamString | string | 아니오 | 2차 개발에서 사용자 정의, 현재 의미 없음 |
+
+**예시**：
+
+```json
+{
+    "logout": false,
+    "type": 88,
+    "userParamInt": 0,
+    "userParamString": ""
+}
+```
+
+---
+
+## 프로세스跳行 (CRAFTLINE)
+
+**설명**：只用于专用프로세스，프로그램中삽입该명령어설정对应行数，在专用프로세스界面실행프로그램时会先跳转到对应的行数。
+
+**명령어名**：CRAFTLINE
+
+| 매개변수名 | 유형 | 必填 | 설명 |
+|--------|------|------|------|
+| logout | bool | 아니오 | 주석 처리 여부；true：在작업파일中将不执行该명령어；false：未주석 처리됨，可执行 |
+| type | int | 예 | CRAFTLINE在열거형数列中为89 |
+| userParamInt | int | 아니오 | 2차 개발에서 사용자 정의, 현재 의미 없음 |
+| userParamString | string | 아니오 | 2차 개발에서 사용자 정의, 현재 의미 없음 |
+| line | int | 예 | 专用프로세스界面中对应的명령어行数；[1,999] |
+
+**예시**：
+
+```json
+{
+    "logout": false,
+    "type": 89,
+    "userParamInt": 0,
+    "userParamString": "",
+    "line": 3
+}
+```
+
+---
+
+## 명령어注释 (CMDNOTE)
+
+**설명**：专用프로세스명령어，프로그램中실행该명령어后，在专用프로세스界面会跳转到对应的行数。
+
+**명령어名**：CMDNOTE
+
+| 매개변수名 | 유형 | 必填 | 설명 |
+|--------|------|------|------|
+| logout | bool | 아니오 | 주석 처리 여부；true：在작업파일中将不执行该명령어；false：未주석 처리됨，可执行 |
+| type | int | 예 | CMDNOTE在열거형数列中为127 |
+| userParamInt | int | 아니오 | 2차 개발에서 사용자 정의, 현재 의미 없음 |
+| userParamString | string | 아니오 | 2차 개발에서 사용자 정의, 현재 의미 없음 |
+| note | string | 예 | 注释内容；형식：`##.......$$` |
+
+**예시**：
+
+```json
+{
+    "logout": false,
+    "type": 127,
+    "userParamInt": 0,
+    "userParamString": "",
+    "note": "##ADSDDD$$"
+}
+```
+
+---
+
+## 到达判断 (POS_REACHABLE)
+
+**설명**：判断目标点여부能到达，포인트能够到达选择的상태存入的변수置1，不能到达置0。
+
+**명령어名**：POS_REACHABLE
+
+| 매개변수名 | 유형 | 必填 | 설명 |
+|--------|------|------|------|
+| logout | bool | 아니오 | 주석 처리 여부；true：在작업파일中将不执行该명령어；false：未주석 처리됨，可执行 |
+| type | int | 예 | POS_REACHABLE在열거형数列中为133 |
+| userParamInt | int | 아니오 | 2차 개발에서 사용자 정의, 현재 의미 없음 |
+| userParamString | string | 아니오 | 2차 개발에서 사용자 정의, 현재 의미 없음 |
+| moveType | int | 아니오 | 모션유형；0-MOVJ，1-MOVL |
+| positionId | string | 예 | 위치변수名 |
+| _pVarName | object | 예 | 상태存入변수 |
+
+**예시**：
+
+```json
+{
+    "logout": false,
+    "type": 133,
+    "userParamInt": 0,
+    "userParamString": "",
+    "moveType": 0,
+    "positionId": "GP0001",
+    "_pVarName": {
+        "data": 0.0,
+        "secondvalue": 0,
+        "value": 6,
+        "varname": "GB001"
+    }
+}
+```
+
+---
+
+## 计时 (CLKSTART / CLKSTOP / CLKRESET)
+
+**설명**：실행该명령어开始计时，并将时间记录到局部或者全局DOUBLE변수。정지对应序号的计时器计时，정지后已存入변수的值不会归零。
+
+### 计时开始 (CLKSTART)
+
+**명령어名**：CLKSTART
+
+| 매개변수名 | 유형 | 必填 | 설명 |
+|--------|------|------|------|
+| logout | bool | 아니오 | 주석 처리 여부；true：在작업파일中将不执行该명령어；false：未주석 처리됨，可执行 |
+| type | int | 예 | CLKSTART在열거형数列中为128 |
+| userParamInt | int | 아니오 | 2차 개발에서 사용자 정의, 현재 의미 없음 |
+| userParamString | string | 아니오 | 2차 개발에서 사용자 정의, 현재 의미 없음 |
+| ID | int | 예 | 计时序号；[1,32] |
+| _pVarName | object | 예 | 存入변수 |
+
+**예시**：
+
+```json
+{
+    "logout": false,
+    "type": 128,
+    "userParamInt": 0,
+    "userParamString": "",
+    "ID": 5,
+    "_pVarName": {
+        "data": 0.0,
+        "secondvalue": 0,
+        "value": 2,
+        "varname": "D001"
+    }
+}
+```
+
+### 计时정지 (CLKSTOP)
+
+**명령어名**：CLKSTOP
+
+| 매개변수名 | 유형 | 必填 | 설명 |
+|--------|------|------|------|
+| logout | bool | 아니오 | 주석 처리 여부；true：在작업파일中将不执行该명령어；false：未주석 처리됨，可执行 |
+| type | int | 예 | CLKSTOP在열거형数列中为129 |
+| userParamInt | int | 아니오 | 2차 개발에서 사용자 정의, 현재 의미 없음 |
+| userParamString | string | 아니오 | 2차 개발에서 사용자 정의, 현재 의미 없음 |
+| ID | int | 예 | 计时序号；[1,32] |
+
+**예시**：
+
+```json
+{
+    "logout": false,
+    "type": 129,
+    "userParamInt": 0,
+    "userParamString": "",
+    "ID": 5
+}
+```
+
+### 计时复位 (CLKRESET)
+
+**명령어名**：CLKRESET
+
+| 매개변수名 | 유형 | 必填 | 설명 |
+|--------|------|------|------|
+| logout | bool | 아니오 | 주석 처리 여부；true：在작업파일中将不执行该명령어；false：未주석 처리됨，可执行 |
+| type | int | 예 | CLKRESET在열거형数列中为130 |
+| userParamInt | int | 아니오 | 2차 개발에서 사용자 정의, 현재 의미 없음 |
+| userParamString | string | 아니오 | 2차 개발에서 사용자 정의, 현재 의미 없음 |
+| ID | int | 예 | 计时序号；[1,32] |
+
+**예시**：
+
+```json
+{
+    "logout": false,
+    "type": 130,
+    "userParamInt": 0,
+    "userParamString": "",
+    "ID": 5
+}
+```
+
+---
+
+## 读取线속도 (READLINEAR / STOPREADLINEAR)
+
+**설명**：로봇실행的时候实时读取로봇线속도，将读取到的속도存入到변수。삽입读取线속도명령어时会同时삽입读取线속도정지，如果要삭제读取线속도명령어请将对应线속도정지명령어삭제，아니오则프로그램会报错。
+
+### 读取线속도 (READLINEAR)
+
+**명령어名**：READLINEAR
+
+| 매개변수名 | 유형 | 必填 | 설명 |
+|--------|------|------|------|
+| logout | bool | 아니오 | 주석 처리 여부；true：在작업파일中将不执行该명령어；false：未주석 처리됨，可执行 |
+| type | int | 예 | READLINEAR在열거형数列中为146 |
+| userParamInt | int | 아니오 | 2차 개발에서 사용자 정의, 현재 의미 없음 |
+| userParamString | string | 아니오 | 2차 개발에서 사용자 정의, 현재 의미 없음 |
+| _pVarName | object | 예 | 변수；int유형或double유형 |
+
+**예시**：
+
+```json
+{
+    "logout": false,
+    "type": 146,
+    "userParamInt": 0,
+    "userParamString": "",
+    "_pVarName": {
+        "data": 0.0,
+        "secondvalue": 0,
+        "value": 4,
+        "varname": "GI003"
+    }
+}
+```
+
+### 정지读取线속도 (STOPREADLINEAR)
+
+**명령어名**：STOPREADLINEAR
+
+| 매개변수名 | 유형 | 必填 | 설명 |
+|--------|------|------|------|
+| logout | bool | 아니오 | 주석 처리 여부；true：在작업파일中将不执行该명령어；false：未주석 처리됨，可执行 |
+| type | int | 예 | STOPREADLINEAR在열거형数列中为147 |
+| userParamInt | int | 아니오 | 2차 개발에서 사용자 정의, 현재 의미 없음 |
+| userParamString | string | 아니오 | 2차 개발에서 사용자 정의, 현재 의미 없음 |
+
+**예시**：
+
+```json
+{
+    "logout": false,
+    "type": 147,
+    "userParamInt": 0,
+    "userParamString": ""
+}
+```
+
+---
+
+## 호출Lua语句 (CALL_LUASTRING)
+
+**설명**：通过호출Lua语句来구현相应的기능或조작。
+
+**명령어名**：CALL_LUASTRING
+
+| 매개변수名 | 유형 | 必填 | 설명 |
+|--------|------|------|------|
+| logout | bool | 아니오 | 주석 처리 여부；true：在작업파일中将不执行该명령어；false：未주석 처리됨，可执行 |
+| type | int | 예 | CALL_LUASTRING在열거형数列中为230 |
+| userParamInt | int | 아니오 | 2차 개발에서 사용자 정의, 현재 의미 없음 |
+| userParamString | string | 아니오 | 2차 개발에서 사용자 정의, 현재 의미 없음 |
+| textEditType | bool | 아니오 | 文本编译유형；true：文本유형，false：语句유형 |
+| variable | object | 아니오 | lua语句변수 |
+
+**예시**：
+
+```json
+{
+    "logout": false,
+    "type": 230,
+    "userParamInt": 0,
+    "userParamString": "",
+    "textEditType": false,
+    "variable": {
+        "data": 0.0,
+        "secondvalue": 0,
+        "value": 8,
+        "varname": "S001"
+    }
+}
+```
+
+---
+
+## 매개변수声明 (PARAM_DECLARATION)
+
+**설명**：声明要입력或者출력的매개변수，입력매개변수将被子프로그램수신并使用，출력매개변수将반환给主프로그램使用。
+
+**명령어名**：PARAM_DECLARATION
+
+| 매개변수名 | 유형 | 必填 | 설명 |
+|--------|------|------|------|
+| logout | bool | 아니오 | 주석 처리 여부；true：在작업파일中将不执行该명령어；false：未주석 처리됨，可执行 |
+| type | int | 예 | PARAM_DECLARATION在열거형数列中为237 |
+| userParamInt | int | 아니오 | 2차 개발에서 사용자 정의, 현재 의미 없음 |
+| userParamString | string | 아니오 | 2차 개발에서 사용자 정의, 현재 의미 없음 |
+| declareInParaVarData | array | 아니오 | 입력매개변수변수；元素个数为입력매개변수个数；매개변수个数[0,12] |
+| declareInParaVarValues | array | 아니오 | 입력매개변수기본값；元素个数为입력매개변수个数；매개변수个数[0,12] |
+| declareInParaVarnote | array | 아니오 | 입력매개변수注释；元素个数为입력매개변수个数；매개변수个数[0,12] |
+| declareOutParaVarData | array | 아니오 | 출력매개변수值；元素个数为출력매개변수个数；매개변수个数[0,12] |
+| declareOutParaVarnote | array | 아니오 | 출력매개변수注释；元素个数为출력매개변수个数；매개변수个数[0,12] |
+
+**예시**：
+
+```json
+{
+    "logout": false,
+    "type": 237,
+    "userParamInt": 0,
+    "userParamString": "",
+    "declareInParaVarData": [
+        {
+            "data": 0.0,
+            "secondvalue": 0,
+            "value": 1,
+            "varname": "I001"
+        },
+        {
+            "data": 0.0,
+            "secondvalue": 0,
+            "value": 1,
+            "varname": "I002"
+        },
+        {
+            "data": 0.0,
+            "secondvalue": 0,
+            "value": 1,
+            "varname": "I003"
+        }
+    ],
+    "declareInParaVarValues": [
+        {
+            "data": 0.0,
+            "secondvalue": 0,
+            "value": 2,
+            "varname": "D001"
+        },
+        {
+            "data": 0.0,
+            "secondvalue": 0,
+            "value": 2,
+            "varname": "D002"
+        },
+        {
+            "data": 0.0,
+            "secondvalue": 0,
+            "value": 2,
+            "varname": "D003"
+        }
+    ],
+    "declareInParaVarnote": [
+        "000",
+        "111",
+        "222"
+    ],
+    "declareOutParaVarData": [
+        {
+            "data": 0.0,
+            "secondvalue": 0,
+            "value": 3,
+            "varname": "B001"
+        },
+        {
+            "data": 0.0,
+            "secondvalue": 0,
+            "value": 3,
+            "varname": "B002"
+        }
+    ],
+    "declareOutParaVarnote": [
+        "333",
+        "4444"
+    ]
+}
+```
+
+---
+
+## 等到모션到点 (WAIT_POS)
+
+**설명**：MOV명령어执行结束并不代表서보실행结束，仅为포인트下发结束，此명령어等待서보모터실행精准到点，再执行下一个명령어。此명령어필수在모션명령어后执行此명령어才生效。此명령어只能仅支持前台프로그램，后台없음모션명령어自然也不需要使用。此명령어不支持提前执行。如果로봇在最小等待时间和最大等待时间之间，모션到点了，就会종료等待，执行下一条명령어。
+
+**명령어名**：WAIT_POS
+
+| 매개변수名 | 유형 | 必填 | 설명 |
+|--------|------|------|------|
+| logout | bool | 아니오 | 주석 처리 여부；true：在작업파일中将不执行该명령어；false：未주석 처리됨，可执行 |
+| type | int | 예 | WAIT_POS在열거형数列中为238 |
+| userParamInt | int | 아니오 | 2차 개발에서 사용자 정의, 현재 의미 없음 |
+| userParamString | string | 아니오 | 2차 개발에서 사용자 정의, 현재 의미 없음 |
+| accurary | double | 예 | 精도；[0.0001,0.1]도/s |
+| waitType | int | 아니오 | 等待유형；0:위치，1：속도 |
+| maxTime | int | 예 | 最大等待时间；[20,20000] |
+| minTime | int | 예 | 最小等待时间；[20,20000] |
+
+**예시**：
+
+```json
+{
+    "logout": false,
+    "type": 238,
+    "userParamInt": 0,
+    "userParamString": "",
+    "accurary": 0.10,
+    "maxTime": 200,
+    "minTime": 20,
+    "waitType": 0
+}
+```
+
+---
+
+## 충돌 감지 (DETECTCOLLISION_SET / DETECTCOLLISION_RESET)
+
+**설명**：충돌 감지설정：호출临时매개변수，方便及时调整충돌 감지阈值。충돌 감지설정명령어只예临时매개변수，只对충돌 감지설정명령어下面的모션명령어有效，不삽입충돌 감지설정명령어时호출人机协作-力学기능界面的충돌 감지阈值（명령어）매개변수。충돌 감지매개변수复位：复位临时使用的충돌 감지阈值，执行此条명령어后会호출人机协作-力学기능界面的충돌 감지阈值（명령어）매개변수。
+
+### 충돌 감지설정 (DETECTCOLLISION_SET)
+
+**명령어名**：DETECTCOLLISION_SET
+
+| 매개변수名 | 유형 | 必填 | 설명 |
+|--------|------|------|------|
+| logout | bool | 아니오 | 주석 처리 여부；true：在작업파일中将不执行该명령어；false：未주석 처리됨，可执行 |
+| type | int | 예 | DETECTCOLLISION_SET在열거형数列中为243 |
+| userParamInt | int | 아니오 | 2차 개발에서 사용자 정의, 현재 의미 없음 |
+| userParamString | string | 아니오 | 2차 개발에서 사용자 정의, 현재 의미 없음 |
+| axis_1_ | double | 아니오 | 1축；[1,10000] |
+| axis_2_ | double | 아니오 | 2축；[1,10000] |
+| axis_3_ | double | 아니오 | 3축；[1,10000] |
+| axis_4_ | double | 아니오 | 4축；[1,10000] |
+| axis_5_ | double | 아니오 | 5축；[1,10000] |
+| axis_6_ | double | 아니오 | 6축；[1,10000] |
+| axis_7_ | double | 아니오 | 7축；[1,10000] |
+| collision_detection_enable_ | int | 아니오 | 충돌 감지활성화；1：활성화，0：닫기활성화 |
+| temp_parameters_enable_ | int | 아니오 | 使用临时매개변수；1：使用，0：不使用 |
+
+**예시**：
+
+```json
+{
+    "logout": false,
+    "type": 243,
+    "userParamInt": 0,
+    "userParamString": "",
+    "axis_1_": 10.0,
+    "axis_2_": 20.0,
+    "axis_3_": 30.0,
+    "axis_4_": 40.0,
+    "axis_5_": 50.0,
+    "axis_6_": 60.0,
+    "axis_7_": 0.0,
+    "collision_detection_enable_": 1,
+    "temp_parameters_enable_": 1
+}
+```
+
+### 충돌 감지매개변수复位 (DETECTCOLLISION_RESET)
+
+**명령어名**：DETECTCOLLISION_RESET
+
+| 매개변수名 | 유형 | 必填 | 설명 |
+|--------|------|------|------|
+| logout | bool | 아니오 | 주석 처리 여부；true：在작업파일中将不执行该명령어；false：未주석 처리됨，可执行 |
+| type | int | 예 | DETECTCOLLISION_RESET在열거형数列中为244 |
+| userParamInt | int | 아니오 | 2차 개발에서 사용자 정의, 현재 의미 없음 |
+| userParamString | string | 아니오 | 2차 개발에서 사용자 정의, 현재 의미 없음 |
+
+**예시**：
+
+```json
+{
+    "logout": false,
+    "type": 244,
+    "userParamInt": 0,
+    "userParamString": ""
+}
+```
+
+---
+
+## Switch 条件分支 (Switch / Case / Default / EndSwitch)
+
+**설명**：当SWITCH的매개변수值与某个CASE值匹配，则会跳到对应的CASE语句块中执行相应的명령어，执行完该语句块则会跳出SWITCH；若SWITCH的매개변수值不与任何一个CASE匹配则실행DEFAULT语句。
+
+### Switch (Switch)
+
+**명령어名**：Switch
+
+| 매개변수名 | 유형 | 必填 | 설명 |
+|--------|------|------|------|
+| logout | bool | 아니오 | 주석 처리 여부；true：在작업파일中将不执行该명령어；false：未주석 처리됨，可执行 |
+| type | int | 예 | Switch在열거형数列中为247 |
+| userParamInt | int | 아니오 | 2차 개발에서 사용자 정의, 현재 의미 없음 |
+| userParamString | string | 아니오 | 2차 개발에서 사용자 정의, 현재 의미 없음 |
+| variable_switch_ | object | 예 | 변수；int유형 |
+
+**예시**：
+
+```json
+{
+    "logout": false,
+    "type": 247,
+    "userParamInt": 0,
+    "userParamString": "",
+    "variable_switch_": {
+        "data": 0.0,
+        "secondvalue": 0,
+        "value": 1,
+        "varname": "I001"
+    }
+}
+```
+
+### Case (Case)
+
+**명령어名**：Case
+
+| 매개변수名 | 유형 | 必填 | 설명 |
+|--------|------|------|------|
+| logout | bool | 아니오 | 주석 처리 여부；true：在작업파일中将不执行该명령어；false：未주석 처리됨，可执行 |
+| type | int | 예 | Case在열거형数列中为248 |
+| userParamInt | int | 아니오 | 2차 개발에서 사용자 정의, 현재 의미 없음 |
+| userParamString | string | 아니오 | 2차 개발에서 사용자 정의, 현재 의미 없음 |
+| switch_case | int | 예 | case的值 |
+
+**예시**：
+
+```json
+{
+    "logout": false,
+    "type": 248,
+    "userParamInt": 0,
+    "userParamString": "",
+    "switch_case": 22
+}
+```
+
+### Default (Default)
+
+**명령어名**：Default
+
+| 매개변수名 | 유형 | 必填 | 설명 |
+|--------|------|------|------|
+| logout | bool | 아니오 | 주석 처리 여부；true：在작업파일中将不执行该명령어；false：未주석 처리됨，可执行 |
+| type | int | 예 | Default在열거형数列中为249 |
+| userParamInt | int | 아니오 | 2차 개발에서 사용자 정의, 현재 의미 없음 |
+| userParamString | string | 아니오 | 2차 개발에서 사용자 정의, 현재 의미 없음 |
+
+**예시**：
+
+```json
+{
+    "logout": false,
+    "type": 249,
+    "userParamInt": 0,
+    "userParamString": ""
+}
+```
+
+### EndSwitch (EndSwitch)
+
+**명령어名**：EndSwitch
+
+| 매개변수名 | 유형 | 必填 | 설명 |
+|--------|------|------|------|
+| logout | bool | 아니오 | 주석 처리 여부；true：在작업파일中将不执行该명령어；false：未주석 처리됨，可执行 |
+| type | int | 예 | EndSwitch在열거형数列中为250 |
+| userParamInt | int | 아니오 | 2차 개발에서 사용자 정의, 현재 의미 없음 |
+| userParamString | string | 아니오 | 2차 개발에서 사용자 정의, 현재 의미 없음 |
+
+**예시**：
+
+```json
+{
+    "logout": false,
+    "type": 250,
+    "userParamInt": 0,
+    "userParamString": ""
+}
+```

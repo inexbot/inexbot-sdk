@@ -1,0 +1,1540 @@
+# 용접프로세스
+
+용접的相关통신协议主要包含용접装备、电流电压、용접매개변수、摆焊매개변수、용접IO포트、多层多道용접、相贯线，关于용접프로세스的详细介绍请参考용접프로세스手册。
+
+---
+
+## 1. 용접装备
+
+용접装备설정包含基础기능、微调整、防碰撞、再시작/再启弧和其他模块。
+
+### 1.1 호스트 컴퓨터설정용접装备
+
+**명령어：** `0x8300`
+
+설명：용접过程中，通过发生断弧、防碰撞、切모드정지等方式断弧时，此기능可在断弧处接着용접。自动再시작、半自动再시작时要确保断弧处和回退目标위치之间没有障碍物。
+
+#### basic_functions（基础기능）
+
+| 매개변수名 | 유형 | 설명 | 取值범위 |
+|--------|------|------|----------|
+| arc_detection_time | double | 电弧检测时间 | [0,5]s |
+| arc_depletion_detection_time | double | 电弧耗尽检测时间 | [0,5]s |
+| arc_detection_ensure_time | double | 电弧检测确认时间 | [0,5]s |
+| pre_give_gas_time | double | 提前送气时间 | [0,5]s |
+| close_time | double | 关气时间（负数为提前关气，正数为延后关气） | [-5,5]s |
+| weld_interruption_detection | bool | 용접中断检测 | true：中断检测；false：不中断检测 |
+| arc_fly | bool | 飞行起弧 | true：飞行起弧；false：不飞行起弧 |
+| air_close_mode | int | 关气方式 | 0: 延迟关气，1: 提前关气 |
+
+#### micro_adjustment（微调整）
+
+| 매개변수名 | 유형 | 설명 | 取值범위 |
+|--------|------|------|----------|
+| single_adjustment_current | double | 용접电流单次调整量 | [0,1000]A |
+| single_adjustment_voltage | double | 용접电压单次调整量 | [-1000,1000]V |
+
+#### restart（再시작/再起弧）
+
+| 매개변수名 | 유형 | 설명 | 取值범위 |
+|--------|------|------|----------|
+| restart_times | int | 再시작次数 | [0,1000] |
+| restart_distance | double | 再시작距离 | [0,100]mm |
+| restart_speed | double | 再시작속도 | [0,100]mm/s |
+| re_arc_times | int | 再起弧次数 | [1,1000] |
+| restart_enable | bool | 再시작활성화 | - |
+| re_arc_enable | bool | 再起弧활성화 | - |
+| restart_mode | int | 再시작모드 | - |
+
+#### antiCollision（防碰撞）
+
+| 매개변수名 | 유형 | 설명 | 取值범위 |
+|--------|------|------|----------|
+| enable | bool | 防碰撞활성화 | true: 开启；false：닫기 |
+| inputPort | int | 防碰撞IO포트 | - |
+| inputValue | int | 防碰撞出发电平 | 0/1 |
+| stopTime | double | 防碰撞快速정지时间 | [50,200]s |
+| outputPort | int | 防碰撞상태출력포트 | - |
+| outputValue | int | 防碰撞상태출력电平 | 0/1 |
+| shieldFlag | bool | 屏蔽防碰撞 | true: 开启；false：닫기 |
+| shieldTime | double | 屏蔽时间 | [0,1000000]s |
+
+#### other（其他）
+
+| 매개변수名 | 유형 | 설명 | 取值범위 |
+|--------|------|------|----------|
+| break_back_time | double | 断弧回抽时间 | [0,5]s |
+| weld_finish_time | double | 용접완료回抽时间 | [0,5]s |
+| break_back_enable | bool | 断弧回抽활성화 | true: 开启；false：닫기 |
+| weld_finish_function | bool | 용접완료回抽기능 | true: 开启；false：닫기 |
+| simulation_set_zero | bool | 灭弧模拟量置零기능 | true: 开启；false：닫기 |
+| collisionButtonFlag.error_enable_switch | bool | 오류활성화开关 | - |
+
+**예시：**
+
+```json
+{
+  "basic_functions": {
+    "arc_detection_time": 1.1,
+    "arc_depletion_detection_time": 1.1,
+    "arc_detection_ensure_time": 1.1,
+    "pre_give_gas_time": 1.1,
+    "close_time": 1.1,
+    "weld_interruption_detection": true,
+    "arc_fly": true,
+    "air_close_mode": 0
+  },
+  "micro_adjustment": {
+    "single_adjustment_current": 1.1,
+    "single_adjustment_voltage": 1.1
+  },
+  "restart": {
+    "restart_times": 1,
+    "restart_distance": 1.1,
+    "restart_speed": 1.1,
+    "re_arc_times": 1,
+    "restart_enable": true,
+    "re_arc_enable": true,
+    "restart_mode": 1
+  },
+  "antiCollision": {
+    "enable": false,
+    "inputPort": 0,
+    "inputValue": 1,
+    "stopTime": 60,
+    "outputPort": 0,
+    "outputValue": 1,
+    "shieldFlag": false,
+    "shieldTime": 30
+  },
+  "other": {
+    "break_back_time": 1.1,
+    "weld_finish_time": 1.1,
+    "break_back_enable": true,
+    "weld_finish_function": true,
+    "simulation_set_zero": true
+  },
+  "collisionButtonFlag": {
+    "error_enable_switch": true
+  }
+}
+```
+
+### 1.2 호스트 컴퓨터조회용접装备
+
+**명령어：** `0x8301`
+
+설명：拖拽点动모드切换开关
+
+| 매개변수名 | 유형 | 설명 | 取值범위 |
+|--------|------|------|----------|
+| robot | int | 현재로봇 | [1,4] |
+
+```json
+{
+  "robot": 1
+}
+```
+
+### 1.3 컨트롤러回复용접装备
+
+**명령어：** `0x8302`
+
+반환매개변수同"호스트 컴퓨터설정용접装备"，参见上方表格及예시。
+
+---
+
+## 2. 电流电压
+
+### 2.1 电流电压匹配설정
+
+**명령어：** `0x8310`
+
+| 매개변수名 | 유형 | 설명 | 取值범위 |
+|--------|------|------|----------|
+| robot | int | 현재로봇 | [1,4] |
+
+#### current_control（电流제어）
+
+| 매개변수名 | 유형 | 설명 | 取值범위 |
+|--------|------|------|----------|
+| set_current | double[] | 설정电流 | [0,10]A |
+| actual_current | double[] | 实际电流 | [0,999]A |
+
+#### voltage_control（电压제어）
+
+| 매개변수名 | 유형 | 설명 | 取值범위 |
+|--------|------|------|----------|
+| set_voltage | double[] | 설정电压 | [0,10]V |
+| actual_voltage | double[] | 实际电压 | [0,999]V |
+
+```json
+{
+  "current_control": {
+    "set_current": [1, 2, 3, 4, 5, 6, 7, 8],
+    "actual_current": [1, 2, 3, 4, 5, 6, 7, 8]
+  },
+  "voltage_control": {
+    "set_voltage": [1, 2, 3, 4, 5, 6, 7, 8],
+    "actual_voltage": [1, 2, 3, 4, 5, 6, 7, 8]
+  },
+  "robot": 1
+}
+```
+
+### 2.2 호스트 컴퓨터조회电压电流匹配
+
+**명령어：** `0x8311`
+
+| 매개변수名 | 유형 | 설명 | 取值범위 |
+|--------|------|------|----------|
+| robot | int | 현재로봇 | [1,4] |
+
+```json
+{
+  "robot": 1
+}
+```
+
+### 2.3 컨트롤러回复电流电压匹配
+
+**명령어：** `0x8312`
+
+| 매개변수名 | 유형 | 설명 | 取值범위 |
+|--------|------|------|----------|
+| robot | int | 현재로봇 | [1,4] |
+| set_current | int[] | 설정电流 | [0,10]A |
+| actual_current | int[] | 实际电流 | [0,999]A |
+| set_voltage | int[] | 설정电压 | [0,10]V |
+| actual_voltage | int[] | 实际电压 | [0,999]V |
+| AO_setcurrent | int | 电流출력포트 | - |
+| AO_setvoltage | int | 电压출력포트 | - |
+
+```json
+{
+  "current_control": {
+    "set_current": [1, 2, 3, 4, 5, 6, 7, 8],
+    "actual_current": [1, 2, 3, 4, 5, 6, 7, 8]
+  },
+  "voltage_control": {
+    "set_voltage": [1, 2, 3, 4, 5, 6, 7, 8],
+    "actual_voltage": [1, 2, 3, 4, 5, 6, 7, 8]
+  },
+  "IO": {
+    "AO_setcurrent": 0,
+    "AO_setvoltage": 0
+  },
+  "robot": 1
+}
+```
+
+### 2.4 호스트 컴퓨터설정电流电压匹配매개변수实际值
+
+**명령어：** `0x8313`
+
+| 매개변수名 | 유형 | 설명 | 取值범위 |
+|--------|------|------|----------|
+| type | int | 매개변수유형（电压1=0, 电压2=1, 电流1=2, 电流2=3） | [0,3] |
+| value | double | 매개변수值 | [0,999]A/V |
+| robot | int | 로봇号 | [1,4] |
+
+```json
+{
+  "type": 0,
+  "value": 4.13,
+  "robot": 1
+}
+```
+
+### 2.5 컨트롤러 응답설정여부성공
+
+**명령어：** `0x8314`
+
+| 매개변수名 | 유형 | 설명 | 取值범위 |
+|--------|------|------|----------|
+| result | int | 설정结果（1：성공，0：실패） | - |
+| robot | int | 현재로봇 | [1,4] |
+
+```json
+{
+  "result": 1,
+  "robot": 1
+}
+```
+
+### 2.6 开始进行电流电压匹配
+
+**명령어：** `0x8315`
+
+| 매개변수名 | 유형 | 설명 | 取值범위 |
+|--------|------|------|----------|
+| start | bool | 여부开始进行匹配 | true:开始, false:结束 |
+| robot | int | 현재로봇 | [1,4] |
+
+```json
+{
+  "start": true,
+  "robot": 1
+}
+```
+
+### 2.7 手动조작电流电压설정
+
+**명령어：** `0x8316`
+
+| 매개변수名 | 유형 | 설명 | 取值범위 |
+|--------|------|------|----------|
+| robot | int | 현재로봇 | [1,4] |
+| type | int | 选择설정电流/电压 | 1：설정电流，2：설정电压 |
+| value | double | 值 | - |
+
+```json
+{
+  "robot": 1,
+  "type": 1,
+  "value": 1
+}
+```
+
+---
+
+## 3. 용접매개변수
+
+### 3.1 호스트 컴퓨터설정용접매개변수
+
+**명령어：** `0x8320`
+
+| 매개변수名 | 유형 | 설명 | 取值범위 |
+|--------|------|------|----------|
+| num | int | 프로세스号（从1开始，可설정1-99个） | [1,99] |
+| notes | string | 注释 | - |
+| robot | int | 현재로봇 | [1,4] |
+
+#### arcoff_parameters（收弧매개변수）
+
+| 매개변수名 | 유형 | 설명 | 取值범위 |
+|--------|------|------|----------|
+| arcoff_use_param | bool | 여부使用收弧매개변수 | true：使用；false：不使用 |
+| arcoff_voltage | double | 收弧电压 | [-1000,1000]V |
+| arcoff_current | double | 收弧电流 | [0,1000]A |
+| arcoff_time | double | 收弧时间 | [0,5]s |
+| ramp_time | double | 渐变时间 | [0,100000]ms |
+| ramp_enable | bool | 渐变활성화 | - |
+| ramp_mode | int | 收弧渐变方式 | 0：时间渐变 |
+
+#### weld_parameters（용접매개변수）
+
+| 매개변수名 | 유형 | 설명 | 取值범위 |
+|--------|------|------|----------|
+| weld_current | double | 용접电流 | [0,1000]A |
+| weld_voltage | double | 용접电压 | [-1000,1000]V |
+
+#### arcon_parameters（起弧매개변수）
+
+| 매개변수名 | 유형 | 설명 | 取值범위 |
+|--------|------|------|----------|
+| arcon_use_param | bool | 여부使用起弧매개변수 | true：使用；false：不使用 |
+| arcon_current | double | 起弧电流 | [0,1000]A |
+| arcon_voltage | double | 起弧电压 | [-1000,1000]V |
+| arcon_time | double | 起弧时间 | [0,5]s |
+| arcon_ramp_time | double | 渐变时间 | [0,1000000]ms |
+| arcon_ramp_enable | bool | 起弧渐变활성화 | - |
+| arcon_ramp_mode | int | 起弧渐变方式 | 0：时间渐变 |
+
+```json
+{
+  "num": 1,
+  "notes": "예시",
+  "arcoff_parameters": {
+    "arcoff_use_param": true,
+    "arcoff_voltage": 1.1,
+    "arcoff_current": 1.1,
+    "arcoff_time": 1.1,
+    "ramp_time": 1.1,
+    "ramp_enable": true,
+    "ramp_mode": 1
+  },
+  "weld_parameters": {
+    "weld_current": 1.1,
+    "weld_voltage": 1.1
+  },
+  "arcon_parameters": {
+    "arcon_use_param": true,
+    "arcon_current": 1.1,
+    "arcon_voltage": 1.1,
+    "arcon_time": 1.1,
+    "arcon_ramp_time": 1.1,
+    "arcon_ramp_enable": true,
+    "arcon_ramp_mode": 1
+  }
+}
+```
+
+### 3.2 호스트 컴퓨터조회용접매개변수
+
+**명령어：** `0x8321`
+
+| 매개변수名 | 유형 | 설명 | 取值범위 |
+|--------|------|------|----------|
+| num | int | 프로세스号（从1开始） | [1,99] |
+| robot | int | 현재로봇 | [1,4] |
+
+```json
+{
+  "num": 1,
+  "robot": 1
+}
+```
+
+### 3.3 컨트롤러回复용접매개변수
+
+**명령어：** `0x8322`
+
+| 매개변수名 | 유형 | 설명 | 取值범위 |
+|--------|------|------|----------|
+| num | int | 매개변수序号（从1开始） | - |
+| notes | string | 注释 | - |
+| robot | int | 현재로봇 | [1,4] |
+
+#### arcoff_parameters（收弧매개변수）
+
+| 매개변수名 | 유형 | 설명 |
+|--------|------|------|
+| arcoff_voltage | double | 收弧电压 |
+| arcoff_current | double | 收弧电流 |
+| arcoff_time | double | 收弧时间 |
+| arcon_ramp_time | double | 渐变时间 |
+| arcon_ramp_distance | double | 渐变距离 |
+| arcon_ramp_enable | bool | 渐变활성화 |
+| arcon_ramp_mode | int | 收弧渐变方式（0：时间渐变，1：距离渐变） |
+
+#### weld_parameters（용접매개변수）
+
+| 매개변수名 | 유형 | 설명 |
+|--------|------|------|
+| weld_current | double | 용접电流 |
+| weld_voltage | double | 용접电压 |
+| weld_velocity | double | 용접속도 |
+
+#### arcon_parameters（起弧매개변수）
+
+| 매개변수名 | 유형 | 설명 |
+|--------|------|------|
+| arcon_current | double | 起弧电流 |
+| arcon_voltage | double | 起弧电压 |
+| arcon_time | double | 起弧时间 |
+| arcon_ramp_time | double | 渐变时间 |
+| arcon_ramp_distance | double | 渐变距离 |
+| arcon_ramp_enable | bool | 起弧渐变활성화 |
+| arcon_ramp_mode | int | 起弧渐变方式（0：时间渐变，1：距离渐变） |
+
+#### anti_adhesion_parameters（防粘丝매개변수）
+
+| 매개변수名 | 유형 | 설명 |
+|--------|------|------|
+| anti_adhesion_enable | bool | 防粘丝활성화 |
+| anti_adhesion_times | int | 防粘丝次数 |
+| anti_adhesion_v | double | 防粘丝电压 |
+| anti_adhesion_i | double | 防粘丝电流 |
+| anti_adhesion_time | double | 防粘丝时间 |
+
+```json
+{
+  "num": 1,
+  "notes": "예시",
+  "arcoff_parameters": {
+    "arcoff_voltage": 1.1,
+    "arcoff_current": 1.1,
+    "arcoff_time": 1.1,
+    "arcon_ramp_time": 1.1,
+    "arcon_ramp_distance": 1.1,
+    "arcon_ramp_enable": true,
+    "arcon_ramp_mode": 1
+  },
+  "weld_parameters": {
+    "weld_current": 1.1,
+    "weld_voltage": 1.1,
+    "weld_velocity": 0.0
+  },
+  "arcon_parameters": {
+    "arcon_current": 1.1,
+    "arcon_voltage": 1.1,
+    "arcon_time": 1.1,
+    "arcon_ramp_time": 1.1,
+    "arcon_ramp_distance": 1.1,
+    "arcon_ramp_enable": true,
+    "arcon_ramp_mode": 0
+  },
+  "anti_adhesion_parameters": {
+    "anti_adhesion_enable": true,
+    "anti_adhesion_times": 1,
+    "anti_adhesion_v": 1.1,
+    "anti_adhesion_i": 1.1,
+    "anti_adhesion_time": 1.1
+  }
+}
+```
+
+---
+
+## 4. 摆焊매개변수
+
+inexbot摆焊支持七种摆动方式：正弦摆、Z字摆、圆形摆、외부 축定点摆、L型摆、三角摆、8字摆。摆动频率、摆动幅도、起始方向、水平偏角、竖直偏角等매개변수可调。
+
+### 4.1 호스트 컴퓨터 전송설정摆焊매개변수
+
+**명령어：** `0x8330`
+
+| 매개변수名 | 유형 | 설명 | 取值범위 |
+|--------|------|------|----------|
+| num | int | 摆焊파일序号（从1开始） | [1,99] |
+| note | string | 注释 | - |
+| robot | int | 현재로봇 | [1,4] |
+
+#### parameter（摆焊매개변수）
+
+| 매개변수名 | 유형 | 설명 | 取值범위 |
+|--------|------|------|----------|
+| weaving_type | int | 摆动유형 | [0,6]，0:正弦，1:Z字形，2:圆形摆，3:외부 축定点摆，4:L型摆，5:三角摆，6:8字摆 |
+| weaving_freq | int | 摆动频率 | (0,20]Hz |
+| weaving_ampli | int | 摆动幅도 | (0,50]mm |
+| isMove | int | 여부이동/停留 | 0：停留，1：이동 |
+| right_standing_time | int | 右停留时间（选择Z字形摆、외부 축定点摆、L型摆、三角摆时需要설정） | [0,15] |
+| left_standing_time | int | 左停留时间（选择Z字形摆、외부 축定点摆、L型摆、三角摆时需要설정） | [0,15] |
+| init_direction | int | 起始方向 | 0：+1，1：-1 |
+| horizontal_angle | int | 水平偏角 | [-180,180] |
+| vertical_angle | int | 竖直偏角 | [-180,180] |
+| left_angle | int | 左仰角（选择L型摆、三角摆时需要설정） | [0,90] |
+| right_angle | int | 右仰角（选择L型摆、三角摆时需要설정） | [0,90] |
+
+```json
+{
+  "num": 1,
+  "parameter": {
+    "note": "예시",
+    "weaving_type": 0,
+    "weaving_freq": 20,
+    "weaving_ampli": 50,
+    "isMove": 0,
+    "right_standing_time": 15,
+    "left_standing_time": 15,
+    "init_direction": 1,
+    "horizontal_angle": 180,
+    "vertical_angle": 180,
+    "left_angle": 90,
+    "right_angle": 90
+  },
+  "robot": 1
+}
+```
+
+### 4.2 호스트 컴퓨터조회摆焊매개변수
+
+**명령어：** `0x8331`
+
+| 매개변수名 | 유형 | 설명 | 取值범위 |
+|--------|------|------|----------|
+| robot | int | 현재로봇 | [1,4] |
+| num | int | 摆焊파일序号 | [1,99] |
+
+```json
+{
+  "robot": 1,
+  "num": 1
+}
+```
+
+### 4.3 컨트롤러 응답摆焊매개변수
+
+**명령어：** `0x8332`
+
+반환매개변수同"호스트 컴퓨터설정摆焊매개변수"，参见上方表格及예시。
+
+---
+
+## 5. 용접IO
+
+inexbot제어시스템通过숫자化IO포트구현용접프로세스的精确제어，配合模拟信号인터페이스완료용접매개변수的闭环管理。
+
+### 5.1 호스트 컴퓨터설정용접IO인터페이스
+
+**명령어：** `0x8340`
+
+| 매개변수名 | 유형 | 설명 | 取值범위 |
+|--------|------|------|----------|
+| robot | int | 현재로봇 | [1,4] |
+
+#### Din（숫자입력，포트 번호从1开始，0表示없음）
+
+| 매개변수名 | 유형 | 설명 |
+|--------|------|------|
+| arc_success | int | 起弧성공 |
+| seek_success | int | 심 검출성공 |
+| weld_enable | int | 远程용접활성화 |
+| wire_feed | int | 点动送丝 |
+| return_wire | int | 退丝 |
+| remote_gastest | int | 气体检测 |
+
+#### Dout（숫자출력，포트 번호从1开始，0表示없음）
+
+| 매개변수名 | 유형 | 설명 |
+|--------|------|------|
+| arc_signal | int | 起弧성공信号 |
+| wire_feed | int | 点动送丝信号 |
+| wire_feed_back | int | 反向送丝信号 |
+| gas_detection | int | 气体检测信号 |
+| positioning_mode | int | 심 검출모드 |
+| weld_enable | bool | 용접활성화 |
+
+#### Ain（模拟입력，포트 번호从1开始，0表示없음）
+
+| 매개변수名 | 유형 | 설명 |
+|--------|------|------|
+| electric | int | 용접电流 |
+| voltage | int | 용접电压 |
+
+#### Aout（模拟출력，포트 번호从1开始，0表示없음）
+
+| 매개변수名 | 유형 | 설명 |
+|--------|------|------|
+| given_electric_current | int | 给定电流信号 |
+| given_setvoltage | int | 给定电压信号 |
+
+```json
+{
+  "Din": {
+    "arc_success": 0,
+    "seek_success": 0,
+    "weld_enable": 0,
+    "wire_feed": 0,
+    "return_wire": 0,
+    "remote_gastest": 0
+  },
+  "Dout": {
+    "arc_signal": 0,
+    "wire_feed": 0,
+    "wire_feed_back": 0,
+    "gas_detection": 0,
+    "positioning_mode": 0,
+    "weld_enable": true
+  },
+  "Ain": {
+    "electric": 0,
+    "voltage": 0
+  },
+  "Aout": {
+    "given_electric_current": 0,
+    "given_setvoltage": 0
+  },
+  "robot": 1
+}
+```
+
+### 5.2 호스트 컴퓨터조회용접IO인터페이스
+
+**명령어：** `0x8341`
+
+| 매개변수名 | 유형 | 설명 | 取值범위 |
+|--------|------|------|----------|
+| robot | int | 현재로봇 | [1,4] |
+
+```json
+{
+  "robot": 1
+}
+```
+
+### 5.3 컨트롤러回复용접IO인터페이스
+
+**명령어：** `0x8342`
+
+반환매개변수同"호스트 컴퓨터설정용접IO인터페이스"，参见上方表格及예시。
+
+---
+
+## 6. 조회용접상태
+
+### 6.1 호스트 컴퓨터조회용접상태
+
+**명령어：** `0x8350`
+
+| 매개변수名 | 유형 | 설명 | 取值범위 |
+|--------|------|------|----------|
+| robot | int | 로봇 | [1,4] |
+
+```json
+{
+  "robot": 1
+}
+```
+
+### 6.2 컨트롤러 응답용접상태
+
+**명령어：** `0x8351`
+
+| 매개변수名 | 유형 | 설명 | 取值범위 |
+|--------|------|------|----------|
+| robot | int | 로봇 | [1,4] |
+
+#### antiCollision（防碰撞）
+
+| 매개변수名 | 유형 | 설명 |
+|--------|------|------|
+| shieldFlag | bool | 여부屏蔽防碰撞 |
+
+#### 용접상태
+
+| 매개변수名 | 유형 | 설명 | 取值 |
+|--------|------|------|------|
+| weldEnabled | bool | 용접활성화 | - |
+| spotWeldEnabled | bool | 点焊 | - |
+| feedWire | bool | 送丝 | - |
+| aspiration | bool | 送气 | - |
+| returnWire | bool | 退丝 | - |
+| pistolSwitch | int | 焊枪开关상태 | 0表示低(红)，1表示高(绿)，-1表示없음(灰) |
+| arcingSuccess | int | 引弧성공 | 同上 |
+| handWireFeed | int | 手动送丝 | 同上 |
+| weldCurrent | double | 용접电流 | - |
+| weldVoltage | double | 용접电压 | - |
+| weldRunTime | double | 용접时间 | - |
+| weldRunDutyRatio | double | 용접占空比 | - |
+
+```json
+{
+  "antiCollision": {
+    "shieldFlag": true
+  },
+  "weldEnabled": true,
+  "spotWeldEnabled": true,
+  "feedWire": true,
+  "aspiration": true,
+  "returnWire": true,
+  "pistolSwitch": 0,
+  "arcingSuccess": 1,
+  "handWireFeed": -1,
+  "weldCurrent": 1.0,
+  "weldVoltage": 2.0,
+  "weldRunTime": 3.3,
+  "weldRunDutyRatio": 4.4,
+  "robot": 1
+}
+```
+
+---
+
+## 7. 点焊매개변수
+
+### 7.1 호스트 컴퓨터설정点焊매개변수
+
+**명령어：** `0x8352`
+
+설명：사용자可以通过此명령手动설정点焊매개변수，包含：电焊电流、点焊电压、点焊最大时间。
+
+| 매개변수名 | 유형 | 설명 |
+|--------|------|------|
+| spotWeldCurrent | double | 点焊电流 |
+| spotWeldVoltage | double | 点焊电压 |
+| spotWeldMaxTime | double | 点焊最大时间 |
+| robot | int | 로봇号（取值범위[1,4]） |
+
+```json
+{
+  "spotWeldCurrent": 0,
+  "spotWeldVoltage": 0,
+  "spotWeldMaxTime": 0,
+  "robot": 1
+}
+```
+
+---
+
+## 8. 焊机모드
+
+### 8.1 호스트 컴퓨터설정焊机모드
+
+**명령어：** `0x8360`
+
+| 매개변수名 | 유형 | 설명 | 取值범위 |
+|--------|------|------|----------|
+| type | int | 焊机모드 | 1：용접활성화，2：手动起弧，3：手动点焊，4：送丝，5：退丝，6：送气，7：故障复位 |
+| value | int | 여부开启对应的모드 | 1：开启，0：닫기 |
+| robot | int | 현재로봇 | [1,4] |
+
+```json
+{
+  "type": 1,
+  "value": 0,
+  "robot": 1
+}
+```
+
+### 8.2 호스트 컴퓨터조회焊机모드
+
+**명령어：** `0x8361`
+
+| 매개변수名 | 유형 | 설명 | 取值범위 |
+|--------|------|------|----------|
+| robot | int | 현재로봇 | [1,4] |
+
+```json
+{
+  "robot": 1
+}
+```
+
+### 8.3 컨트롤러 응답焊机모드
+
+**명령어：** `0x8362`
+
+| 매개변수名 | 유형 | 설명 |
+|--------|------|------|
+| weldEnabled | bool | 용접활성화 |
+| spotWeldEnabled | bool | 点焊활성화 |
+| spotWeldCurrent | double | 点焊电流 |
+| spotWeldVoltage | double | 点焊电压 |
+| spotWeldMaxTime | double | 点焊最大时间 |
+| newCurrent | double | 설정电流 |
+| newVoltage | double | 설정电压 |
+| feedWire | bool | 送丝 |
+| returnWire | bool | 退丝 |
+| aspiration | bool | 送气 |
+| robot | int | 현재로봇（取值범위[1,4]） |
+
+```json
+{
+  "weldEnabled": true,
+  "spotWeldEnabled": true,
+  "spotWeldCurrent": 33.3,
+  "spotWeldVoltage": -20.2,
+  "spotWeldMaxTime": 0.5,
+  "newCurrent": 33.3,
+  "newVoltage": -20.2,
+  "feedWire": true,
+  "returnWire": true,
+  "aspiration": true,
+  "robot": 1
+}
+```
+
+### 8.4 용접微调整
+
+**명령어：** `0x8363`
+
+| 매개변수名 | 유형 | 설명 | 取值범위 |
+|--------|------|------|----------|
+| name | string | 용접电流/电压 | - |
+| robot | int | 현재로봇 | [1,4] |
+| type | int | 조작유형 | 0：给定值增加，1：给定值减小，2：저장 |
+
+```json
+{
+  "name": "weld_current",
+  "robot": 1,
+  "type": 0
+}
+```
+
+### 8.5 호스트 컴퓨터조회용접微调整结果
+
+**명령어：** `0x8364`
+
+| 매개변수名 | 유형 | 설명 | 取值범위 |
+|--------|------|------|----------|
+| robot | int | 현재로봇 | [1,4] |
+
+```json
+{
+  "robot": 1
+}
+```
+
+### 8.6 컨트롤러 응답조회结果
+
+**명령어：** `0x8365`
+
+| 매개변수名 | 유형 | 설명 |
+|--------|------|------|
+| robot | int | 현재로봇 |
+
+#### weav（摆焊매개변수）
+
+| 매개변수名 | 유형 | 설명 |
+|--------|------|------|
+| left_stay_time | double[] | 左停留时间 |
+| right_stay_time | double[] | 右停留时间 |
+| swing_amplitude | double[] | 摆焊振幅 |
+| swing_frequency | double[] | 摆焊频率 |
+
+#### weld（용접매개변수）
+
+| 매개변수名 | 유형 | 설명 |
+|--------|------|------|
+| weld_current | double[] | 용접电流 |
+| weld_voltage | double[] | 용접电压 |
+
+```json
+{
+  "robot": 1,
+  "weav": {
+    "left_stay_time": [0.0, 1.0],
+    "right_stay_time": [0.0, 1.0],
+    "swing_amplitude": [0.0, 1.0],
+    "swing_frequency": [0.0, 1.0]
+  },
+  "weld": {
+    "weld_current": [0.0, 1.0],
+    "weld_voltage": [0.0, 1.0]
+  }
+}
+```
+
+---
+
+## 9. 焊机설정
+
+### 9.1 호스트 컴퓨터설정焊机
+
+**명령어：** `0x8370`
+
+설명：사용자可以通过以下명령어설정焊机。
+
+| 매개변수名 | 유형 | 설명 | 取值범위 |
+|--------|------|------|----------|
+| controlMode | int | 제어모드 | 0:模拟제어，1:숫자제어 |
+| monufactor | string | 焊机厂家 | 纳博特、麦格米特、深威智能、奥太、美佳尼克、瑞凌、肯倍IF15、EWM、福尼斯 |
+| weldingMode | int | 焊机工作모드 | 0：分别，1：一元化 |
+| commMode | string | 통신方式 | CAN、ModBus RTU、Modbus TCP |
+| slaveIP | string | 从站IP（통신方式为Modbus TCP时需要설정） | - |
+| slaveid | int | 从站ID（통신方式为ModBus RTU时需要설정） | - |
+| port | int | 포트 번호（통신方式为ModBus RTU、Modbus TCP时需要설정） | (0,65535] |
+| baudRate | int | 波特率（통신方式为ModBus RTU时需要설정） | - |
+| identifiedWelder | string | 已识别焊机 | - |
+| CANPort | string | CAN통신下的포트（통신方式为CAN时需要설정） | - |
+| CANPortSum | int | CAN통신下的포트数量 | - |
+| welderNumber | int | 焊机编号 | - |
+| monufactorList | string[] | 선택择的焊机厂家清单 | 纳博特、麦格米特、深威智能、奥太、美佳尼克、瑞凌、肯倍IF15、EWM、福尼斯、和宗 |
+| weldingvoltageCurve | int[] | 용접电压曲线 | - |
+
+#### RILAND（瑞凌焊机매개변수）
+
+| 매개변수名 | 유형 | 설명 |
+|--------|------|------|
+| materialWireDiameterGasSelect | int | 材料/丝径/气体选择 |
+
+```json
+{
+  "welder": [
+    {
+      "controlMode": 0,
+      "monufactor": "麦格米特",
+      "weldingMode": 0,
+      "commMode": "CAN",
+      "slaveIP": "192.168.1.14",
+      "slaveid": 1,
+      "port": 2,
+      "baudRate": 38400,
+      "identifiedWelder": "麦格米特1",
+      "CANPort": 1,
+      "CANPortSum": 0,
+      "welderNumber": 1,
+      "monufactorList": ["纳博特","麦格米特","深威智能","奥太","美佳尼克","瑞凌","肯倍IF15","EWM","福尼斯","和宗"],
+      "weldingvoltageCurve": [0],
+      "RILAND": {
+        "materialWireDiameterGasSelect": 1
+      }
+    }
+  ]
+}
+```
+
+### 9.2 호스트 컴퓨터조회焊机选择
+
+**명령어：** `0x8371`
+
+### 9.3 컨트롤러回复焊机选择
+
+**명령어：** `0x8372`
+
+반환매개변수同"호스트 컴퓨터설정焊机"，参见上方表格及예시。
+
+### 9.4 焊机통신상태조회
+
+**명령어：** `0x8373`
+
+### 9.5 컨트롤러 응답焊机통신상태
+
+**명령어：** `0x8374`
+
+| 매개변수名 | 유형 | 설명 | 取值범위 |
+|--------|------|------|----------|
+| welder[].status | int | 焊机통신상태 | 0：未통신，1：已통신 |
+
+```json
+{
+  "welder": [
+    {
+      "status": 0
+    }
+  ]
+}
+```
+
+### 9.6 호스트 컴퓨터조회용접매개변수、摆焊매개변수中的注释
+
+**명령어：** `0x8380`
+
+| 매개변수名 | 유형 | 설명 | 取值범위 |
+|--------|------|------|----------|
+| finishinit | bool | 컨트롤러초기화완료标志 | true：완료，false：未완료 |
+| robot | int | 현재로봇 | [1,4] |
+
+```json
+{
+  "finishinit": true,
+  "robot": 1
+}
+```
+
+### 9.7 컨트롤러 응답조회结果
+
+**명령어：** `0x8381`
+
+| 매개변수名 | 유형 | 설명 |
+|--------|------|------|
+| weldNotes | string[] | 용접매개변수注释 |
+| weavParameterNotes | string[] | 摆焊매개변수注释 |
+| robot | int | 현재로봇 |
+
+```json
+{
+  "robot": 1,
+  "weldNotes": ["112", "223", "", ""],
+  "weavParameterNotes": ["112", "223", "", ""]
+}
+```
+
+---
+
+## 10. 多层多道焊
+
+### 10.1 多层多道용접매개변수설정
+
+**명령어：** `0x8390`
+
+| 매개변수名 | 유형 | 설명 | 取值범위 |
+|--------|------|------|----------|
+| num | int | 프로세스号 | [1,999] |
+| robot | int | 현재로봇 | [1,4] |
+| sum | int | 焊道总数 | [1,999] |
+
+#### multipass（多层多道매개변수）
+
+| 매개변수名 | 유형 | 설명 | 取值범위 |
+|--------|------|------|----------|
+| note | string | 注释 | - |
+| weld_bead_num | int | 焊道数 | [1,99] |
+
+```json
+{
+  "multipass": [
+    {
+      "note": "",
+      "weld_bead_num": 6
+    }
+  ],
+  "num": 1,
+  "robot": 1,
+  "sum": 100
+}
+```
+
+### 10.2 호스트 컴퓨터조회多层多道焊道매개변수
+
+**명령어：** `0x8391`
+
+| 매개변수名 | 유형 | 설명 | 取值범위 |
+|--------|------|------|----------|
+| num | int | 프로세스号 | [1,999] |
+| robot | int | 현재로봇 | [1,4] |
+
+```json
+{
+  "num": 1,
+  "robot": 1
+}
+```
+
+### 10.3 컨트롤러回复多层多道焊道매개변수
+
+**명령어：** `0x8392`
+
+반환매개변수同"多层多道용접매개변수설정"，参见上方表格及예시。
+
+### 10.4 호스트 컴퓨터설정多层多道焊道구성
+
+**명령어：** `0x8393`
+
+| 매개변수名 | 유형 | 설명 | 取值범위 |
+|--------|------|------|----------|
+| num | int | 프로세스号 | [1,999] |
+| robot | int | 현재로봇 | [1,4] |
+
+#### weld_bead（焊道구성）
+
+| 매개변수名 | 유형 | 설명 | 取值범위 |
+|--------|------|------|----------|
+| head_indent | double | 头部缩进 | [-1000,1000]mm |
+| head_multi_indent | bool | 头部倍数缩进활성화 | - |
+| left_right_offset | double | 左右偏移 | [-1000,1000]mm |
+| push_angle | double | 推角 | [-180,180] |
+| tail_indent | double | 尾部缩进 | [-1000,1000]mm |
+| tail_multi_indent | bool | 尾部倍数缩进활성화 | - |
+| tilt_angle | double | 倾斜角 | [-180,180] |
+| up_down_offset | double | 高低偏移 | [-1000,1000]mm |
+| weld_dir | int | 용접方向 | 0：+1，1：-1 |
+
+```json
+{
+  "num": 1,
+  "robot": 1,
+  "weld_bead": [
+    {
+      "head_indent": 0.0,
+      "head_multi_indent": false,
+      "left_right_offset": 0.0,
+      "push_angle": 0.0,
+      "tail_indent": 0.0,
+      "tail_multi_indent": false,
+      "tilt_angle": 0.0,
+      "up_down_offset": 0.0,
+      "weld_dir": 0
+    }
+  ]
+}
+```
+
+### 10.5 호스트 컴퓨터조회多层多道焊道구성
+
+**명령어：** `0x8394`
+
+| 매개변수名 | 유형 | 설명 | 取值범위 |
+|--------|------|------|----------|
+| num | int | 프로세스号 | [1,999] |
+| robot | int | 현재로봇 | [1,4] |
+
+```json
+{
+  "num": 1,
+  "robot": 1
+}
+```
+
+### 10.6 컨트롤러回复多层多道焊道구성
+
+**명령어：** `0x8395`
+
+반환매개변수同"호스트 컴퓨터설정多层多道焊道구성"，参见上方表格及예시。
+
+### 10.7 多层多焊道매개변수清空
+
+**명령어：** `0x8396`
+
+| 매개변수名 | 유형 | 설명 | 取值범위 |
+|--------|------|------|----------|
+| num | int | 프로세스号 | [1,999] |
+| robot | int | 현재로봇 | [1,4] |
+
+```json
+{
+  "num": 1,
+  "robot": 1
+}
+```
+
+### 10.8 多层多焊道매개변수복사
+
+**명령어：** `0x8397`
+
+| 매개변수名 | 유형 | 설명 | 取值범위 |
+|--------|------|------|----------|
+| num_source | int | 복사的프로세스号 | - |
+| num_target | int | 복사到的프로세스号 | - |
+| robot | int | 현재로봇 | [1,4] |
+
+```json
+{
+  "num_source": 1,
+  "num_target": 2,
+  "robot": 1
+}
+```
+
+### 10.9 多层多焊道매개변수增加
+
+**명령어：** `0x8398`
+
+| 매개변수名 | 유형 | 설명 | 取值범위 |
+|--------|------|------|----------|
+| robot | int | 현재로봇 | [1,4] |
+
+```json
+{
+  "robot": 1
+}
+```
+
+---
+
+## 11. 焊缝데이터库
+
+### 11.1 储存데이터到焊缝데이터库
+
+**명령어：** `0x83A0`
+
+| 매개변수名 | 유형 | 설명 | 取值범위 |
+|--------|------|------|----------|
+| robot | int | 로봇号 | [1,4] |
+| weld_type | string | 焊缝유형 | - |
+| fillet_weld_leg_1 | double | 左焊脚高 | - |
+| fillet_weld_leg_2 | double | 右焊脚高 | - |
+| fillet_weld_leg_angle | double | 两条焊脚夹角 | [-180,180] |
+| weld_parameter_mode | string | 焊机工作모드 | "一元化"或"分别" |
+| welding_current | double | 용접电流 | - |
+| welding_voltage | double | 용접电压 | - |
+| welding_speed | double | 용접속도 | - |
+| weld_bead_layer | int | 焊道总层数 | [1,99] |
+| weld_bead_number | int | 焊道总道数 | [1,99] |
+
+#### weld_bead（焊道매개변수）
+
+| 매개변수名 | 유형 | 설명 | 取值범위 |
+|--------|------|------|----------|
+| left_right_offset | double | 第i道焊缝左右偏移 | [-1000,1000] |
+| up_down_offset | double | 第i道焊缝高低偏移 | [-1000,1000] |
+
+```json
+{
+  "robot": 1,
+  "weld_type": "V缝",
+  "fillet_weld_leg_1": 10,
+  "fillet_weld_leg_2": 10,
+  "fillet_weld_leg_angle": 90,
+  "weld_parameter_mode": "一元化",
+  "welding_current": 160,
+  "welding_voltage": 23,
+  "welding_speed": 6,
+  "weld_bead_layer": 4,
+  "weld_bead_number": 10,
+  "weld_bead": [
+    {
+      "left_right_offset": 0.0,
+      "up_down_offset": 0.0
+    }
+  ]
+}
+```
+
+### 11.2 匹配焊缝데이터库中的데이터
+
+**명령어：** `0x83A1`
+
+| 매개변수名 | 유형 | 설명 | 取值범위 |
+|--------|------|------|----------|
+| robot | int | 로봇号 | [1,4] |
+| weld_type | string | 焊缝유형 | - |
+| fillet_weld_leg_1 | double | 左焊脚高 | - |
+| fillet_weld_leg_2 | double | 右焊脚高 | - |
+| fillet_weld_leg_angle | double | 两条焊脚夹角 | [-180,180] |
+| weld_parameter_mode | string | 焊机工作모드 | "一元化"或"分别" |
+| welding_current | double | 용접电流 | - |
+| welding_voltage | double | 용접电压 | - |
+| welding_speed | double | 용접속도 | - |
+
+```json
+{
+  "robot": 1,
+  "weld_type": "V缝",
+  "fillet_weld_leg_1": 10,
+  "fillet_weld_leg_2": 10,
+  "fillet_weld_leg_angle": 90,
+  "weld_parameter_mode": "一元化",
+  "welding_current": 160,
+  "welding_voltage": 23,
+  "welding_speed": 6
+}
+```
+
+### 11.3 컨트롤러回复데이터库匹配结果
+
+**명령어：** `0x83A2`
+
+설명：回复데이터库中匹配项的焊道总层数、总道数及每一层焊道数。
+
+| 매개변수名 | 유형 | 설명 |
+|--------|------|------|
+| weld_database | array | 匹配데이터库 |
+| total_layer | int | 第i项匹配项存在的焊道总层数 |
+| total_bead | int | 第i项匹配项存在的焊道总道数 |
+| layer | array | 焊道层信息 |
+| number | int | 第i项匹配项存在的第k层焊道数 |
+
+```json
+{
+  "weld_database": [
+    {
+      "total_layer": 4,
+      "total_bead": 10,
+      "layer": [
+        {
+          "number": 1
+        }
+      ]
+    }
+  ]
+}
+```
+
+---
+
+## 12. 相贯线
+
+### 12.1 좌표캘리브레이션설정
+
+**명령어：** `0x83B0`
+
+| 매개변수名 | 유형 | 설명 | 取值범위 |
+|--------|------|------|----------|
+| workPieceNum | int | 프로세스号 | [1,3] |
+
+```json
+{
+  "workPieceNum": 1
+}
+```
+
+### 12.2 호스트 컴퓨터조회좌표캘리브레이션
+
+**명령어：** `0x83B1`
+
+| 매개변수名 | 유형 | 설명 | 取值범위 |
+|--------|------|------|----------|
+| workPieceNum | int | 프로세스号 | [1,3] |
+| pointNum | int | 캘리브레이션点（共需要6个캘리브레이션点） | [0,5] |
+
+```json
+{
+  "workPieceNum": 1,
+  "pointNum": 0
+}
+```
+
+### 12.3 컨트롤러回复좌표캘리브레이션
+
+**명령어：** `0x83B2`
+
+| 매개변수名 | 유형 | 설명 | 取值범위 |
+|--------|------|------|----------|
+| workPieceNum | int | 프로세스号 | [1,3] |
+| pointNum | int | 캘리브레이션点（共需要6个캘리브레이션点） | [0,5] |
+| pos | double[] | 该캘리브레이션点的좌표（X,Y,Z,A,B,C） | - |
+
+```json
+{
+  "workPieceNum": 1,
+  "pointNum": 0,
+  "pos": [0, 0, 0, 0, 0, 0]
+}
+```
+
+### 12.4 回复相贯线설정计算结果
+
+**명령어：** `0x83B3`
+
+| 매개변수名 | 유형 | 설명 | 取值범위 |
+|--------|------|------|----------|
+| result | bool | 여부有计算结果 | true：有，false：没有 |
+| workPieceNum | int | 프로세스号 | [1,3] |
+
+#### cylinderIntersectLineParam（相贯线매개변수）
+
+| 매개변수名 | 유형 | 설명 |
+|--------|------|------|
+| R | double | 下圆柱半径 |
+| r | double | 上圆柱半径 |
+| e | double | 中心축距 |
+| alpha | double | 中心축夹角 |
+
+#### WorkPieceCoord
+
+| 매개변수名 | 유형 | 설명 |
+|--------|------|------|
+| - | double[] | X，Y，Z，A，B，C值 |
+
+```json
+{
+  "result": true,
+  "workPieceNum": 1,
+  "cylinderIntersectLineParam": {
+    "R": 0,
+    "r": 0,
+    "e": 0,
+    "alpha": 0
+  },
+  "WorkPieceCoord": [0, 0, 0, 0, 0, 0]
+}
+```
+
+### 12.5 相贯线공작물매개변수설정
+
+**명령어：** `0x83B4`
+
+| 매개변수名 | 유형 | 설명 | 取值범위 |
+|--------|------|------|----------|
+| workPieceNum | int | 프로세스号 | [1,3] |
+
+#### cylinderIntersectLineParam（相贯线매개변수）
+
+| 매개변수名 | 유형 | 설명 |
+|--------|------|------|
+| R | double | 下圆柱半径 |
+| r | double | 上圆柱半径 |
+| e | double | 中心축距 |
+| alpha | double | 中心축夹角 |
+
+#### WorkPieceCoord
+
+| 매개변수名 | 유형 | 설명 |
+|--------|------|------|
+| - | double[] | X，Y，Z，A，B，C值 |
+
+```json
+{
+  "workPieceNum": 1,
+  "cylinderIntersectLineParam": {
+    "R": 0,
+    "r": 0,
+    "e": 0,
+    "alpha": 0
+  },
+  "WorkPieceCoord": [0, 0, 0, 0, 0, 0]
+}
+```
+
+### 12.6 호스트 컴퓨터조회相贯线공작물매개변수
+
+**명령어：** `0x83B5`
+
+| 매개변수名 | 유형 | 설명 | 取值범위 |
+|--------|------|------|----------|
+| workPieceNum | int | 프로세스号 | [1,3] |
+
+```json
+{
+  "workPieceNum": 1
+}
+```
+
+### 12.7 컨트롤러回复相贯线공작물매개변수
+
+**명령어：** `0x83B6`
+
+반환매개변수同"相贯线공작물매개변수설정"，参见上方表格及예시。
+
+### 12.8 相贯线焊枪매개변수설정
+
+**명령어：** `0x83B7`
+
+| 매개변수名 | 유형 | 설명 | 取值범위 |
+|--------|------|------|----------|
+| workPieceNum | int | 프로세스号 | [1,3] |
+
+#### WeldingGunParam（焊枪매개변수）
+
+| 매개변수名 | 유형 | 설명 | 取值범위 |
+|--------|------|------|----------|
+| alpha | double | - | [-60,60] |
+| beta | double | - | [-60,60] |
+| gama | double | - | [-180,180] |
+| pos_hf_hq | double[] | 第三个量필수大于0 | - |
+| startAngle | double | - | [-180,180] |
+| totalAngle | double | - | [0,360] |
+
+```json
+{
+  "workPieceNum": 1,
+  "WeldingGunParam": {
+    "alpha": 0,
+    "beta": 0,
+    "gama": 0,
+    "pos_hf_hq": [0, 0, 10]
+  },
+  "startAngle": 0,
+  "totalAngle": 360
+}
+```
+
+### 12.9 호스트 컴퓨터조회相贯线焊枪매개변수
+
+**명령어：** `0x83B8`
+
+| 매개변수名 | 유형 | 설명 | 取值범위 |
+|--------|------|------|----------|
+| workPieceNum | int | 프로세스号 | [1,3] |
+
+```json
+{
+  "workPieceNum": 1
+}
+```
+
+### 12.10 컨트롤러回复相贯线焊枪매개변수
+
+**명령어：** `0x83B9`
+
+반환매개변수同"相贯线焊枪매개변수설정"，参见上方表格及예시。
+
+### 12.11 호스트 컴퓨터설정有없음变位机
+
+**명령어：** `0x83BA`
+
+| 매개변수名 | 유형 | 설명 | 取值범위 |
+|--------|------|------|----------|
+| workPieceNum | int | 프로세스号 | [1,3] |
+| withSyncPosFlag | int | 여부有없음变位机 | 0：없음变位机，1：有变位机 |
+
+```json
+{
+  "workPieceNum": 1,
+  "withSyncPosFlag": 1
+}
+```
+
+### 12.12 호스트 컴퓨터조회有없음变位机
+
+**명령어：** `0x83BB`
+
+| 매개변수名 | 유형 | 설명 | 取值범위 |
+|--------|------|------|----------|
+| workPieceNum | int | 프로세스号 | [1,3] |
+
+```json
+{
+  "workPieceNum": 1
+}
+```
+
+### 12.13 컨트롤러回复有없음变位机
+
+**명령어：** `0x83BC`
+
+| 매개변수名 | 유형 | 설명 | 取值범위 |
+|--------|------|------|----------|
+| workPieceNum | int | 프로세스号 | [1,3] |
+| withSyncPosFlag | int | 여부有없음变位机 | 0：없음变位机，1：有变位机 |
+
+```json
+{
+  "workPieceNum": 1,
+  "withSyncPosFlag": 1
+}
+```

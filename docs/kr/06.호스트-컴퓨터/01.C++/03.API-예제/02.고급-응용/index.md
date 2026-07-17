@@ -6,8 +6,8 @@
 
 | 예시 | 설명 |
 |------|------|
-| 사용servoJ进行关节控制.md | 관절 공간 실시간 추적, open_servoJ / set_servoJ_pos / stop_servoJ |
-| 使用-star_servo_point_position_motion_control()-来进行伺服控制运动.md | 서보 제어 모드, 주기별로 포인트 전송 |
+| 사용servoJ进줄관절제어.md | 관절 공간 실시간 추적, open_servoJ / set_servoJ_pos / stop_servoJ |
+| 使用-star_servo_point_position_motion_control()-来进줄서보제어모션.md | 서보 제어 모드, 주기별로 포인트 전송 |
 
 ## servoJ 관절 제어
 
