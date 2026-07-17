@@ -90,8 +90,8 @@ const docsDir = join(process.cwd(), 'docs')
 
 // 中文侧边栏（排除 en 子目录）
 const zhSidebar = await buildSidebar(docsDir, '', ['en'])
-// 英文侧边栏
-const enSidebar = await buildSidebar(join(docsDir, 'en'))
+// 英文侧边栏（需要 /en 前缀）
+const enSidebar = await buildSidebar(join(docsDir, 'en'), '/en')
 
 // 搜索配置
 function searchOptions(useChineseTokenizer: boolean) {
@@ -111,10 +111,49 @@ function searchOptions(useChineseTokenizer: boolean) {
 }
 
 export default defineConfig({
+  srcDir: "./docs",
   ignoreDeadLinks: true,
   outDir: "./dist",
+  head: [
+    [
+      'script',
+      {},
+      `(function(){
+        var KEY='vp-lang';
+        var saved=localStorage.getItem(KEY);
+        var path=location.pathname;
+        // 用户手动切换过语言，尊重选择
+        if(saved==='en' && !path.match(/^\\/en(\\/|$)/)){
+          location.replace('/en/'+path.replace(/^\\/docs\\/?(en\\/)?/,''));
+          return;
+        }
+        if(saved==='zh' && path.match(/^\\/en(\\/|$)/)){
+          location.replace('/'+path.replace(/^\\/en\\/?/,''));
+          return;
+        }
+        // 首次访问，根据浏览器语言自动跳转
+        if(!saved && !path.match(/^\\/en(\\/|$)/)){
+          var lang=(navigator.language||'').toLowerCase();
+          if(!lang.startsWith('zh')){
+            localStorage.setItem(KEY,'en');
+            location.replace('/en/');
+          }else{
+            localStorage.setItem(KEY,'zh');
+          }
+        }
+      })();`
+    ]
+  ],
+  transformPageData(pageData) {
+    // 在页面数据中注入语言标记，供前端使用
+    const isEn = pageData.relativePath.startsWith('en/')
+    pageData.lang = isEn ? 'en' : 'zh'
+  },
   sitemap: {
     hostname: 'https://open.inexbot.com'
+  },
+  themeConfig: {
+    i18nRouting: false
   },
   locales: {
     root: {
