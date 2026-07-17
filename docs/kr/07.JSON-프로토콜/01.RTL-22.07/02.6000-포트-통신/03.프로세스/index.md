@@ -12,7 +12,7 @@
 | [[스크류드라이빙프로세스](./03.스크류드라이빙.md) | 0x5731~0x5739 | 拧紧/拧松매개변수、IO상태、잠금 결과 |
 | [[스프레이프로세스](./07.스프레이.md) | 0x4701~0x4718 | 아날로그설정、숫자量설정、궤적매개변수、手动조작 |
 | [[그라인딩프로세스](./02.그라인딩.md) | 0x4601~0x4603 | 그라인딩매개변수설정与조회 |
-| [[팔레타이징프로세스](./01.팔레타이징.md) | 0x4201~0x421F | 抓手매개변수、팔레트매개변수、위치매개변수、공작물매개변수、重叠모드、平面모드 |
+| [[팔레타이징프로세스](./01.팔레타이징.md) | 0x4201~0x421F | 抓手매개변수、팔레트매개변수、위치매개변수、공작물매개변수、重叠모드、평면모드 |
 | [[비전프로세스](./04.비전.md) | 0x4101~0x4117 | 비전매개변수、위치매개변수、调试포인트、캘리브레이션、拍照 |
 | [[심 추적프로세스](./10.심-추적.md) | 0x4130~0x4171 | 레이저器매개변수、레이저器캘리브레이션、심 검출유형、추적유형、레이저추적매개변수 |
 | [[컨베이어추적](./09.컨베이어-추적.md) | 0x4801~0x4823 | 컨베이어매개변수、매개변수识别、实时조회、좌표계캘리브레이션、传센서위치캘리브레이션 |
@@ -81,8 +81,8 @@
 | 0x4714 | SPRAY_CUR_ANALOG_SET | 설정아날로그 |
 | 0x4715 | SPRAY_CUR_ANALOG_INQUIRE | 조회아날로그 |
 | 0x4716 | SPRAY_CUR_ANALOG_RESPOND | 반환아날로그 |
-| 0x4717 | SPRAY_CUR_OILTIME_SET | 설정油量测试时间 |
-| 0x4718 | SPRAY_CUR_OILTIME_INQUIRE | 조회油量测试时间 |
+| 0x4717 | SPRAY_CUR_OILTIME_SET | 설정油量测试시간 |
+| 0x4718 | SPRAY_CUR_OILTIME_INQUIRE | 조회油量测试시간 |
 
 ### 그라인딩프로세스 (0x4600)
 
@@ -114,9 +114,9 @@
 | 0x4210 | PAL_OVERLAP_PARM_SET | 설정重叠모드매개변수 |
 | 0x4211 | PAL_OVERLAP_PARM_INQUIRE | 조회重叠모드매개변수 |
 | 0x4212 | PAL_OVERLAP_PARM_RESPOND | 반환重叠모드매개변수 |
-| 0x4213 | PAL_PLANE_PARM_SET | 설정平面모드매개변수 |
-| 0x4214 | PAL_PLANE_PARM_INQUIRE | 조회平面모드매개변수 |
-| 0x4215 | PAL_PLANE_PARM_RESPOND | 반환平面모드매개변수 |
+| 0x4213 | PAL_PLANE_PARM_SET | 설정평면모드매개변수 |
+| 0x4214 | PAL_PLANE_PARM_INQUIRE | 조회평면모드매개변수 |
+| 0x4215 | PAL_PLANE_PARM_RESPOND | 반환평면모드매개변수 |
 
 ### 비전프로세스 (0x4100)
 
@@ -130,7 +130,7 @@
 | 0x4106 | VISION_POS_PARAMETER_RESPOND | 반환비전위치매개변수 |
 | 0x4107 | VISION_DEBUGGING_POS_INQUIRE | 조회비전调试포인트열表 |
 | 0x4108 | VISION_DEBUGGING_POS_RESPOND | 반환调试포인트열表 |
-| 0x4109 | VISION_DEBUGGING_POS_CLEAR | 清空调试포인트열表 |
+| 0x4109 | VISION_DEBUGGING_POS_CLEAR | 비우기调试포인트열表 |
 | 0x410A | VISION_DEBUGGING_TAKE_PICTURE | 拍照 |
 | 0x410B | VISION_DEBUGGING_CALCULATE | 计算偏移 |
 | 0x410C | VISION_DEBUGGING_POS_MOVE | 모션至该点 |
@@ -154,14 +154,14 @@
 | 0x4134 | LOCATING_SENSORTYPE_INQUIRE | 조회심 검출유형 |
 | 0x4135 | LOCATING_SENSORTYPE_RESPOND | 반환심 검출유형 |
 | 0x4136 | TRACK_LASER_TRACKPARAM_SET | 설정레이저추적매개변수表 |
-| 0x4140 | SENSOR_LASER_CALIBRATE_INQUIRE | 조회캘리브레이션记录 |
-| 0x4141 | SENSOR_LASER_CALIBRATE_RESPOND | 반환캘리브레이션记录 |
-| 0x4142 | SENSOR_LASER_CALIBRATE_RECORD | 记录캘리브레이션点 |
-| 0x4143 | SENSOR_LASER_CALIBRATE_RECORD_RESPOND | 반환记录결과 |
+| 0x4140 | SENSOR_LASER_CALIBRATE_INQUIRE | 조회캘리브레이션기록 |
+| 0x4141 | SENSOR_LASER_CALIBRATE_RESPOND | 반환캘리브레이션기록 |
+| 0x4142 | SENSOR_LASER_CALIBRATE_RECORD | 기록캘리브레이션点 |
+| 0x4143 | SENSOR_LASER_CALIBRATE_RECORD_RESPOND | 반환기록결과 |
 | 0x4144 | SENSOR_LASER_CALIBRATE_MOVETO | 모션到캘리브레이션点 |
 | 0x4145 | SENSOR_LASER_CALIBRATE_CALCULATE | 计算캘리브레이션결과 |
 | 0x4146 | SENSOR_LASER_CALIBRATE_CALCULATE_RESPOND | 반환计算결과 |
-| 0x4147 | SENSOR_LASER_CALIBRATE_CLEAR | 清空캘리브레이션记录 |
+| 0x4147 | SENSOR_LASER_CALIBRATE_CLEAR | 비우기캘리브레이션기록 |
 | 0x4148 | SENSOR_LASER_CALIBRATE_CANCEL | 取消캘리브레이션 |
 | 0x4149 | SENSOR_LASER_CALIBRATE_RESULT_INQUIRE | 조회레이저器여부캘리브레이션 |
 | 0x414A | SENSOR_LASER_CALIBRATE_RESULT_RESPOND | 반환캘리브레이션결과 |
@@ -187,7 +187,7 @@
 | 0x4811 | TRACK_CONVEYOR_USERCOORD_CALIBRATION | 캘리브레이션取좌표 |
 | 0x4812 | RACK_CONVEYOR_CALIBRATION_INQUIRE | 조회已캘리브레이션的点좌표 |
 | 0x4813 | TRACK_CONVEYOR_CALIBRATION_RESPOND | 반환캘리브레이션的点좌표 |
-| 0x4814 | TRACK_CONVEYOR_CALIBRATION_CLEAR | 清空캘리브레이션值 |
+| 0x4814 | TRACK_CONVEYOR_CALIBRATION_CLEAR | 비우기캘리브레이션值 |
 | 0x4815 | TRACK_CONVEYOR_CALIBRATION_CANCEL | 取消캘리브레이션 |
 | 0x4816 | TRACK_CONVEYOR_SENSORPOS_INQUIRE | 조회传센서위치 |
 | 0x4817 | TRACK_CONVEYOR_SENSORPOS_RESPOND | 반환传센서위치 |
@@ -213,14 +213,14 @@
 | 0x800B | PUNCH_RESPOND_SHIELD_CHECK_RUN_WITHOUT_PIECE_PUNCH_ENABLE | 반환스탬핑활성화 |
 | 0x800C | PUNCH_SINGLE_RUN_TEST | 单机试실행 |
 | 0x800D | PUNCH_ESCAPE_FROM_MOULD | 模内逃跑测试 |
-| 0x800E | PUNCH_SET_FIXTURE_ACTION | 설정治具动作 |
-| 0x800F | PUNCH_INQUIRE_FIXTURE_ACTION | 조회治具动作 |
-| 0x8010 | PUNCH_RESPOND_FIXTURE_ACTION | 반환治具动作 |
+| 0x800E | PUNCH_SET_FIXTURE_ACTION | 설정지그动作 |
+| 0x800F | PUNCH_INQUIRE_FIXTURE_ACTION | 조회지그动作 |
+| 0x8010 | PUNCH_RESPOND_FIXTURE_ACTION | 반환지그动作 |
 | 0x8011 | PUNCH_ONLINE_STATUS_RESET | 联机상태리셋 |
 | 0x8012 | PUNCH_JOBFILE_OPERATION | 일시정지/시작/정지 |
 | 0x8013 | PUNCH_INQUIRE_RUN_STATUS | 실행주기조회 |
 | 0x8014 | PUNCH_RESPOND_RUN_STATUS | 반환실행상태 |
-| 0x8015 | PUNCH_SEND_ERROR_INFO | 전송오류弹窗信息 |
+| 0x8015 | PUNCH_SEND_ERROR_INFO | 전송오류弹窗정보 |
 | 0x8016 | PUNCH_RECEIVE_ERROR_DEAL | 수신弹窗按键处理 |
 | 0x8017 | PUNCH_CHOOSE_CRAFT_NUM | 选中프로세스号 |
 | 0x8018 | PUNCH_APPLY_TO_ONLINE | 应用到联机 |
@@ -301,6 +301,6 @@
 ## 주의사항
 
 1. **메시지ID형식**：所有메시지ID使用十六进制형식，如 `0x4001`
-2. **필수매개변수**：매개변수 설명中的"필수"열表示该매개변수여부필수提供
+2. **필수매개변수**：매개변수 설명中的"필수"열의미该매개변수여부필수提供
 3. **데이터유형**：详细매개변수유형和설명请参阅各프로세스的专门文档
 4. **代码예시**：各文档中的JSON예시均可直接使用

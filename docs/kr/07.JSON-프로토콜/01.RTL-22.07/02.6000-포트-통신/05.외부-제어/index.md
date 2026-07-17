@@ -123,9 +123,9 @@
 |------|------|------|
 | robot | int | 로봇号 |
 | remoteDefaultSpeed | int | 원격 모드속도，범위 1~100 |
-| reserveIsStart | int | 预约并시작：`1` 시작，`0` 닫기 |
-| reserveTrgTime | int | 确认시작时间，범위 200~1000ms |
-| waitingTime | int | IO 重复触发时间 |
+| reserveIsStart | int | 예약并시작：`1` 시작，`0` 닫기 |
+| reserveTrgTime | int | 确认시작시간，범위 200~1000ms |
+| waitingTime | int | IO 重复触发시간 |
 
 요청包体：
 
@@ -334,14 +334,14 @@ Lua파일存放在 `~/robot/job/lua` 디렉터리内。
 
 | 매개변수分클래스 | 매개변수名 | 유형 | 필수 | 설명 |
 |----------|--------|------|------|------|
-| RTU | baudrate | string | 예 | Modbus RTU 通信的波特率 |
+| RTU | baudrate | string | 예 | Modbus RTU 通信的Baud Rate |
 | RTU | port | int | 예 | Modbus RTU 通信的串口号 |
 | RTU | slaveId | int | 예 | Modbus RTU 通信的从设备 ID |
 | TCP | IP | string | 예 | Modbus TCP 通信的서버 IP 주소 |
 | TCP | port | int | 예 | Modbus TCP 通信的포트 번호 |
-| 범용 | master-slave | string | 예 | 主从모드：0 表示主모드，1 表示从모드 |
+| 범용 | master-slave | string | 예 | 主从모드：0 의미主모드，1 의미从모드 |
 | 범용 | scancycle | int | 예 | 扫描주기，단위：ms |
-| 범용 | stoprun | bool | 예 | 실행정지标志：0 表示未정지，1 表示정지 |
+| 범용 | stoprun | bool | 예 | 실행정지标志：0 의미未정지，1 의미정지 |
 | 범용 | type | string | 예 | 通信유형，선택 RTU 或 TCP |
 
 ---
@@ -377,15 +377,15 @@ Lua파일存放在 `~/robot/job/lua` 디렉터리内。
 
 | 매개변수分클래스 | 매개변수名 | 유형 | 필수 | 설명 |
 |----------|--------|------|------|------|
-| RTU | baudrate | string | 예 | Modbus RTU 通信的波特率 |
+| RTU | baudrate | string | 예 | Modbus RTU 通信的Baud Rate |
 | RTU | port | int | 예 | Modbus RTU 通信的串口号 |
 | RTU | slaveId | int | 예 | Modbus RTU 通信的从设备 ID |
 | TCP | IP | string | 예 | Modbus TCP 通信的서버 IP 주소 |
 | TCP | port | int | 예 | Modbus TCP 通信的포트 번호 |
 | 범용 | enable | bool | 예 | 여부启用 Modbus 通信 |
-| 범용 | master-slave | string | 예 | 主从모드：0 表示主모드，1 表示从모드 |
+| 범용 | master-slave | string | 예 | 主从모드：0 의미主모드，1 의미从모드 |
 | 범용 | scancycle | int | 예 | 扫描주기，단위：ms |
-| 범용 | stoprun | bool | 예 | 실행정지标志：0 表示未정지，1 表示정지 |
+| 범용 | stoprun | bool | 예 | 실행정지标志：0 의미未정지，1 의미정지 |
 | 범용 | type | string | 예 | 通信유형，선택 RTU 或 TCP |
 
 ---
@@ -406,7 +406,7 @@ Lua파일存放在 `~/robot/job/lua` 디렉터리内。
 
 ---
 
-### 7. 설정 Modbus 하트비트检测
+### 7. 설정 Modbus 하트비트감지
 
 **명령어**: `0x5715` `MODBUS_CHECKHEART_SET`
 
@@ -418,11 +418,11 @@ Lua파일存放在 `~/robot/job/lua` 디렉터리内。
 
 | 매개변수名 | 유형 | 필수 | 설명 |
 |--------|------|------|------|
-| checkheart | bool | 예 | Modbus 하트비트检测开关 |
+| checkheart | bool | 예 | Modbus 하트비트감지开关 |
 
 ---
 
-### 8. 조회 Modbus 하트비트检测
+### 8. 조회 Modbus 하트비트감지
 
 **명령어**: `0x5716` `MODBUS_CHECKHEART_INQUIRE`
 
@@ -440,11 +440,11 @@ Lua파일存放在 `~/robot/job/lua` 디렉터리内。
 
 | 매개변수名 | 유형 | 필수 | 설명 |
 |--------|------|------|------|
-| checkheart | bool | 예 | Modbus 하트비트检测상태：true 开启，false 닫기 |
+| checkheart | bool | 예 | Modbus 하트비트감지상태：true 开启，false 닫기 |
 
 ---
 
-### 9. 조회컨트롤러作为从站여부연결
+### 9. 조회컨트롤러作为슬레이브여부연결
 
 **명령어**: `0x5718`
 
@@ -498,7 +498,7 @@ Lua파일存放在 `~/robot/job/lua` 디렉터리内。
 |----------|--------|------|------|------|
 | masterStation | type | string | 예 | 通信유형：RTU 或 TCP |
 | masterStation | processNumber | int | 예 | 프로세스号 |
-| masterStation.RTU | baudrate | int | 예 | 波特率 |
+| masterStation.RTU | baudrate | int | 예 | Baud Rate |
 | masterStation.RTU | checkBit | string | 예 | 校验비트：如 "E"（偶校验）、"O"（奇校验）、"N"（없음校验） |
 | masterStation.RTU | dataBit | int | 예 | 데이터비트 |
 | masterStation.RTU | port | int | 예 | 串口号 |
@@ -510,7 +510,7 @@ Lua파일存放在 `~/robot/job/lua` 디렉터리内。
 
 ---
 
-### 11. 조회컨트롤러作为主站时的信息
+### 11. 조회컨트롤러作为主站时的정보
 
 **명령어**: `0x5744`
 
@@ -526,7 +526,7 @@ Lua파일存放在 `~/robot/job/lua` 디렉터리内。
 
 ---
 
-### 12. 조회主站信息응답
+### 12. 조회主站정보응답
 
 **명령어**: `0x5745`
 
@@ -553,7 +553,7 @@ Lua파일存放在 `~/robot/job/lua` 디렉터리内。
 
 | 매개변수分클래스 | 매개변수名 | 유형 | 필수 | 설명 |
 |----------|--------|------|------|------|
-| RTU | baudrate | int | 예 | 波特率 |
+| RTU | baudrate | int | 예 | Baud Rate |
 | RTU | checkBit | string | 예 | 校验비트 |
 | RTU | dataBit | int | 예 | 데이터비트 |
 | RTU | port | int | 예 | 串口号 |
@@ -562,7 +562,7 @@ Lua파일存放在 `~/robot/job/lua` 디렉터리内。
 | TCP | IP | string | 예 | TCP 서버 IP 주소 |
 | TCP | port | int | 예 | TCP 포트 번호 |
 | 범용 | modbus_state | bool | 예 | MODBUS 상태 |
-| 범용 | response_time_out | int | 예 | 응답타임아웃时间，단위：ms |
+| 범용 | response_time_out | int | 예 | 응답타임아웃시간，단위：ms |
 | 범용 | startAddress | bool | 예 | 起始주소开关 |
 | 범용 | type | string | 예 | 通信유형：RTU 或 TCP |
 
@@ -579,13 +579,13 @@ Lua파일存放在 `~/robot/job/lua` 디렉터리内。
 | 0x5712 | 조회컨트롤러 Modbus 유형 | 호스트 컴퓨터 → 컨트롤러 |
 | 0x5713 | 조회컨트롤러 Modbus 유형응답 | 컨트롤러 → 호스트 컴퓨터 |
 | 0x5714 | 컨트롤러 Modbus 활성화 | 호스트 컴퓨터 → 컨트롤러 |
-| 0x5715 | 설정 Modbus 하트비트检测 | 호스트 컴퓨터 → 컨트롤러 |
-| 0x5716 | 조회 Modbus 하트비트检测 | 호스트 컴퓨터 → 컨트롤러 |
-| 0x5717 | 조회 Modbus 하트비트检测응답 | 컨트롤러 → 호스트 컴퓨터 |
-| 0x5718 | 조회从站연결상태 | 호스트 컴퓨터 → 컨트롤러 |
+| 0x5715 | 설정 Modbus 하트비트감지 | 호스트 컴퓨터 → 컨트롤러 |
+| 0x5716 | 조회 Modbus 하트비트감지 | 호스트 컴퓨터 → 컨트롤러 |
+| 0x5717 | 조회 Modbus 하트비트감지응답 | 컨트롤러 → 호스트 컴퓨터 |
+| 0x5718 | 조회슬레이브연결상태 | 호스트 컴퓨터 → 컨트롤러 |
 | 0x5719 | 설정主站매개변수 | 호스트 컴퓨터 → 컨트롤러 |
-| 0x5744 | 조회主站信息 | 호스트 컴퓨터 → 컨트롤러 |
-| 0x5745 | 조회主站信息응답 | 컨트롤러 → 호스트 컴퓨터 |
+| 0x5744 | 조회主站정보 | 호스트 컴퓨터 → 컨트롤러 |
+| 0x5745 | 조회主站정보응답 | 컨트롤러 → 호스트 컴퓨터 |
 
 ---
 
