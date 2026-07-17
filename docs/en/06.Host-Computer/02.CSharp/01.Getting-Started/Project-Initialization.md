@@ -8,19 +8,19 @@ First, find the C# version SDK download section in the resource downloads, and s
 
 Select C# "Windows Forms App" to create.
 
-![](assets/csharp-01.png)
+![Visual Studio New Project dialog selecting C# Windows Forms App to create the CSharp host computer project](assets/csharp-01.png)
 
 After creating the project, copy the SDK into the newly created project folder.
 
-![](assets/csharp-02.png)
+![File Explorer showing the Csharp_api SDK folder copied into the newly created Windows Forms project directory](assets/csharp-02.png)
 
 Then place the dynamic library under the build output path.
 
-![](assets/csharp-03.png)
+![Dynamic library nrc_host.dll placed under the project's build output path (bin folder)](assets/csharp-03.png)
 
 In the Visual Studio 2022 top menu bar, click Project > Show All Files to display the files we just copied.
 
-![](assets/csharp-04.png)
+![Visual Studio menu bar showing Project > Show All Files being toggled to display the copied Csharp_api folder in Solution Explorer](assets/csharp-04.png)
 
 After completing the above steps, the "Csharp_api" folder we just copied will appear in the "Solution Explorer" on the left side.
 
@@ -30,7 +30,7 @@ Once done, click Project > Show All Files again in the Visual Studio 2022 top me
 
 Click the local Windows debugger. If you are using a Release version of the library, you need to switch from Debug to Release.
 
-![](assets/csharp-05.png)
+![Visual Studio Local Windows Debugger button set to Release configuration to run the project after SDK import](assets/csharp-05.png)
 
 If there are no errors, it means we have successfully imported the SDK.
 

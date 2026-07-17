@@ -2394,7 +2394,7 @@ data: null
 
 ### 工具手标定
 
-![](assets/json-01.png)
+![工具手标定设置界面](assets/json-01.png)
 
 #### 0x3801 TOOLCALIBRATION_SET
 
@@ -2436,7 +2436,7 @@ data: null
 }
 ```
 
-![](assets/json-02.png)
+![工具手标定计算完成提示](assets/json-02.png)
 
 ---
 
@@ -2544,7 +2544,7 @@ data: null
 }
 ```
 
-![](assets/json-03.png)
+![清除标定操作界面](assets/json-03.png)
 
 ---
 
@@ -2728,7 +2728,7 @@ data: null
 }
 ```
 
-![](assets/json-04.png)
+![已标定点位置数据查询结果](assets/json-04.png)
 
 ---
 
@@ -2836,7 +2836,7 @@ data: null
 }
 ```
 
-![](assets/json-05.png)
+![用户坐标标记结果回复](assets/json-05.png)
 
 ---
 

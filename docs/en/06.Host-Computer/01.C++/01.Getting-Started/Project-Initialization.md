@@ -17,7 +17,7 @@ In the `Cpp` folder, there is an `include` header folder. Under the `windows` fo
 
 Create a Qt Widgets Application project named `qt_demo`.
 
-![](assets/cpp-01.png)
+![Qt Creator New Project dialog selecting Qt Widgets Application as the project template for qt_demo](assets/cpp-01.png)
 
 ### 1.2 Import the SDK
 
@@ -88,7 +88,7 @@ MainWindow::~MainWindow()
 
 Click Run. If there are no errors, it means the header file was successfully imported.
 
-![](assets/cpp-02.png)
+![Qt Creator successful build output confirming the SDK header file was imported without errors](assets/cpp-02.png)
 
 For more examples, visit C++ API Reference | NexDroid Technology
 
@@ -103,7 +103,7 @@ In the `Cpp` folder, there is an `include` header folder. Under the `windows` fo
 
 Select C++ "Console Application" to create.
 
-![](assets/cpp-03.png)
+![Visual Studio New Project dialog selecting C++ Console Application to create the cpp_demo project](assets/cpp-03.png)
 
 ### 2.2 Import the SDK
 
@@ -191,7 +191,7 @@ int main()
 
 Click Local Windows Debugger. If using the Debug version of the library, switch Release to Debug.
 
-![](assets/cpp-04.png)
+![Visual Studio Local Windows Debugger button highlighted to run the cpp_demo project with the SDK imported](assets/cpp-04.png)
 
 If there are no errors, it means the SDK has been successfully imported.
 
@@ -201,7 +201,7 @@ For more examples, visit C++ API Reference | NexDroid Technology
 
 Create three new folders: `include`, `lib`, and `src`. Place the `api/` folder into `include`. Place `libnrc_host` into `lib`. Create a new `main.cpp` file under the `src` folder.
 
-![](assets/cpp-05.png)
+![Linux project folder layout showing include, lib, and src directories containing the SDK files and main.cpp](assets/cpp-05.png)
 
 ## 1. Create a Makefile
 

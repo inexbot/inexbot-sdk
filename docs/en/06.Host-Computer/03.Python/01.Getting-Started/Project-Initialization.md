@@ -4,7 +4,7 @@ Download the library corresponding to your Python version from the relevant down
 
 Place the downloaded _nrc_host.so and nrc_interface.py into the project.
 
-![](assets/python-01.png)
+![Python project directory containing the _nrc_host.so and nrc_interface.py files placed in the project root](assets/python-01.png)
 ```py
 # -*- coding: UTF-8 -*-
 import nrc_interface

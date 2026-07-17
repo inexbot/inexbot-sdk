@@ -106,7 +106,7 @@ void NRC_Jobrun_MoveLinearSync(int robotNum, const NRC_Position & pos, const NRC
 ```
 ## 2，自定义指令函数使用示例
 
-![](assets/zd-01.svg)
+![自定义指令使用示例整体流程示意图](assets/zd-01.svg)
 ```cpp
 #include "nrcAPI.h"
 #include "nrcAPI_advance.h"
@@ -169,10 +169,10 @@ int main() {
 }
 ```
 
-![](assets/zd-02.svg)
+![自定义指令函数代码示例的程序运行流程示意图](assets/zd-02.svg)
 
 ## 3，运行自定义指令
 
 自定义指令只有二次开发示教器才有，用户可在相关下载，下载对应的示教器二次开发
 
-![](assets/zd-03.svg)
+![自定义指令在二次开发示教器中运行的效果示意图](assets/zd-03.svg)

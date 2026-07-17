@@ -82,7 +82,7 @@
 }
 ```
 
-![](assets/json-36.png)
+![Teach pendant Height Controller jog dialog with direction and speed-level controls for up/down jogging](assets/json-36.png)
 
 ---
 
@@ -240,7 +240,7 @@ enum class OperationStatus {
 }
 ```
 
-![](assets/json-37.png)
+![Teach pendant Height Controller Capacitance Calibration dialog with type, bevel cutting, calibration protection, and Z-axis angle options](assets/json-37.png)
 
 ---
 

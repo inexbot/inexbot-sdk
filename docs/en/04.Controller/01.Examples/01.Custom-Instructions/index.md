@@ -106,7 +106,7 @@ void NRC_Jobrun_MoveLinearSync(int robotNum, const NRC_Position & pos, const NRC
 ```
 ## 2. Custom Instruction Function Usage Example
 
-![](assets/zd-01.svg)
+![Controller secondary development project workflow diagram showing header files, main source, static library, and the controller program flow for registering a custom instruction callback](assets/zd-01.svg)
 ```cpp
 #include "nrcAPI.h"
 #include "nrcAPI_advance.h"
@@ -169,10 +169,10 @@ int main() {
 }
 ```
 
-![](assets/zd-02.svg)
+![Controller program execution flow diagram for the custom instruction example, showing the NRC_StartController, initialization check, servo ready, and callback registration sequence](assets/zd-02.svg)
 
 ## 3. Running Custom Instructions
 
 Custom instructions are only available in secondary development teach pendants. Users can download the corresponding teach pendant secondary development package from related downloads.
 
-![](assets/zd-03.svg)
+![Teach pendant secondary development interface running the custom instruction, showing the inserted custom command and the resulting robot motion in the job file execution view](assets/zd-03.svg)
