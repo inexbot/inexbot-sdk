@@ -122,19 +122,20 @@ export default defineConfig({
         var KEY='vp-lang';
         var saved=localStorage.getItem(KEY);
         var path=location.pathname;
-        // 用户手动切换过语言，尊重选择
-        if(saved==='en' && !path.match(/^\\/en(\\/|$)/)){
-          location.replace('/en/'+path.replace(/^\\/docs\\/?(en\\/)?/,''));
+        var isEn=path.indexOf('/en/')===0||path==='/en';
+        // 有手动选择：跳到对应语言
+        if(saved==='en'&&!isEn){
+          location.replace('/en/');
           return;
         }
-        if(saved==='zh' && path.match(/^\\/en(\\/|$)/)){
-          location.replace('/'+path.replace(/^\\/en\\/?/,''));
+        if(saved==='zh'&&isEn){
+          location.replace('/');
           return;
         }
-        // 首次访问，根据浏览器语言自动跳转
-        if(!saved && !path.match(/^\\/en(\\/|$)/)){
-          var lang=(navigator.language||'').toLowerCase();
-          if(!lang.startsWith('zh')){
+        // 首次访问根路径，检测浏览器语言
+        if(!saved&&!isEn&&(path==='/'||path==='')){
+          var lang=(navigator.languages&&navigator.languages[0]||navigator.language||'').toLowerCase();
+          if(!/^zh/.test(lang)){
             localStorage.setItem(KEY,'en');
             location.replace('/en/');
           }else{
