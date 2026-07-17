@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>iNexBot</title>
+<script>
+(function(){
+  var lang = (navigator.languages && navigator.languages[0] || navigator.language || '').toLowerCase();
+  var target = /^zh/.test(lang) ? '/zh/' : '/en/';
+  location.replace(target);
+})();
+</script>
+</head>
+<body>
+<p>Redirecting...</p>
+</body>
+</html>

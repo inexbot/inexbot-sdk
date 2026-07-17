@@ -8,7 +8,6 @@ async function buildSidebar(dir: string, prefix = '', skipDirs: string[] = []): 
   const entries = await readdir(dir)
 
   for (const entry of entries.sort()) {
-    // 跳过 assets 等特殊目录和文件
     if (entry === 'assets' || entry === 'assets_T31' ||
         entry === 'convert_ascii_tables.py' || entry === 'README.md' ||
         skipDirs.includes(entry)) continue
@@ -17,7 +16,6 @@ async function buildSidebar(dir: string, prefix = '', skipDirs: string[] = []): 
     const st = await stat(fullPath)
 
     if (st.isDirectory()) {
-      // 检查目录下是否有 index.md
       const indexPath = join(fullPath, 'index.md')
       let hasIndex = false
       try {
@@ -25,7 +23,6 @@ async function buildSidebar(dir: string, prefix = '', skipDirs: string[] = []): 
         hasIndex = indexStat.isFile()
       } catch {}
 
-      // 目录本身有 index.md，则该目录入口链接指向 index
       const dirLink = hasIndex
         ? (prefix ? `${prefix}/${entry}` : `/${entry}`)
         : undefined
@@ -85,12 +82,10 @@ function chineseTokenizer(text: string): string[] {
   return [...enTokens.filter(t => t !== ' '), ...cnChars].filter(t => t.length > 0)
 }
 
-// 获取 docs 目录路径
 const docsDir = join(process.cwd(), 'docs')
 
-// 中文侧边栏（排除 en 子目录）
-const zhSidebar = await buildSidebar(docsDir, '', ['en'])
-// 英文侧边栏（需要 /en 前缀）
+// 各语言侧边栏
+const zhSidebar = await buildSidebar(join(docsDir, 'zh'), '/zh')
 const enSidebar = await buildSidebar(join(docsDir, 'en'), '/en')
 
 // 搜索配置
@@ -114,42 +109,6 @@ export default defineConfig({
   srcDir: "./docs",
   ignoreDeadLinks: true,
   outDir: "./dist",
-  head: [
-    [
-      'script',
-      {},
-      `(function(){
-        var KEY='vp-lang';
-        var saved=localStorage.getItem(KEY);
-        var path=location.pathname;
-        var isEn=path.indexOf('/en/')===0||path==='/en';
-        // 有手动选择：跳到对应语言
-        if(saved==='en'&&!isEn){
-          location.replace('/en/');
-          return;
-        }
-        if(saved==='zh'&&isEn){
-          location.replace('/');
-          return;
-        }
-        // 首次访问根路径，检测浏览器语言
-        if(!saved&&!isEn&&(path==='/'||path==='')){
-          var lang=(navigator.languages&&navigator.languages[0]||navigator.language||'').toLowerCase();
-          if(!/^zh/.test(lang)){
-            localStorage.setItem(KEY,'en');
-            location.replace('/en/');
-          }else{
-            localStorage.setItem(KEY,'zh');
-          }
-        }
-      })();`
-    ]
-  ],
-  transformPageData(pageData) {
-    // 在页面数据中注入语言标记，供前端使用
-    const isEn = pageData.relativePath.startsWith('en/')
-    pageData.lang = isEn ? 'en' : 'zh'
-  },
   sitemap: {
     hostname: 'https://open.inexbot.com'
   },
@@ -157,23 +116,23 @@ export default defineConfig({
     i18nRouting: false
   },
   locales: {
-    root: {
+    zh: {
       label: '中文',
       lang: 'zh-CN',
       title: '纳博特科技开放平台',
       description: '纳博特科技官方SDK文档',
       themeConfig: {
         nav: [
-          { text: '首页', link: '/' },
-          { text: '入门指南', link: '/02.入门指南' },
+          { text: '首页', link: '/zh/' },
+          { text: '入门指南', link: '/zh/02.入门指南' },
           {
             text: '开发文档',
             items: [
-              { text: '控制器', link: '/04.控制器/' },
-              { text: '示教器', link: '/05.示教器/' },
-              { text: '上位机', link: '/06.上位机/' },
-              { text: 'JSON协议', link: '/07.JSON 协议/' },
-              { text: 'ROS', link: '/08.ROS/' },
+              { text: '控制器', link: '/zh/04.控制器/' },
+              { text: '示教器', link: '/zh/05.示教器/' },
+              { text: '上位机', link: '/zh/06.上位机/' },
+              { text: 'JSON协议', link: '/zh/07.JSON 协议/' },
+              { text: 'ROS', link: '/zh/08.ROS/' },
             ]
           }
         ],
