@@ -1,15 +1,15 @@
-# 5.外部제어与통신方式
+# 5.外部제어与통신방식
 
 ## 디렉터리
 
-- [远程프로그램설정](#远程프로그램설정)
+- [원격프로그램설정](#원격프로그램설정)
 - [Lua프로그램](#lua프로그램)
 - [Modbus](#modbus)
 - [TCP통신](#tcp통신)
 
 ---
 
-## 远程프로그램설정
+## 원격프로그램설정
 
 ### 원격 모드연결상태
 
@@ -45,9 +45,9 @@
 
 ---
 
-### 远程작업파일설정
+### 원격작업파일설정
 
-#### 설정远程작업파일
+#### 설정원격작업파일
 
 **명령어**: `0x2C01 REMOTE_JOBFILE_SET`
 
@@ -56,7 +56,7 @@
 | robot | int | 로봇号 |
 | jobFile | array | 작업파일열表 |
 
-**jobFile 배열元素**:
+**jobFile 배열요소**:
 
 | 매개변수 | 유형 | 설명 |
 |------|------|------|
@@ -80,7 +80,7 @@
 
 > 最多 10 번째작업파일
 
-#### 가져오기远程작업파일
+#### 가져오기원격작업파일
 
 **명령어**: `0x2C02 REMOTE_JOBFILE_INQUIRE`
 
@@ -92,7 +92,7 @@
 }
 ```
 
-#### 반환작업파일조회结果
+#### 반환작업파일조회결과
 
 **명령어**: `0x2C03 REMOTE_JOBFILE_RESPOND`
 
@@ -151,7 +151,7 @@
 }
 ```
 
-#### 반환원격 모드매개변수조회结果
+#### 반환원격 모드매개변수조회결과
 
 **명령어**: `0x2C06 REMOTE_PARA_RESPOND`
 
@@ -173,7 +173,7 @@
 
 Lua파일存放在 `~/robot/job/lua` 디렉터리内。
 
-업로드파일和查看파일열表用 SCP 的方式。
+업로드파일和查看파일열表用 SCP 的방식。
 
 ### 실행프로그램
 
@@ -227,7 +227,7 @@ Lua파일存放在 `~/robot/job/lua` 디렉터리内。
 {}
 ```
 
-**컨트롤러回复**: `0x2516`
+**컨트롤러응답**: `0x2516`
 
 ```json
 {
@@ -306,7 +306,7 @@ Lua파일存放在 `~/robot/job/lua` 디렉터리内。
 |--------|------|------|------|
 | robot | int | 예 | 로봇 번호，범위 1-4 |
 | startprogramid | int | 예 | 프로그램起始 ID |
-| jobnamelist | array | 예 | 작업파일名열表，共 10 번째元素，没有则填空문자열 |
+| jobnamelist | array | 예 | 작업파일名열表，共 10 번째요소，没有则填空문자열 |
 
 ---
 
@@ -339,10 +339,10 @@ Lua파일存放在 `~/robot/job/lua` 디렉터리内。
 | RTU | slaveId | int | 예 | Modbus RTU 通信的从设备 ID |
 | TCP | IP | string | 예 | Modbus TCP 通信的서버 IP 주소 |
 | TCP | port | int | 예 | Modbus TCP 通信的포트 번호 |
-| 通用 | master-slave | string | 예 | 主从모드：0 表示主모드，1 表示从모드 |
-| 通用 | scancycle | int | 예 | 扫描주기，단위：ms |
-| 通用 | stoprun | bool | 예 | 실행정지标志：0 表示未정지，1 表示정지 |
-| 通用 | type | string | 예 | 通信유형，선택 RTU 或 TCP |
+| 범용 | master-slave | string | 예 | 主从모드：0 表示主모드，1 表示从모드 |
+| 범용 | scancycle | int | 예 | 扫描주기，단위：ms |
+| 범용 | stoprun | bool | 예 | 실행정지标志：0 表示未정지，1 表示정지 |
+| 범용 | type | string | 예 | 通信유형，선택 RTU 或 TCP |
 
 ---
 
@@ -382,11 +382,11 @@ Lua파일存放在 `~/robot/job/lua` 디렉터리内。
 | RTU | slaveId | int | 예 | Modbus RTU 通信的从设备 ID |
 | TCP | IP | string | 예 | Modbus TCP 通信的서버 IP 주소 |
 | TCP | port | int | 예 | Modbus TCP 通信的포트 번호 |
-| 通用 | enable | bool | 예 | 여부启用 Modbus 通信 |
-| 通用 | master-slave | string | 예 | 主从모드：0 表示主모드，1 表示从모드 |
-| 通用 | scancycle | int | 예 | 扫描주기，단위：ms |
-| 通用 | stoprun | bool | 예 | 실행정지标志：0 表示未정지，1 表示정지 |
-| 通用 | type | string | 예 | 通信유형，선택 RTU 或 TCP |
+| 범용 | enable | bool | 예 | 여부启用 Modbus 通信 |
+| 범용 | master-slave | string | 예 | 主从모드：0 表示主모드，1 表示从모드 |
+| 범용 | scancycle | int | 예 | 扫描주기，단위：ms |
+| 범용 | stoprun | bool | 예 | 실행정지标志：0 表示未정지，1 表示정지 |
+| 범용 | type | string | 예 | 通信유형，선택 RTU 或 TCP |
 
 ---
 
@@ -506,7 +506,7 @@ Lua파일存放在 `~/robot/job/lua` 디렉터리内。
 | masterStation.RTU | stopBit | int | 예 | 정지비트 |
 | masterStation.TCP | IP | string | 예 | TCP 서버 IP 주소 |
 | masterStation.TCP | port | int | 예 | TCP 포트 번호 |
-| 通用 | startAddress | bool | 예 | 起始주소开关 |
+| 범용 | startAddress | bool | 예 | 起始주소开关 |
 
 ---
 
@@ -561,16 +561,16 @@ Lua파일存放在 `~/robot/job/lua` 디렉터리内。
 | RTU | stopBit | int | 예 | 정지비트 |
 | TCP | IP | string | 예 | TCP 서버 IP 주소 |
 | TCP | port | int | 예 | TCP 포트 번호 |
-| 通用 | modbus_state | bool | 예 | MODBUS 상태 |
-| 通用 | response_time_out | int | 예 | 응답타임아웃时间，단위：ms |
-| 通用 | startAddress | bool | 예 | 起始주소开关 |
-| 通用 | type | string | 예 | 通信유형：RTU 或 TCP |
+| 범용 | modbus_state | bool | 예 | MODBUS 상태 |
+| 범용 | response_time_out | int | 예 | 응답타임아웃时间，단위：ms |
+| 범용 | startAddress | bool | 예 | 起始주소开关 |
+| 범용 | type | string | 예 | 通信유형：RTU 或 TCP |
 
 ---
 
 ### 13. 명령어汇总
 
-| 명령어 | 기능 | 方向 |
+| 명령어 | 기능 | 방향 |
 |--------|------|------|
 | 0x5701 | 설정 Modbus 프로그램 | 호스트 컴퓨터 → 컨트롤러 |
 | 0x5702 | 조회 Modbus 프로그램 | 호스트 컴퓨터 → 컨트롤러 |

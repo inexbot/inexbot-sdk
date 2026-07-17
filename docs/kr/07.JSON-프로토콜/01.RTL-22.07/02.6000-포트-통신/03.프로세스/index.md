@@ -8,16 +8,16 @@
 
 | 프로세스유형 | 文档 | 설명 |
 |---------|------|------|
-| [[용접프로세스](./05.용접.md) | 0x4001~0x4015 | 용접装置、전류-전압 매칭、용접매개변수、摆焊매개변수、용접IO |
+| [[용접프로세스](./05.용접.md) | 0x4001~0x4015 | 용접装置、전류-전압 매칭、용접매개변수、위빙매개변수、용접IO |
 | [[스크류드라이빙프로세스](./03.스크류드라이빙.md) | 0x5731~0x5739 | 拧紧/拧松매개변수、IO상태、잠금 결과 |
-| [[스프레이프로세스](./07.스프레이.md) | 0x4701~0x4718 | 模拟量설정、숫자量설정、궤적매개변수、手动조작 |
+| [[스프레이프로세스](./07.스프레이.md) | 0x4701~0x4718 | 아날로그설정、숫자量설정、궤적매개변수、手动조작 |
 | [[그라인딩프로세스](./02.그라인딩.md) | 0x4601~0x4603 | 그라인딩매개변수설정与조회 |
-| [[팔레타이징프로세스](./01.팔레타이징.md) | 0x4201~0x421F | 抓手매개변수、托盘매개변수、위치매개변수、공작물매개변수、重叠모드、平面모드 |
+| [[팔레타이징프로세스](./01.팔레타이징.md) | 0x4201~0x421F | 抓手매개변수、팔레트매개변수、위치매개변수、공작물매개변수、重叠모드、平面모드 |
 | [[비전프로세스](./04.비전.md) | 0x4101~0x4117 | 비전매개변수、위치매개변수、调试포인트、캘리브레이션、拍照 |
 | [[심 추적프로세스](./10.심-추적.md) | 0x4130~0x4171 | 레이저器매개변수、레이저器캘리브레이션、심 검출유형、추적유형、레이저추적매개변수 |
-| [[컨베이어추적](./09.컨베이어-추적.md) | 0x4801~0x4823 | 컨베이어매개변수、매개변수识别、实时조회、좌표계캘리브레이션、传感器위치캘리브레이션 |
+| [[컨베이어추적](./09.컨베이어-추적.md) | 0x4801~0x4823 | 컨베이어매개변수、매개변수识别、实时조회、좌표계캘리브레이션、传센서위치캘리브레이션 |
 | [[新版스탬핑프로세스](./08.스탬핑-V2.md) | 0x8000~0x80XX | 프로그램실행、料况설정、제어모드、생산 수량、스탬핑활성화、상태조회 |
-| [[레이저 절단프로세스](./06.레이저-절단/index.md) | 0x4401~0x4423 | IO포트설정、全局매개변수、아날로그 매칭、절단매개변수、点射매개변수、手动조작 |
+| [[레이저 절단프로세스](./06.레이저-절단/index.md) | 0x4401~0x4423 | IO포트설정、전역매개변수、아날로그 매칭、절단매개변수、点射매개변수、手动조작 |
 
 ---
 
@@ -36,11 +36,11 @@
 | 0x4007 | WELDPARAMETER_SET | 설정용접매개변수 |
 | 0x4008 | WELDPARAMETER_INQUIRE | 조회용접매개변수 |
 | 0x4009 | WELDPARAMETER_RESPOND | 반환용접매개변수 |
-| 0x400B | WEAVPARAMETER_SET | 설정摆焊매개변수 |
-| 0x400C | WEAVPARAMETER_INQUIRE | 조회摆焊매개변수 |
-| 0x400D | WEAVPARAMETER_RESPOND | 반환摆焊매개변수 |
-| 0x400E | WELDFACTCURVOL_SET | 설정전류-전압 매칭实际值 |
-| 0x400F | WELDFACTCURVOL_RESPOND | 반환설정结果 |
+| 0x400B | WEAVPARAMETER_SET | 설정위빙매개변수 |
+| 0x400C | WEAVPARAMETER_INQUIRE | 조회위빙매개변수 |
+| 0x400D | WEAVPARAMETER_RESPOND | 반환위빙매개변수 |
+| 0x400E | WELDFACTCURVOL_SET | 설정전류-전압 매칭실제值 |
+| 0x400F | WELDFACTCURVOL_RESPOND | 반환설정결과 |
 | 0x4010 | WELD_CURVOLMATCH_START | 시작/종료아날로그 매칭 |
 | 0x4011 | WELDIOPORT_SET | 설정용접IO인터페이스 |
 | 0x4012 | WELDIOPORT_INQUIRE | 조회용접IO인터페이스 |
@@ -63,9 +63,9 @@
 
 | 메시지ID | 이름 | 설명 |
 |--------|------|------|
-| 0x4701 | SPRAY_ANALOGGROUP_SET | 설정模拟量 |
-| 0x4702 | SPRAY_ANALOGROUP_INQUIRE | 조회模拟量 |
-| 0x4703 | SPRAY_ANALOGROUP_RESPOND | 반환模拟量 |
+| 0x4701 | SPRAY_ANALOGGROUP_SET | 설정아날로그 |
+| 0x4702 | SPRAY_ANALOGROUP_INQUIRE | 조회아날로그 |
+| 0x4703 | SPRAY_ANALOGROUP_RESPOND | 반환아날로그 |
 | 0x4704 | SPRAY_DIGIT_PARM_SET | 설정숫자量매개변수 |
 | 0x4705 | SPRAY_DIGIT_PARM_INQUIRE | 조회숫자量매개변수 |
 | 0x4706 | SPRAY_DIGIT_PARM_RESPOND | 반환숫자量매개변수 |
@@ -78,9 +78,9 @@
 | 0x4711 | SPRAY_HAND_OPERATION_SET | 설정手动조작 |
 | 0x4712 | SPRAY_HAND_OPERATION_INQUIRE | 조회手动조작 |
 | 0x4713 | SPRAY_HAND_OPERATION_RESPOND | 반환手动조작상태 |
-| 0x4714 | SPRAY_CUR_ANALOG_SET | 설정模拟量 |
-| 0x4715 | SPRAY_CUR_ANALOG_INQUIRE | 조회模拟量 |
-| 0x4716 | SPRAY_CUR_ANALOG_RESPOND | 반환模拟量 |
+| 0x4714 | SPRAY_CUR_ANALOG_SET | 설정아날로그 |
+| 0x4715 | SPRAY_CUR_ANALOG_INQUIRE | 조회아날로그 |
+| 0x4716 | SPRAY_CUR_ANALOG_RESPOND | 반환아날로그 |
 | 0x4717 | SPRAY_CUR_OILTIME_SET | 설정油量测试时间 |
 | 0x4718 | SPRAY_CUR_OILTIME_INQUIRE | 조회油量测试时间 |
 
@@ -99,9 +99,9 @@
 | 0x4201 | PAL_GRIPPER_PARM_SET | 설정抓手매개변수 |
 | 0x4202 | PAL_GRIPPER_PARM_INQUIRE | 조회抓手매개변수 |
 | 0x4203 | PAL_GRIPPER_PARM_RESPOND | 반환抓手매개변수 |
-| 0x4204 | PAL_PALLET_PARM_SET | 설정托盘매개변수 |
-| 0x4205 | PAL_PALLET_PARM_INQUIRE | 조회托盘매개변수 |
-| 0x4206 | PAL_PALLET_PARM_RESPOND | 반환托盘매개변수 |
+| 0x4204 | PAL_PALLET_PARM_SET | 설정팔레트매개변수 |
+| 0x4205 | PAL_PALLET_PARM_INQUIRE | 조회팔레트매개변수 |
+| 0x4206 | PAL_PALLET_PARM_RESPOND | 반환팔레트매개변수 |
 | 0x4207 | PAL_POS_PARM_SET | 설정위치매개변수 |
 | 0x4208 | PAL_POS_PARM_INQUIRE | 조회위치매개변수 |
 | 0x4209 | PAL_POS_PARM_RESPOND | 반환위치매개변수 |
@@ -134,13 +134,13 @@
 | 0x410A | VISION_DEBUGGING_TAKE_PICTURE | 拍照 |
 | 0x410B | VISION_DEBUGGING_CALCULATE | 计算偏移 |
 | 0x410C | VISION_DEBUGGING_POS_MOVE | 모션至该点 |
-| 0x4110 | VISION_GESTURE_CALIBRATION_SET | 캘리브레이션抓取姿态 |
-| 0x4111 | VISION_GESTURE_CALIBRATION_RESPOND | 반환캘리브레이션结果 |
+| 0x4110 | VISION_GESTURE_CALIBRATION_SET | 캘리브레이션抓取자세 |
+| 0x4111 | VISION_GESTURE_CALIBRATION_RESPOND | 반환캘리브레이션결과 |
 | 0x4112 | VISION_TRY_TAKE_PICTURE | 试拍照 |
-| 0x4113 | VISION_TAKE_PICTURE_RESPOND | 반환拍照结果 |
+| 0x4113 | VISION_TAKE_PICTURE_RESPOND | 반환拍照결과 |
 | 0x4114 | VISION_IPPARAM_INQUIRE | 조회비전IP매개변수 |
 | 0x4115 | VISION_IPPARAM_RESPOND | 반환IP매개변수 |
-| 0x4116 | VISION_GESTURE_CALIBRATION_CLEAR | 해제抓取姿态캘리브레이션 |
+| 0x4116 | VISION_GESTURE_CALIBRATION_CLEAR | 해제抓取자세캘리브레이션 |
 | 0x4117 | VISION_CALIBRATION_PARAM_SET | 설정비전캘리브레이션매개변수 |
 
 ### 심 추적프로세스 (0x4100/0x4130/0x4140/0x4160)
@@ -157,14 +157,14 @@
 | 0x4140 | SENSOR_LASER_CALIBRATE_INQUIRE | 조회캘리브레이션记录 |
 | 0x4141 | SENSOR_LASER_CALIBRATE_RESPOND | 반환캘리브레이션记录 |
 | 0x4142 | SENSOR_LASER_CALIBRATE_RECORD | 记录캘리브레이션点 |
-| 0x4143 | SENSOR_LASER_CALIBRATE_RECORD_RESPOND | 반환记录结果 |
+| 0x4143 | SENSOR_LASER_CALIBRATE_RECORD_RESPOND | 반환记录결과 |
 | 0x4144 | SENSOR_LASER_CALIBRATE_MOVETO | 모션到캘리브레이션点 |
-| 0x4145 | SENSOR_LASER_CALIBRATE_CALCULATE | 计算캘리브레이션结果 |
-| 0x4146 | SENSOR_LASER_CALIBRATE_CALCULATE_RESPOND | 반환计算结果 |
+| 0x4145 | SENSOR_LASER_CALIBRATE_CALCULATE | 计算캘리브레이션결과 |
+| 0x4146 | SENSOR_LASER_CALIBRATE_CALCULATE_RESPOND | 반환计算결과 |
 | 0x4147 | SENSOR_LASER_CALIBRATE_CLEAR | 清空캘리브레이션记录 |
 | 0x4148 | SENSOR_LASER_CALIBRATE_CANCEL | 取消캘리브레이션 |
 | 0x4149 | SENSOR_LASER_CALIBRATE_RESULT_INQUIRE | 조회레이저器여부캘리브레이션 |
-| 0x414A | SENSOR_LASER_CALIBRATE_RESULT_RESPOND | 반환캘리브레이션结果 |
+| 0x414A | SENSOR_LASER_CALIBRATE_RESULT_RESPOND | 반환캘리브레이션결과 |
 | 0x4169 | TRACK_SENSORTYPE_SET | 설정추적유형 |
 | 0x4170 | TRACK_SENSORTYPE_INQUIRE | 조회추적유형 |
 | 0x4171 | TRACK_SENSORTYPE_RESPOND | 반환추적유형 |
@@ -189,11 +189,11 @@
 | 0x4813 | TRACK_CONVEYOR_CALIBRATION_RESPOND | 반환캘리브레이션的点좌표 |
 | 0x4814 | TRACK_CONVEYOR_CALIBRATION_CLEAR | 清空캘리브레이션值 |
 | 0x4815 | TRACK_CONVEYOR_CALIBRATION_CANCEL | 取消캘리브레이션 |
-| 0x4816 | TRACK_CONVEYOR_SENSORPOS_INQUIRE | 조회传感器위치 |
-| 0x4817 | TRACK_CONVEYOR_SENSORPOS_RESPOND | 반환传感器위치 |
-| 0x4818 | TRACK_CONVEYOR_SENSORPOS_CALIBRATION_INQUIRE | 조회传感器위치캘리브레이션매개변수 |
+| 0x4816 | TRACK_CONVEYOR_SENSORPOS_INQUIRE | 조회传센서위치 |
+| 0x4817 | TRACK_CONVEYOR_SENSORPOS_RESPOND | 반환传센서위치 |
+| 0x4818 | TRACK_CONVEYOR_SENSORPOS_CALIBRATION_INQUIRE | 조회传센서위치캘리브레이션매개변수 |
 | 0x4819 | TRACK_CONVEYOR_SENSORPOS_CALIBRATION_RESPOND | 반환캘리브레이션매개변수 |
-| 0x481A | TRACK_CONVEYOR_SENSORPOS_CALIBRATE | 传感器위치매개변수캘리브레이션 |
+| 0x481A | TRACK_CONVEYOR_SENSORPOS_CALIBRATE | 传센서위치매개변수캘리브레이션 |
 
 ### 스탬핑프로세스 (0x8000)
 
@@ -201,7 +201,7 @@
 |--------|------|------|
 | 0x8000 | PUNCH_SET_WORKPIECE_CONDITION | 前站料况설정 |
 | 0x8001 | PUNCH_INQUIRE_WORKPIECE_CONDITION | 夹具料况조회 |
-| 0x8002 | PUNCH_RESPOND_WORKPIECE_CONDITION | 반환料况조회结果 |
+| 0x8002 | PUNCH_RESPOND_WORKPIECE_CONDITION | 반환料况조회결과 |
 | 0x8003 | PUNCH_SET_CONTROL_MODE | 제어유형설정 |
 | 0x8004 | PUNCH_INQUIRE_CONTROL_MODE | 조회제어유형 |
 | 0x8005 | PUNCH_RESPOND_CONTROL_MODE | 반환제어유형 |
@@ -235,9 +235,9 @@
 | 0x4401 | LASER_IOPORT_SET | IO포트설정 |
 | 0x4402 | LASER_IOPORT_INQUIRE | IO포트조회 |
 | 0x4403 | LASER_IOPORT_RESPOND | IO포트응답 |
-| 0x4404 | LASER_EQUIPMENT_SET | 全局매개변수설정 |
-| 0x4405 | LASER_EQUIPMENT_INQUIRE | 全局매개변수조회 |
-| 0x4406 | LASER_EQUIPMENT_RESPOND | 全局매개변수응답 |
+| 0x4404 | LASER_EQUIPMENT_SET | 전역매개변수설정 |
+| 0x4405 | LASER_EQUIPMENT_INQUIRE | 전역매개변수조회 |
+| 0x4406 | LASER_EQUIPMENT_RESPOND | 전역매개변수응답 |
 | 0x4407 | LASER_ANALOGMATCH_SET | 아날로그 매칭설정 |
 | 0x4408 | LASER_ANALOGMATCH_INQUIRE | 아날로그 매칭조회 |
 | 0x4409 | LASER_ANALOGMATCH_RESPOND | 아날로그 매칭응답 |
@@ -250,14 +250,14 @@
 | 0x4411 | LASER_HANDOP_SET | 手动조작설정 |
 | 0x4412 | LASER_HANDOP_INQUIRE | 手动조작상태조회 |
 | 0x4413 | LASER_HANDOP_RESPOND | 手动조작상태응답 |
-| 0x4417 | LASER_FACTCURVOL_SET | 模拟量전송설정 |
-| 0x4419 | LASER_FACTCURVOL_RESPOND | 模拟量전송응답 |
+| 0x4417 | LASER_FACTCURVOL_SET | 아날로그전송설정 |
+| 0x4419 | LASER_FACTCURVOL_RESPOND | 아날로그전송응답 |
 | 0x4422 | LASER_CUT_FEED_COOL_GAS | 冷却气제어 |
 | 0x4423 | LASER_CUT_NOZZLE_CLEAN | 喷嘴清洁 |
 
 ---
 
-## 通用매개변수 설명
+## 범용매개변수 설명
 
 ### 로봇 번호 (robot)
 
@@ -269,20 +269,20 @@
 
 | 유형 | 설명 |
 |------|------|
-| int | 프로세스编号，不同프로세스유형有不同的取值범위 |
+| int | 프로세스번호，不同프로세스유형有不同的값 범위범위 |
 
 ---
 
-## 데이터结构설명
+## 데이터구조설명
 
-### 요청/응답通用모드
+### 요청/응답범용모드
 
 ```
 요청方 ──메시지ID──> 컨트롤러
        <──응답ID── 컨트롤러
 ```
 
-### 通用응답형식
+### 범용응답형식
 
 ```json
 {
