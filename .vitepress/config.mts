@@ -114,7 +114,11 @@ export default defineConfig({
     hostname: 'https://open.inexbot.com'
   },
   themeConfig: {
-    i18nRouting: false
+    i18nRouting: false,
+    search: {
+      provider: 'local',
+      options: searchOptions(true)
+    }
   },
   locales: {
     zh: {
