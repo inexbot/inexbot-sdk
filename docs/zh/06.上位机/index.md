@@ -12,7 +12,7 @@ libnrc_host 是基于 Socket_API 通讯协议封装的 C++ 库，提供网络接
 
 ## 文档结构
 
-```
+```text
 上位机
 ├── Python/
 │   ├── 渐入式教程/         从零搭建 Python 项目

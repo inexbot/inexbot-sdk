@@ -5,9 +5,15 @@
   "scripts": {
     "docs:dev": "vitepress dev",
     "docs:build": "vitepress build",
-    "docs:preview": "vitepress preview"
+    "docs:preview": "vitepress preview",
+    "docs:lint": "markdownlint 'docs/zh/**/*.md' 'docs/en/**/*.md' 'docs/kr/**/*.md' --config .markdownlint.jsonc",
+    "docs:check": "node scripts/check-docs.mjs > ../docs-check-result.txt 2>&1 && npm run docs:lint >> ../docs-check-result.txt 2>&1",
+    "docs:ci": "npm ci && npm run docs:check && npm run docs:build",
+    "docs:check:zh": "node scripts/check-docs-zh.mjs > ../docs-check-zh-result.txt 2>&1",
+    "docs:lint:zh": "markdownlint 'docs/zh/**/*.md' --config .markdownlint.jsonc"
   },
   "devDependencies": {
-    "@types/node": "^25.6.0"
+    "@types/node": "^25.6.0",
+    "markdownlint-cli": "^0.49.1"
   }
 }

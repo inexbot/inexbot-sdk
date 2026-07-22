@@ -15,7 +15,7 @@
 
 ## SDK 结构
 
-```
+```cpp
 Cpp/
 ├── include/
 │   ├── c_interface/        C 接口头文件

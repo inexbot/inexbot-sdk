@@ -6,7 +6,7 @@
 
 ## 文档结构
 
-```
+```text
 控制器
 ├── 快速开始                    # 环境搭建、项目构建、程序部署
 ├── 二次开发API（机器人基本参数设置）   # 系统/伺服/坐标系/IO/变量等核心接口
@@ -275,7 +275,7 @@
 | NRC_SetTargetPosition | 设置机器人目标位置 |
 | NRC_GetPlanningPosition | 获取规划队列第一个点位 |
 | NRC_PV_SetTargetVelocity / NRC_PV_SetTargetAccAndDec | PV 模式速度/加速度 |
-| NRC_SetInterpolationMethod | 设置插补方式（S型/梯形） |
+| NRC_SetInterpolationMethod | 设置插补方式（S 型/梯形） |
 | NRC_SetAbsolutePosResolution | 绝对位置分辨率 |
 
 ### 机器人参数

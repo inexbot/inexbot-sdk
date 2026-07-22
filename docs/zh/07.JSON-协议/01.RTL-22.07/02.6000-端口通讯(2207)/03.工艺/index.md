@@ -8,8 +8,8 @@
 
 | 工艺类型 | 文档 | 说明 |
 |---------|------|------|
-| [焊接工艺](./05.焊接工艺.md) | 0x4001~0x4015 | 焊接装置、电流电压匹配、焊接参数、摆焊参数、焊接IO |
-| [电批工艺](./03.电批工艺.md) | 0x5731~0x5739 | 拧紧/拧松参数、IO状态、锁定结果 |
+| [焊接工艺](./05.焊接工艺.md) | 0x4001~0x4015 | 焊接装置、电流电压匹配、焊接参数、摆焊参数、焊接 IO |
+| [电批工艺](./03.电批工艺.md) | 0x5731~0x5739 | 拧紧/拧松参数、IO 状态、锁定结果 |
 | [喷涂工艺](./07.喷涂工艺.md) | 0x4701~0x4718 | 模拟量设置、数字量设置、轨迹参数、手动操作 |
 | [打磨工艺](./02.打磨工艺.md) | 0x4601~0x4603 | 打磨参数设置与查询 |
 | [码垛工艺](./01.码垛工艺.md) | 0x4201~0x421F | 抓手参数、托盘参数、位置参数、工件参数、重叠模式、平面模式 |
@@ -17,15 +17,15 @@
 | [寻位跟踪工艺](./10.寻位跟踪工艺.md) | 0x4130~0x4171 | 激光器参数、激光器标定、寻位类型、跟踪类型、激光跟踪参数 |
 | [传送带跟踪](./09.传送带跟踪.md) | 0x4801~0x4823 | 传送带参数、参数识别、实时查询、坐标系标定、传感器位置标定 |
 | [新版冲压工艺](./08.新版冲压工艺.md) | 0x8000~0x80XX | 程序运行、料况设置、控制模式、生产数量、冲压使能、状态查询 |
-| [激光切割工艺](./06.激光切割工艺/index.md) | 0x4401~0x4423 | IO端口设置、全局参数、模拟量匹配、切割参数、点射参数、手动操作 |
+| [激光切割工艺](./06.激光切割工艺/index.md) | 0x4401~0x4423 | IO 端口设置、全局参数、模拟量匹配、切割参数、点射参数、手动操作 |
 
 ---
 
-## 消息ID速查表
+## 消息 ID 速查表
 
 ### 焊接工艺 (0x4000)
 
-| 消息ID | 名称 | 说明 |
+| 消息 ID | 名称 | 说明 |
 |--------|------|------|
 | 0x4001 | WELDEQUIPMENT_SET | 设置焊接装置 |
 | 0x4002 | WELDEQUIPMENT_INQUIRE | 查询焊接装置 |
@@ -42,26 +42,26 @@
 | 0x400E | WELDFACTCURVOL_SET | 设置电流电压匹配实际值 |
 | 0x400F | WELDFACTCURVOL_RESPOND | 返回设置结果 |
 | 0x4010 | WELD_CURVOLMATCH_START | 开始/结束模拟量匹配 |
-| 0x4011 | WELDIOPORT_SET | 设置焊接IO接口 |
-| 0x4012 | WELDIOPORT_INQUIRE | 查询焊接IO接口 |
-| 0x4013 | WELDIOPORT_RESPOND | 返回焊接IO接口 |
+| 0x4011 | WELDIOPORT_SET | 设置焊接 IO 接口 |
+| 0x4012 | WELDIOPORT_INQUIRE | 查询焊接 IO 接口 |
+| 0x4013 | WELDIOPORT_RESPOND | 返回焊接 IO 接口 |
 | 0x4015 | WELDMONITOR_INQUIRE | 查询焊接状态 |
 
 ### 电批工艺 (0x5700)
 
-| 消息ID | 名称 | 说明 |
+| 消息 ID | 名称 | 说明 |
 |--------|------|------|
 | 0x5731 | SCREWDRIVER_PARM_SET | 修改电批参数 |
 | 0x5732 | SCREWDRIVER_PARM_INQUIRE | 示教器查询电批参数 |
 | 0x5733 | SCREWDRIVER_PARM_RESPOND | 发送电批参数 |
-| 0x5735 | SCREWDRIVER_IOSTATUS_INQUIRE | 电批IO状态查询 |
-| 0x5736 | SCREWDRIVER_IOSTATUS_RESPOND | 发送IO状态 |
+| 0x5735 | SCREWDRIVER_IOSTATUS_INQUIRE | 电批 IO 状态查询 |
+| 0x5736 | SCREWDRIVER_IOSTATUS_RESPOND | 发送 IO 状态 |
 | 0x5738 | SCREWDRIVER_TWISTRES_INQUIRE | 电批锁定结果查询 |
 | 0x5739 | SCREWDRIVER_TWISTRES_RESPOND | 发送锁定结果 |
 
 ### 喷涂工艺 (0x4700)
 
-| 消息ID | 名称 | 说明 |
+| 消息 ID | 名称 | 说明 |
 |--------|------|------|
 | 0x4701 | SPRAY_ANALOGGROUP_SET | 设置模拟量 |
 | 0x4702 | SPRAY_ANALOGROUP_INQUIRE | 查询模拟量 |
@@ -86,7 +86,7 @@
 
 ### 打磨工艺 (0x4600)
 
-| 消息ID | 名称 | 说明 |
+| 消息 ID | 名称 | 说明 |
 |--------|------|------|
 | 0x4601 | POLISH_PARAM_SET | 设置打磨工艺参数 |
 | 0x4602 | POLISH_PARAM_INQUIRE | 查询打磨工艺参数 |
@@ -94,7 +94,7 @@
 
 ### 码垛工艺 (0x4200)
 
-| 消息ID | 名称 | 说明 |
+| 消息 ID | 名称 | 说明 |
 |--------|------|------|
 | 0x4201 | PAL_GRIPPER_PARM_SET | 设置抓手参数 |
 | 0x4202 | PAL_GRIPPER_PARM_INQUIRE | 查询抓手参数 |
@@ -120,7 +120,7 @@
 
 ### 视觉工艺 (0x4100)
 
-| 消息ID | 名称 | 说明 |
+| 消息 ID | 名称 | 说明 |
 |--------|------|------|
 | 0x4101 | VISION_PARAMETER_SET | 设置视觉参数 |
 | 0x4102 | VISION_PARAMETER_INQUIRE | 查询视觉参数 |
@@ -138,14 +138,14 @@
 | 0x4111 | VISION_GESTURE_CALIBRATION_RESPOND | 返回标定结果 |
 | 0x4112 | VISION_TRY_TAKE_PICTURE | 试拍照 |
 | 0x4113 | VISION_TAKE_PICTURE_RESPOND | 返回拍照结果 |
-| 0x4114 | VISION_IPPARAM_INQUIRE | 查询视觉IP参数 |
-| 0x4115 | VISION_IPPARAM_RESPOND | 返回IP参数 |
+| 0x4114 | VISION_IPPARAM_INQUIRE | 查询视觉 IP 参数 |
+| 0x4115 | VISION_IPPARAM_RESPOND | 返回 IP 参数 |
 | 0x4116 | VISION_GESTURE_CALIBRATION_CLEAR | 清除抓取姿态标定 |
 | 0x4117 | VISION_CALIBRATION_PARAM_SET | 设置视觉标定参数 |
 
 ### 寻位跟踪工艺 (0x4100/0x4130/0x4140/0x4160)
 
-| 消息ID | 名称 | 说明 |
+| 消息 ID | 名称 | 说明 |
 |--------|------|------|
 | 0x4130 | TRACK_LASER_PARAM_SET | 设置激光器参数 |
 | 0x4131 | TRACK_LASER_PARAM_INQUIRE | 查询激光器参数 |
@@ -171,7 +171,7 @@
 
 ### 传送带跟踪 (0x4800)
 
-| 消息ID | 名称 | 说明 |
+| 消息 ID | 名称 | 说明 |
 |--------|------|------|
 | 0x4801 | TRACK_CONVEYOR_CONVEYORPARAM_SET | 设置传送带参数 |
 | 0x4802 | TRACK_CONVEYOR_CONVEYORPARAM_INQUIRE | 查询传送带参数 |
@@ -197,7 +197,7 @@
 
 ### 冲压工艺 (0x8000)
 
-| 消息ID | 名称 | 说明 |
+| 消息 ID | 名称 | 说明 |
 |--------|------|------|
 | 0x8000 | PUNCH_SET_WORKPIECE_CONDITION | 前站料况设置 |
 | 0x8001 | PUNCH_INQUIRE_WORKPIECE_CONDITION | 夹具料况查询 |
@@ -230,11 +230,11 @@
 
 ### 激光切割工艺 (0x4400)
 
-| 消息ID | 名称 | 说明 |
+| 消息 ID | 名称 | 说明 |
 |--------|------|------|
-| 0x4401 | LASER_IOPORT_SET | IO端口设置 |
-| 0x4402 | LASER_IOPORT_INQUIRE | IO端口查询 |
-| 0x4403 | LASER_IOPORT_RESPOND | IO端口响应 |
+| 0x4401 | LASER_IOPORT_SET | IO 端口设置 |
+| 0x4402 | LASER_IOPORT_INQUIRE | IO 端口查询 |
+| 0x4403 | LASER_IOPORT_RESPOND | IO 端口响应 |
 | 0x4404 | LASER_EQUIPMENT_SET | 全局参数设置 |
 | 0x4405 | LASER_EQUIPMENT_INQUIRE | 全局参数查询 |
 | 0x4406 | LASER_EQUIPMENT_RESPOND | 全局参数响应 |
@@ -265,7 +265,7 @@
 |------|------|
 | int | 机器人编号，通常范围 1~n |
 
-### 工艺号 (craftID/num/visionNum/conveyorID等)
+### 工艺号 (craftID/num/visionNum/conveyorID 等)
 
 | 类型 | 说明 |
 |------|------|
@@ -277,7 +277,7 @@
 
 ### 请求/响应通用模式
 
-```
+```text
 请求方 ──消息ID──> 控制器
        <──响应ID── 控制器
 ```
@@ -300,7 +300,7 @@
 
 ## 注意事项
 
-1. **消息ID格式**：所有消息ID使用十六进制格式，如 `0x4001`
+1. **消息 ID 格式**：所有消息 ID 使用十六进制格式，如 `0x4001`
 2. **必填参数**：参数说明中的"必填"列表示该参数是否必须提供
 3. **数据类型**：详细参数类型和说明请参阅各工艺的专门文档
-4. **代码示例**：各文档中的JSON示例均可直接使用
+4. **代码示例**：各文档中的 JSON 示例均可直接使用

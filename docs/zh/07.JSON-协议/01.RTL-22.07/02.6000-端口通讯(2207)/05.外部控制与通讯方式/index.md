@@ -3,9 +3,9 @@
 ## 目录
 
 - [远程程序设置](#远程程序设置)
-- [Lua程序](#lua程序)
+- [Lua 程序](#lua程序)
 - [Modbus](#modbus)
-- [TCP通讯](#tcp通讯)
+- [TCP 通讯](#tcp通讯)
 
 ---
 
@@ -169,9 +169,9 @@
 
 ---
 
-## Lua程序
+## Lua 程序
 
-Lua文件存放在 `~/robot/job/lua` 目录内。
+Lua 文件存放在 `~/robot/job/lua` 目录内。
 
 上传文件和查看文件列表用 SCP 的方式。
 
@@ -197,7 +197,7 @@ Lua文件存放在 `~/robot/job/lua` 目录内。
 
 | 参数 | 类型 | 必填 | 说明 |
 |------|------|------|------|
-| fileName | string | 是 | Lua文件名 |
+| fileName | string | 是 | Lua 文件名 |
 | result | bool | 是 | 运行是否成功 |
 | error | string | 是 | 错误原因，成功时为空字符串 |
 
@@ -215,7 +215,7 @@ Lua文件存放在 `~/robot/job/lua` 目录内。
 
 | 参数 | 类型 | 必填 | 说明 |
 |------|------|------|------|
-| fileName | string | 是 | Lua文件名 |
+| fileName | string | 是 | Lua 文件名 |
 
 ---
 
@@ -243,7 +243,7 @@ Lua文件存放在 `~/robot/job/lua` 目录内。
 | 参数 | 类型 | 必填 | 说明 |
 |------|------|------|------|
 | fileNames | array | 是 | 运行中的文件列表 |
-| fileNames[].fileName | string | 是 | Lua文件名 |
+| fileNames[].fileName | string | 是 | Lua 文件名 |
 | fileNames[].status | int | 是 | 1-暂停，2-运行 |
 
 ---
@@ -589,7 +589,7 @@ Lua文件存放在 `~/robot/job/lua` 目录内。
 
 ---
 
-## TCP通讯
+## TCP 通讯
 
 ### 设置网络参数
 
@@ -602,7 +602,7 @@ Lua文件存放在 `~/robot/job/lua` 目录内。
 | 字段 | 类型 | 描述 |
 |------|------|------|
 | frameHeader | string | 帧头 |
-| ip | string | IP地址 |
+| ip | string | IP 地址 |
 | numberSystem | int | 0: 十进制, 1: 十六进制 |
 | port | int | 端口号 |
 | separator | string | 分隔符 |
@@ -636,7 +636,7 @@ Lua文件存放在 `~/robot/job/lua` 目录内。
 | 字段 | 类型 | 描述 |
 |------|------|------|
 | frameHeader | string | 帧头 |
-| ip | string | IP地址 |
+| ip | string | IP 地址 |
 | numberSystem | int | 0: 十进制, 1: 十六进制 |
 | port | int | 端口号 |
 | separator | string | 分隔符 |
@@ -700,7 +700,7 @@ Lua文件存放在 `~/robot/job/lua` 目录内。
 | 字段 | 类型 | 描述 |
 |------|------|------|
 | frameHeader | string | 帧头 |
-| ip | string | IP地址 |
+| ip | string | IP 地址 |
 | numberSystem | int | 0: 十进制, 1: 十六进制 |
 | port | int | 端口号 |
 | separator | string | 分隔符 |
@@ -736,7 +736,7 @@ Lua文件存放在 `~/robot/job/lua` 目录内。
 | 字段 | 类型 | 描述 |
 |------|------|------|
 | frameHeader | string | 帧头 |
-| ip | string | IP地址 |
+| ip | string | IP 地址 |
 | numberSystem | int | 0: 十进制, 1: 十六进制 |
 | port | int | 端口号 |
 | separator | string | 分隔符 |
@@ -767,7 +767,7 @@ Lua文件存放在 `~/robot/job/lua` 目录内。
 
 ---
 
-### 连接MSGCOMM网络
+### 连接 MSGCOMM 网络
 
 **命令字**: `0x4183 MSGCOMM_DEVICE_CONNECT`
 
@@ -789,7 +789,7 @@ Lua文件存放在 `~/robot/job/lua` 目录内。
 
 ---
 
-### 关闭MSGCOMM网络
+### 关闭 MSGCOMM 网络
 
 **命令字**: `0x4184 MSGCOMM_DEVICE_CLOSE`
 

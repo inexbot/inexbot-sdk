@@ -11,7 +11,7 @@
 - [力学功能](#力学功能)
 - [队列模式运动通讯](#队列模式运动通讯)
 - [标定](#标定)
-- [3D鼠标控制](#3d鼠标控制)
+- [3D 鼠标控制](#3d鼠标控制)
 
 ---
 
@@ -29,7 +29,7 @@
 |--------|------|------|------|
 | robot | int | 是 | 选择机器人，取值范围 [1, 4] |
 | jobfilename | string | 是 | 作业文件名（不包括后缀名） |
-| suffix | string | 是 | 文件扩展名：.JBR主程序/.JBP后台局部程序/.JBPG后台全局程序 |
+| suffix | string | 是 | 文件扩展名：.JBR 主程序/.JBP 后台局部程序/.JBPG 后台全局程序 |
 
 **请求示例：**
 
@@ -212,7 +212,7 @@
 | 第1、2位 | 坐标类型：0,0-关节坐标；1,1-直角坐标；2,1-工具坐标；3,1-用户坐标 |
 | 第3位 | 左右手：1-左，2-右，0-无左右手（默认0） |
 | 第4、5、6、7位 | 备用，默认0 |
-| 第8-14位 | 机器人本体坐标值（7位）：关节坐标下为1-6轴角度值，其他坐标下为x,y,z,a,b,c |
+| 第8-14位 | 机器人本体坐标值（7位）：关节坐标下为1-6轴角度值，其他坐标下为 x,y,z,a,b,c |
 | 第15-19位 | 外部轴坐标值（最大5个外部轴，不足补零） |
 
 **请求示例：**
@@ -288,7 +288,7 @@
 |--------|------|------|------|
 | robot | int | 是 | 机器人编号 |
 | userNum | int | 是 | 用户编号 |
-| posType | int | 是 | 点位类型：0-原点，1-X值，2-Y值 |
+| posType | int | 是 | 点位类型：0-原点，1-X 值，2-Y 值 |
 
 **请求示例：**
 
@@ -536,9 +536,9 @@ data: 空
 | 参数名 | 类型 | 说明 |
 |--------|------|------|
 | robot | int | 机器人编号 (1, 2, 3, 4) |
-| deg | int | 是否为ACS坐标系；0：是；1：不是 |
-| pos | array | 弧度点位值，坐标值用7位存储关节坐标下。前六位为J1~J6轴角度值(度)或直角/工具/用户坐标XYZ(毫米)，四到六位为ABC坐标值(弧度)，第七位保留 |
-| posDeg | array | 角度点位值，直角/工具/用户坐标下ABC弧度值转为角度值，其余状态数值与pos一致 |
+| deg | int | 是否为 ACS 坐标系；0：是；1：不是 |
+| pos | array | 弧度点位值，坐标值用7位存储关节坐标下。前六位为 J1~J6轴角度值(度)或直角/工具/用户坐标 XYZ(毫米)，四到六位为 ABC 坐标值(弧度)，第七位保留 |
+| posDeg | array | 角度点位值，直角/工具/用户坐标下 ABC 弧度值转为角度值，其余状态数值与 pos 一致 |
 | coord | int | 坐标模式：-1-控制器当前坐标, 0-关节坐标, 1-直角坐标, 2-工具坐标, 3-用户坐标, 4-电机位置 |
 | configuration | int | 姿态或(SCARA)左右手 |
 
@@ -656,7 +656,7 @@ data: 空
 | 参数名 | 类型 | 必填 | 说明 |
 |--------|------|------|------|
 | absolutePosResolution | float | 是 | 绝对位置分辨率，范围：0.0001 - 0.1 度 |
-| interpolationMethod | int | 是 | 机器人插补方式：0-S型, 1-梯形, 2-加加插补 |
+| interpolationMethod | int | 是 | 机器人插补方式：0-S 型, 1-梯形, 2-加加插补 |
 | runDelayTime | int | 是 | 运行延时时间，范围：500 - 20000 毫秒 |
 | stopTime | int | 是 | 暂停时间，范围：240 - 2000 毫秒 |
 
@@ -684,7 +684,7 @@ data: 无
 | 参数名 | 类型 | 说明 |
 |--------|------|------|
 | absolutePosResolution | float | 绝对位置分辨率，单位：度 |
-| interpolationMethod | int | 机器人插补方式：0-S型, 1-梯形, 2-加加插补 |
+| interpolationMethod | int | 机器人插补方式：0-S 型, 1-梯形, 2-加加插补 |
 | runDelayTime | int | 运行延时时间，单位：毫秒 |
 | stopTime | int | 暂停时间，单位：毫秒 |
 
@@ -731,18 +731,18 @@ data: null
 |--------|------|
 | 0 | 无 |
 | 1 | 通用六轴串联多关节 |
-| 2 | 四轴SCARA |
+| 2 | 四轴 SCARA |
 | 3 | 四轴码垛 |
 | 4 | 四轴串联多关节 |
 | 5 | 单轴 |
 | 6 | 五轴串联多关节 |
 | 7 | 6轴协作 |
-| 8 | 二轴SCARA |
-| 9 | 三轴SCARA |
+| 8 | 二轴 SCARA |
+| 9 | 三轴 SCARA |
 | 10 | 三轴直角 |
 | 11 | 三轴异形一 |
 | 12 | 七轴串联多关节 |
-| 13 | SCARA异形一 |
+| 13 | SCARA 异形一 |
 | 14 | 四轴码垛丝杆 |
 | ... | 更多类型略 |
 
@@ -777,7 +777,7 @@ data: null
 | 参数名 | 类型 | 必填 | 说明 |
 |--------|------|------|------|
 | controlCycle | int | 是 | 通讯周期，范围：1, 2, 4, 8，控制器重启生效 |
-| baudRate | string | 是 | CAN_OPEN的波特率 |
+| baudRate | string | 是 | CAN_OPEN 的波特率 |
 
 **请求示例：**
 
@@ -963,7 +963,7 @@ data: null
 
 | 字段 | 类型 | 说明 |
 |------|------|------|
-| ctype | int | P类型：NONE_TYPE=0, P_TYPE, E_TYPE, RP_TYPE, AP_TYPE, GP_TYPE, GE_TYPE |
+| ctype | int | P 类型：NONE_TYPE=0, P_TYPE, E_TYPE, RP_TYPE, AP_TYPE, GP_TYPE, GE_TYPE |
 | data | double[21] | 位置数据数组，详见下方数组索引说明 |
 | key | string | 变量类型 |
 | paraVarData | array | 变量数据数组 |
@@ -975,7 +975,7 @@ data: null
 | 0, 1 | 坐标系标识 | 0 0-关节坐标，1 1-直角坐标，2 1-工具坐标，3 1-用户坐标 |
 | 2 | 左右手 | 1-左，2-右，0-无左右手（默认0） |
 | 3, 4, 5, 6 | 备用 | 默认0 |
-| 7 ~ 13 | 机器人本体坐标 | 7位，关节坐标下表示1-6轴角度值，其他坐标下表示x,y,z,a,b,c |
+| 7 ~ 13 | 机器人本体坐标 | 7位，关节坐标下表示1-6轴角度值，其他坐标下表示 x,y,z,a,b,c |
 | 14 ~ 18 | 外部轴坐标 | 最大支持5个外部轴，只有关节值，不足补零 |
 
 **请求示例：**
@@ -1020,7 +1020,7 @@ data: null
 
 ### 1. 变位机坐标校正计算设置
 
-**命令ID:** `0x7001` SYNCPOSITIONER_CALIBRATION_SET
+**命令 ID:** `0x7001` SYNCPOSITIONER_CALIBRATION_SET
 
 **说明:** 变位机坐标校正计算设置，发送如下指令
 
@@ -1038,7 +1038,7 @@ data: null
 }
 ```
 
-**控制器返回命令ID:** `0x7004` SYNCPOSITIONER_CALIBRATION_RESULT
+**控制器返回命令 ID:** `0x7004` SYNCPOSITIONER_CALIBRATION_RESULT
 
 **响应参数：**
 
@@ -1058,7 +1058,7 @@ data: null
 
 ### 2. 标定点坐标
 
-**命令ID:** `0x7002` SYNCPOSITIONER_CALIBRATION_INQUIRE
+**命令 ID:** `0x7002` SYNCPOSITIONER_CALIBRATION_INQUIRE
 
 **说明:** 标定点坐标，发送如下指令
 
@@ -1078,7 +1078,7 @@ data: null
 }
 ```
 
-**控制器回复命令ID:** `0x7003` SYNCPOSITIONER_CALIBRATION_RESPOND
+**控制器回复命令 ID:** `0x7003` SYNCPOSITIONER_CALIBRATION_RESPOND
 
 **响应参数：**
 
@@ -1102,7 +1102,7 @@ data: null
 
 ### 3. 查询所有外部轴的标定结果
 
-**命令ID:** `0x7005` SYNCPOSITIONER_TYPEANDCALIBRATIONRESULT_INQUIRE
+**命令 ID:** `0x7005` SYNCPOSITIONER_TYPEANDCALIBRATIONRESULT_INQUIRE
 
 **说明:** 查询所有外部轴的标定结果
 
@@ -1120,7 +1120,7 @@ data: null
 }
 ```
 
-**返回命令ID:** `0x7006` SYNCPOSITIONER_TYPEANDCALIBRATIONRESULT_RESPOND
+**返回命令 ID:** `0x7006` SYNCPOSITIONER_TYPEANDCALIBRATIONRESULT_RESPOND
 
 **响应参数：**
 
@@ -1144,7 +1144,7 @@ data: null
 
 ### 4. 标定结果查询
 
-**命令ID:** `0x7007` SYNCPOSITIONER_COORD_INQUIRE
+**命令 ID:** `0x7007` SYNCPOSITIONER_COORD_INQUIRE
 
 **说明:** 标定结果查询（示教器无此功能）
 
@@ -1164,7 +1164,7 @@ data: null
 }
 ```
 
-**回复命令ID:** `0x7008` SYNCPOSITIONER_COORD_RESPOND
+**回复命令 ID:** `0x7008` SYNCPOSITIONER_COORD_RESPOND
 
 **响应参数：**
 
@@ -1188,7 +1188,7 @@ data: null
 
 ### 5. 设置当前协作外部轴组号
 
-**命令ID:** `0x7009` SYNCPOSITIONER_COORDNUM_SWITCH
+**命令 ID:** `0x7009` SYNCPOSITIONER_COORDNUM_SWITCH
 
 **说明:** 设置当前协作外部轴组号
 
@@ -1208,11 +1208,11 @@ data: null
 
 **查询当前协作外部轴组号:**
 
-**命令ID:** `0x700A` SYNCPOSITIONER_COORDNUM_INQUIRE
+**命令 ID:** `0x700A` SYNCPOSITIONER_COORDNUM_INQUIRE
 
 **说明:** 无需发送数据
 
-**控制器回复命令ID:** `0x700B` SYNCPOSITIONER_COORDNUM_RESPOND
+**控制器回复命令 ID:** `0x700B` SYNCPOSITIONER_COORDNUM_RESPOND
 
 **响应参数：**
 
@@ -1232,7 +1232,7 @@ data: null
 
 ### 6. 设置地轨参数
 
-**命令ID:** `0x700D` SYNCTRACK_SET
+**命令 ID:** `0x700D` SYNCTRACK_SET
 
 **说明:** 设置地轨参数，示教盒发送下面命令
 
@@ -1241,9 +1241,9 @@ data: null
 | 参数名 | 类型 | 必填 | 说明 |
 |--------|------|------|------|
 | calibrateResult | bool | 是 | 是否协作 |
-| xConversionRatio | float | 是 | x方向转换比 |
-| yConversionRatio | float | 是 | y方向转换比 |
-| zConversionRatio | float | 是 | z方向转换比 |
+| xConversionRatio | float | 是 | x 方向转换比 |
+| yConversionRatio | float | 是 | y 方向转换比 |
+| zConversionRatio | float | 是 | z 方向转换比 |
 
 **请求示例：**
 
@@ -1256,9 +1256,9 @@ data: null
 }
 ```
 
-**查询命令ID:** `0x700E` SYNCTRACK_INQUIRE
+**查询命令 ID:** `0x700E` SYNCTRACK_INQUIRE
 
-**控制器回复命令ID:** `0x700F` SYNCTRACK_RESPOND
+**控制器回复命令 ID:** `0x700F` SYNCTRACK_RESPOND
 
 **响应示例：**
 
@@ -1275,7 +1275,7 @@ data: null
 
 ### 7. 当前位置查询
 
-**命令ID:** `0x7012` SYNC_POS_INQUIRE
+**命令 ID:** `0x7012` SYNC_POS_INQUIRE
 
 **说明:** 外部轴设置界面，示教盒发送下面命令
 
@@ -1295,7 +1295,7 @@ data: null
 }
 ```
 
-**控制器回复命令ID:** `0x7013` SYNC_POS_RESPOND
+**控制器回复命令 ID:** `0x7013` SYNC_POS_RESPOND
 
 **说明:** 复位点设置界面，控制器收到当前位置查询时发送
 
@@ -1327,7 +1327,7 @@ data: null
 
 ### 8. 双机协作使能
 
-**设置双机协作使能指令命令ID:** `0x7015` COOPERATIVE_SET
+**设置双机协作使能指令命令 ID:** `0x7015` COOPERATIVE_SET
 
 **请求参数：**
 
@@ -1343,9 +1343,9 @@ data: null
 }
 ```
 
-**获取协作状态命令ID:** `0x7016` COOPERATIVE_INQUIRE
+**获取协作状态命令 ID:** `0x7016` COOPERATIVE_INQUIRE
 
-**回复协作状态命令ID:** `0x7017` COOPERATIVE_RESPOND
+**回复协作状态命令 ID:** `0x7017` COOPERATIVE_RESPOND
 
 **响应参数：**
 
@@ -1365,7 +1365,7 @@ data: null
 
 ### 9. 外部轴关节参数设置
 
-**命令ID:** `0x7021` JOINTPARAMETER_SYNCPOSITIONER_SET
+**命令 ID:** `0x7021` JOINTPARAMETER_SYNCPOSITIONER_SET
 
 **说明:** 外部轴关节参数设置
 
@@ -1482,7 +1482,7 @@ data: null
 |--------|------|------|
 | syncGroupNum | int | 同步组号 |
 
-**查询关节参数命令ID:** `0x7022` JOINTPARAMETER_SYNCPOSITIONER_INQUIRE
+**查询关节参数命令 ID:** `0x7022` JOINTPARAMETER_SYNCPOSITIONER_INQUIRE
 
 **请求参数：**
 
@@ -1498,7 +1498,7 @@ data: null
 }
 ```
 
-**关节参数返回命令ID:** `0x7023` JOINTPARAMETER_SYNCPOSITIONER_RESPOND
+**关节参数返回命令 ID:** `0x7023` JOINTPARAMETER_SYNCPOSITIONER_RESPOND
 
 **说明:** 同 0x7021
 
@@ -1506,7 +1506,7 @@ data: null
 
 ### 10. 外部轴点动关节速度设置
 
-**命令ID:** `0x7024` JOG_JOINTPARAMETER_SYNCPOSITIONER_SET
+**命令 ID:** `0x7024` JOG_JOINTPARAMETER_SYNCPOSITIONER_SET
 
 **说明:** 外部轴点动关节速度设置
 
@@ -1864,7 +1864,7 @@ data: null
 
 | 参数名 | 类型 | 必填 | 描述 |
 |--------|------|------|------|
-| mode | int | 是 | 拖拽模式：0-无，1-3D鼠标，2-力矩 |
+| mode | int | 是 | 拖拽模式：0-无，1-3D 鼠标，2-力矩 |
 | port | int | 是 | 外部触发信号端口号 |
 | value | int | 是 | 外部触发信号值 |
 
@@ -2044,13 +2044,13 @@ data: null
 
 ## 队列模式运动通讯
 
-### 1. socket控制追加模式运动
+### 1. socket 控制追加模式运动
 
-#### 1.1 开启/关闭socket直接控制运动模式
+#### 1.1 开启/关闭 socket 直接控制运动模式
 
 开启后会进入特殊的运行模式，关闭后需要手动切回示教模式。
 
-**消息ID:** `0x50B1` DIRECTMOTION_MODE_SET
+**消息 ID:** `0x50B1` DIRECTMOTION_MODE_SET
 
 **请求参数：**
 
@@ -2072,7 +2072,7 @@ data: null
 
 #### 1.2 控制器返回开启成功/失败
 
-**消息ID:** `0x50B3` DIRECTMOTION_MODE_RESPOND
+**消息 ID:** `0x50B3` DIRECTMOTION_MODE_RESPOND
 
 **响应参数：**
 
@@ -2094,21 +2094,21 @@ data: null
 
 #### 1.3 发送作业文件指令队列
 
-**消息ID:** `0x50B4` DIRECTMOTION_INSERT_INSTRVEC
+**消息 ID:** `0x50B4` DIRECTMOTION_INSERT_INSTRVEC
 
 **请求参数：**
 
 | 参数名 | 类型 | 必填 | 说明 |
 |--------|------|------|------|
 | robot | number | 是 | 机器人编号 |
-| data | array | 是 | 指令json列表 |
+| data | array | 是 | 指令 json 列表 |
 
 **data 数组元素参数：**
 
 | 参数名 | 类型 | 必填 | 说明 |
 |--------|------|------|------|
 | type | number | 是 | 指令类型：1=点到，2=直线，3=圆弧，4=整圆 |
-| positionId | string | 条件 | 全局点位（使用全局GP点时必填） |
+| positionId | string | 条件 | 全局点位（使用全局 GP 点时必填） |
 | RobotPos | object | 条件 | 自定义点位（使用自动点位时必填） |
 | ParaACC | object | 是 | 加速度参数 |
 | ParaDEC | object | 是 | 减速度参数 |
@@ -2125,7 +2125,7 @@ data: null
 | offsetAxis | number | 否 | 轴偏移 |
 | polish | number | 否 | 打磨参数 |
 | polishAngle | number | 否 | 打磨角度 |
-| polishID | number | 否 | 打磨ID |
+| polishID | number | 否 | 打磨 ID |
 | posidname | string | 否 | 点位名称 |
 | posidtype | number | 否 | 点位类型 |
 | logout | boolean | 否 | 登出 |
@@ -2140,7 +2140,7 @@ data: null
 | 参数名 | 类型 | 必填 | 说明 |
 |--------|------|------|------|
 | data | number | 是 | 参数值 |
-| m_vUnit | number | 条件 | 速度单位（ParaV时必填）：0=cm/s 1=mm/s 2=百分比 |
+| m_vUnit | number | 条件 | 速度单位（ParaV 时必填）：0=cm/s 1=mm/s 2=百分比 |
 | secondvalue | number | 否 | 第二值 |
 | value | number | 否 | 旧版参数值 |
 | varname | string | 否 | 变量名 |
@@ -2164,8 +2164,8 @@ data: null
 | 3 | 工具工艺号 | 工具编号 |
 | 4 | 用户工艺号 | 用户编号 |
 | 5-6 | 预留 | 预留字段 |
-| 7 | J1/X | X坐标值 |
-| 8 | J2/Y | Y坐标值 |
+| 7 | J1/X | X 坐标值 |
+| 8 | J2/Y | Y 坐标值 |
 | 9 | J3 | J3值 |
 | 10 | J4 | J4值 |
 | 11 | J5 | J5值 |
@@ -2175,7 +2175,7 @@ data: null
 
 ---
 
-#### 1.4 案例一：采用全局GP点
+#### 1.4 案例一：采用全局 GP 点
 
 ```json
 {
@@ -2312,7 +2312,7 @@ data: null
 
 #### 1.6 暂停追加运行
 
-**消息ID:** `0x50B7` DIRECTMOTION_MODE_SUSPEND
+**消息 ID:** `0x50B7` DIRECTMOTION_MODE_SUSPEND
 
 **请求参数：**
 
@@ -2332,7 +2332,7 @@ data: null
 
 #### 1.7 开始追加运行（暂停后使用）
 
-**消息ID:** `0x50B8` DIRECTMOTION_MODE_START
+**消息 ID:** `0x50B8` DIRECTMOTION_MODE_START
 
 **请求参数：**
 
@@ -2352,7 +2352,7 @@ data: null
 
 #### 1.8 停止追加运行
 
-**消息ID:** `0x50B9` DIRECTMOTION_MODE_STOP
+**消息 ID:** `0x50B9` DIRECTMOTION_MODE_STOP
 
 **请求参数：**
 
@@ -2372,7 +2372,7 @@ data: null
 
 #### 1.9 设置队列模式停止不下电
 
-**消息ID:** `0x50BA`
+**消息 ID:** `0x50BA`
 
 **请求参数：**
 
@@ -2556,18 +2556,18 @@ data: null
 
 | 参数名 | 类型 | 描述 |
 |--------|------|------|
-| tool.A | float | 绕A轴旋转角度 |
-| tool.B | float | 绕B轴旋转角度 |
-| tool.C | float | 绕C轴旋转角度 |
+| tool.A | float | 绕 A 轴旋转角度 |
+| tool.B | float | 绕 B 轴旋转角度 |
+| tool.C | float | 绕 C 轴旋转角度 |
 | tool.note | string | 注释 |
 | tool.payload_inertia | float | 负载惯量 |
 | tool.payload_mass | float | 负载质量 |
-| tool.payload_mass_center_X | float | 负载质心X |
-| tool.payload_mass_center_Y | float | 负载质心Y |
-| tool.payload_mass_center_Z | float | 负载质心Z |
-| tool.x | float | X轴偏移 |
-| tool.y | float | Y轴偏移 |
-| tool.z | float | Z轴偏移 |
+| tool.payload_mass_center_X | float | 负载质心 X |
+| tool.payload_mass_center_Y | float | 负载质心 Y |
+| tool.payload_mass_center_Z | float | 负载质心 Z |
+| tool.x | float | X 轴偏移 |
+| tool.y | float | Y 轴偏移 |
+| tool.z | float | Z 轴偏移 |
 | toolNum | int | 工具手号 |
 
 **请求示例：**
@@ -2763,9 +2763,9 @@ data: null
 | 参数名 | 类型 | 描述 |
 |--------|------|------|
 | result | bool | true=标定成功，false=标定失败 |
-| status.O | bool | O点状态 |
-| status.X | bool | X点状态 |
-| status.Y | bool | Y点状态 |
+| status.O | bool | O 点状态 |
+| status.X | bool | X 点状态 |
+| status.Y | bool | Y 点状态 |
 
 **响应示例：**
 
@@ -2784,7 +2784,7 @@ data: null
 
 #### 0x3C03 USERCALIBRATION_RECORD
 
-标记用户原点、X、Y值
+标记用户原点、X、Y 值
 
 **请求参数：**
 
@@ -2792,9 +2792,9 @@ data: null
 |--------|------|------|
 | userNum | int | 用户坐标号 |
 | inquire | string | 取值 "O", "X", "Y" 或 "OXY" |
-| posZero | array[6] | 标记原点（弧度制），当inquire为"OXY"时存在 |
-| posX | array[6] | 标记X值（弧度制），当inquire为"OXY"时存在 |
-| posY | array[6] | 标记Y值（弧度制），当inquire为"OXY"时存在 |
+| posZero | array[6] | 标记原点（弧度制），当 inquire 为"OXY"时存在 |
+| posX | array[6] | 标记 X 值（弧度制），当 inquire 为"OXY"时存在 |
+| posY | array[6] | 标记 Y 值（弧度制），当 inquire 为"OXY"时存在 |
 
 **请求示例：**
 
@@ -2934,7 +2934,7 @@ data: null
 
 ---
 
-## 3D鼠标控制
+## 3D 鼠标控制
 
 ### 设置灵敏度发送
 
@@ -2944,8 +2944,8 @@ data: null
 
 | 参数 | 类型 | 说明 |
 |------|------|------|
-| ABC | int | 姿态ABC |
-| mouseSen | int[4] | 鼠标灵敏度xyz和姿态灵敏度（0-300） |
+| ABC | int | 姿态 ABC |
+| mouseSen | int[4] | 鼠标灵敏度 xyz 和姿态灵敏度（0-300） |
 
 **请求示例：**
 
@@ -2974,8 +2974,8 @@ data: 无
 
 | 参数 | 类型 | 说明 |
 |------|------|------|
-| ABC | int | 姿态ABC |
-| mouseSen | int[4] | 鼠标灵敏度xyz和姿态灵敏度（0-300） |
+| ABC | int | 姿态 ABC |
+| mouseSen | int[4] | 鼠标灵敏度 xyz 和姿态灵敏度（0-300） |
 
 **响应示例：**
 
@@ -2988,7 +2988,7 @@ data: 无
 
 ---
 
-### 3D鼠标零点标记零点发送
+### 3D 鼠标零点标记零点发送
 
 **0x7304** THREED_MOUSE_SETZERO
 
@@ -3024,7 +3024,7 @@ data: 无
 
 ---
 
-### 3D鼠标正方向标记设置
+### 3D 鼠标正方向标记设置
 
 **0x7307** THREED_MOUSE_SIGN_DIRECTION
 
@@ -3032,7 +3032,7 @@ data: 无
 
 | 参数 | 类型 | 说明 |
 |------|------|------|
-| axis | int | 1表示标记X正方向，2：Y，3：Z |
+| axis | int | 1表示标记 X 正方向，2：Y，3：Z |
 
 **请求示例：**
 
@@ -3044,7 +3044,7 @@ data: 无
 
 ---
 
-### 获取3D鼠标正方向标记状态
+### 获取3D 鼠标正方向标记状态
 
 **0x7308** THREED_MOUSE_SIGN_DIRECTION_INQUIRE
 
@@ -3052,7 +3052,7 @@ data: 无
 
 ---
 
-### 获取3D鼠标正方向标记状态，控制器回复
+### 获取3D 鼠标正方向标记状态，控制器回复
 
 **0x7309** THREED_MOUSE_SIGN_DIRECTION_RESPOND
 
@@ -3060,9 +3060,9 @@ data: 无
 
 | 参数 | 类型 | 说明 |
 |------|------|------|
-| xTagged | int | X正方向 0：失败，1：成功，2：标定中 |
-| yTagged | int | Y正方向 0：失败，1：成功，2：标定中 |
-| zTagged | int | Z正方向 0：失败，1：成功，2：标定中 |
+| xTagged | int | X 正方向 0：失败，1：成功，2：标定中 |
+| yTagged | int | Y 正方向 0：失败，1：成功，2：标定中 |
+| zTagged | int | Z 正方向 0：失败，1：成功，2：标定中 |
 
 **响应示例：**
 
@@ -3084,7 +3084,7 @@ data: 无
 
 | 参数 | 类型 | 说明 |
 |------|------|------|
-| pageBack | int | 3D鼠标点标记方向但未标记，直接切换界面时通知控制器退出标记方向线程 |
+| pageBack | int | 3D 鼠标点标记方向但未标记，直接切换界面时通知控制器退出标记方向线程 |
 
 **请求示例：**
 
@@ -3096,7 +3096,7 @@ data: 无
 
 ---
 
-### 设置3D鼠标端口号
+### 设置3D 鼠标端口号
 
 **0x730B** THREED_MOUSE_SET_PORT
 
@@ -3116,7 +3116,7 @@ data: 无
 
 ---
 
-### 查询3D鼠标端口号
+### 查询3D 鼠标端口号
 
 **0x730C** THREED_MOUSE_INQUIRE_PORT
 

@@ -5,7 +5,7 @@
 - [伺服状态](#1-伺服状态)
 - [系统状态](#2-系统状态)
 - [数字输入输出](#3-数字输入输出)
-- [远程IO控制](#4-远程io控制)
+- [远程 IO 控制](#4-远程io 控制)
 - [全局变量](#5-全局变量)
 
 ---
@@ -251,7 +251,7 @@
 
 | 参数 | 类型 | 说明 | 取值范围 |
 |------|------|------|----------|
-| deadman | int | 上下电状态 | 0: DEADMAN下电, 1: DEADMAN上电 |
+| deadman | int | 上下电状态 | 0: DEADMAN 下电, 1: DEADMAN 上电 |
 
 ```json
 {
@@ -290,8 +290,8 @@
 | 参数 | 类型 | 说明 | 取值范围 |
 |------|------|------|----------|
 | deadmanMode | int | 触发模式 | 0: 软件触发, 1: 硬件触发 |
-| deadmanPortOne | int | 上使能端口IO端口号 | 每个端口最多可分配16个IO序号 |
-| deadmanPortTwo | int | 下使能端口IO端口号 | - |
+| deadmanPortOne | int | 上使能端口 IO 端口号 | 每个端口最多可分配16个 IO 序号 |
+| deadmanPortTwo | int | 下使能端口 IO 端口号 | - |
 
 ```json
 {
@@ -318,8 +318,8 @@
 | 参数 | 类型 | 说明 | 取值范围 |
 |------|------|------|----------|
 | deadmanMode | int | 触发模式 | 0: 软件触发, 1: 硬件触发 |
-| deadmanPortOne | int | 上使能端口IO端口号 | 每个端口最多可分配16个IO序号 |
-| deadmanPortTwo | int | 下使能端口IO端口号 | - |
+| deadmanPortOne | int | 上使能端口 IO 端口号 | 每个端口最多可分配16个 IO 序号 |
+| deadmanPortTwo | int | 下使能端口 IO 端口号 | - |
 
 ```json
 {
@@ -425,18 +425,18 @@
 
 ---
 
-### 2.2 控制器IP设置
+### 2.2 控制器 IP 设置
 
-#### 控制器IP设置
+#### 控制器 IP 设置
 
 **命令字**：`0x4301` CONTROLLER_IP_SET
 
 | 参数 | 类型 | 说明 |
 |------|------|------|
 | name | string | 网卡名称 |
-| address | string | IP地址 |
+| address | string | IP 地址 |
 | gateway | string | 网关 |
-| dns | string | DNS服务器 |
+| dns | string | DNS 服务器 |
 
 ```json
 {
@@ -447,7 +447,7 @@
 }
 ```
 
-#### 查询控制器IP
+#### 查询控制器 IP
 
 **命令字**：`0x4302` CONTROLLER_IP_INQUIRE
 
@@ -484,9 +484,9 @@
 
 ---
 
-### 2.3 控制器License
+### 2.3 控制器 License
 
-#### 获取控制器ID
+#### 获取控制器 ID
 
 **命令字**：`0x5052` IDENTIFY_NUMBER_INQUIRE
 
@@ -496,7 +496,7 @@
 
 | 参数 | 类型 | 说明 |
 |------|------|------|
-| controllerID | string | 控制器ID |
+| controllerID | string | 控制器 ID |
 
 ```json
 {
@@ -629,14 +629,14 @@
 | version | string | 版本号内容 |
 | servoVersion | string | 伺服版本（久同控制器返回空字符串） |
 | ocmVersion | string | 静态库版本（久同控制器返回空字符串） |
-| ioVersion | string | IO版本号（久同控制器返回空字符串） |
+| ioVersion | string | IO 版本号（久同控制器返回空字符串） |
 | nodka_c1201 | object | C1201控制器专用节点 |
 
 **nodka_c1201 节点参数说明**：
 
 | 参数 | 类型 | 说明 |
 |------|------|------|
-| deviceId | string | 设备ID |
+| deviceId | string | 设备 ID |
 | hw_version | string | 硬件版本号 |
 | fw_version | string | 固件版本号 |
 | drv_version | string | 驱动版本号 |
@@ -670,7 +670,7 @@
 
 | 参数 | 类型 | 说明 |
 |------|------|------|
-| MD5 | string | 示教器程序的MD5值 |
+| MD5 | string | 示教器程序的 MD5值 |
 
 ```json
 {
@@ -934,7 +934,7 @@
 |------|------|------|
 | answer | string | "yes"：同意下载，"busy"：控制器忙碌，"nofile"：无此文件 |
 | name | string | 作业文件全路径 |
-| size | int | 如果拒绝，则size无效 |
+| size | int | 如果拒绝，则 size 无效 |
 
 ```json
 {
@@ -964,7 +964,7 @@
 
 | 参数 | 类型 | 说明 |
 |------|------|------|
-| isExport | bool | true：表示导出配置，false表示导入配置 |
+| isExport | bool | true：表示导出配置，false 表示导入配置 |
 
 ```json
 {
@@ -1004,7 +1004,7 @@
 
 | 参数 | 类型 | 说明 |
 |------|------|------|
-| finish | bool | true表示上传成功，false表示失败 |
+| finish | bool | true 表示上传成功，false 表示失败 |
 
 ```json
 {
@@ -1035,7 +1035,7 @@
 | 参数 | 类型 | 说明 |
 |------|------|------|
 | absolutepath | string | 日志所在目录 |
-| logfilenum | int | 注意，这个数和上面的num不一定相等 |
+| logfilenum | int | 注意，这个数和上面的 num 不一定相等 |
 | logfilelist | array | 日志列表 |
 
 ```json
@@ -1048,7 +1048,7 @@
 
 ---
 
-### 2.16 ENI文件列表查询
+### 2.16 ENI 文件列表查询
 
 **命令字**：`0x5545` ENIFILE_LIST_INQUIRE
 
@@ -1062,14 +1062,14 @@
 }
 ```
 
-#### 控制器回复ENI文件列表
+#### 控制器回复 ENI 文件列表
 
 **命令字**：`0x5546` ENIFILE_LIST_RESPOND
 
 | 参数 | 类型 | 说明 |
 |------|------|------|
 | absolutepath | string | 文件所在目录 |
-| ENIfilenum | int | 注意，这个数和上面的num不一定相等 |
+| ENIfilenum | int | 注意，这个数和上面的 num 不一定相等 |
 
 ```json
 {
@@ -1141,19 +1141,19 @@
 
 ---
 
-### 2.19 示教器查询Lua脚本列表
+### 2.19 示教器查询 Lua 脚本列表
 
 **命令字**：`0x5552` LUASCRIPT_LIST_INQUIRE
 
 **请求参数**：无
 
-#### 控制器回复Lua脚本列表
+#### 控制器回复 Lua 脚本列表
 
 **命令字**：`0x5553` LUASCRIPT_LIST_RESPOND
 
 | 参数 | 类型 | 说明 |
 |------|------|------|
-| absolutepath | string | Lua脚本所在目录 |
+| absolutepath | string | Lua 脚本所在目录 |
 | sum | int | 列表总数 |
 | scriptlist | array | 脚本列表 |
 
@@ -1206,7 +1206,7 @@
 | text4 | string | 按钮3的文本 |
 | kind | int | 弹窗提示种类，1为消息，2为警告，3为报错 |
 | node | string | 机器人序号1-4 |
-| Tips | bool | 弹窗呼出为true |
+| Tips | bool | 弹窗呼出为 true |
 
 ```json
 {
@@ -1267,7 +1267,7 @@
 |------|------|------|
 | tType | int | 1：获取系统开始时间至现在秒数，0：显示时间 |
 | format | int | 1：获取北京时间，0：获取时间戳 |
-| date | object | format为1时用格林威治标准时间表示 |
+| date | object | format 为1时用格林威治标准时间表示 |
 | year | int | 日期中的年份 |
 | mon | int | 日期中的月份 |
 | day | int | 日期中的天 |
@@ -1595,19 +1595,19 @@
 
 ---
 
-## 4. 远程IO控制
+## 4. 远程 IO 控制
 
-### 4.1 IO功能界面设置
+### 4.1 IO 功能界面设置
 
-#### 4.1.1 IO功能界面设置（示教盒发送）
+#### 4.1.1 IO 功能界面设置（示教盒发送）
 
 **命令码**: `0x2F01` IO_CONTROL_SET
 
 | 参数名 | 类型 | 必填 | 说明 |
 |--------|------|------|------|
-| inPort | object | 是 | 远程IO功能端口绑定 |
-| inValue | object | 是 | 端口值，IO参数，0：低电平有效，1：高电平有效 |
-| program | array | 是 | 远程IO程序DIN和value绑定，共10个 |
+| inPort | object | 是 | 远程 IO 功能端口绑定 |
+| inValue | object | 是 | 端口值，IO 参数，0：低电平有效，1：高电平有效 |
+| program | array | 是 | 远程 IO 程序 DIN 和 value 绑定，共10个 |
 | robot | int | 是 | 机器人号 |
 
 **inPort 对象参数**:
@@ -1671,7 +1671,7 @@
 
 ---
 
-#### 4.1.2 IO功能界面查询（示教盒发送）
+#### 4.1.2 IO 功能界面查询（示教盒发送）
 
 **命令码**: `0x2F02` IO_CONTROL_INQUIRE
 
@@ -1687,11 +1687,11 @@
 
 ---
 
-#### 4.1.3 IO功能界面响应（控制器返回）
+#### 4.1.3 IO 功能界面响应（控制器返回）
 
 **命令码**: `0x2F03` IO_CONTROL_RESPOND
 
-**参数说明**：同 4.1.1 IO功能界面设置
+**参数说明**：同 4.1.1 IO 功能界面设置
 
 ```json
 {
@@ -1749,7 +1749,7 @@
 
 ---
 
-#### 4.2.2 复位点IO参数设置（示教盒发送）
+#### 4.2.2 复位点 IO 参数设置（示教盒发送）
 
 **命令码**: `0x2F14` IO_CONTROL_RESETPORT_SET
 
@@ -1757,9 +1757,9 @@
 |--------|------|------|------|
 | robot | int | 是 | 机器人号 |
 | selectPiontOrFile | int | 是 | 0:复位点，1:复位程序 |
-| inPort | int | 是 | 复位开始，IO触发端口 |
-| inValue | int | 是 | 复位开始，IO参数 |
-| outPort | int | 是 | 复位结束，IO输出端口 |
+| inPort | int | 是 | 复位开始，IO 触发端口 |
+| inValue | int | 是 | 复位开始，IO 参数 |
+| outPort | int | 是 | 复位结束，IO 输出端口 |
 | safeEnable | bool | 是 | 安全使能 |
 | returnway | int | 是 | 0:关节插补，1：直线插补 |
 
@@ -1861,10 +1861,10 @@
 |--------|------|------|------|
 | robot | int | 是 | 机器人号 |
 | selectPiontOrFile | int | 是 | 0选择的是点，1选择的程序 |
-| returnWay | int | 是 | 0表示选择的是movj，1表示的是movl |
-| inPort | int | 是 | 复位开始，IO触发端口 |
-| inValue | int | 是 | 复位开始，IO参数 |
-| outPort | int | 是 | 复位结束，IO输出端口 |
+| returnWay | int | 是 | 0表示选择的是 movj，1表示的是 movl |
+| inPort | int | 是 | 复位开始，IO 触发端口 |
+| inValue | int | 是 | 复位开始，IO 参数 |
+| outPort | int | 是 | 复位结束，IO 输出端口 |
 | safeEnable | bool | 是 | 安全使能 |
 | pos | array | 是 | 复位点坐标 |
 | posSync | array | 是 | 外部轴复位点坐标 |
@@ -1931,11 +1931,11 @@
 
 ---
 
-#### 4.2.10 双机位置查询（MOVJDOUBLE指令）
+#### 4.2.10 双机位置查询（MOVJDOUBLE 指令）
 
 **命令码**: `0x2F10` IO_CONTROL_DOUBLE_POS_INQUIRE
 
-**说明**: MOVJDOUBLE指令在双机下需要同时查询第一和第二个机器人位置
+**说明**: MOVJDOUBLE 指令在双机下需要同时查询第一和第二个机器人位置
 
 | 参数名 | 类型 | 必填 | 说明 |
 |--------|------|------|------|
@@ -1981,7 +1981,7 @@
 
 **命令码**: `0x3114`
 
-**说明**: 复位程序固定是RobotResetProgram，后缀是.ResetPro
+**说明**: 复位程序固定是 RobotResetProgram，后缀是.ResetPro
 
 | 参数名 | 类型 | 必填 | 说明 |
 |--------|------|------|------|
@@ -2009,7 +2009,7 @@
 
 **命令码**: `0x3120`
 
-**说明**: 复位程序固定是RobotResetProgram，后缀是.ResetPro
+**说明**: 复位程序固定是 RobotResetProgram，后缀是.ResetPro
 
 | 参数名 | 类型 | 必填 | 说明 |
 |--------|------|------|------|
@@ -2049,25 +2049,25 @@
 
 | 参数名 | 类型 | 说明 |
 |--------|------|------|
-| IOenable | int | 使能DOUT绑定 |
+| IOenable | int | 使能 DOUT 绑定 |
 | IOenable_value | int | 值：0、1、3（闪烁） |
-| continuable | int | 可继续执行DOUT绑定 |
+| continuable | int | 可继续执行 DOUT 绑定 |
 | continuable_value | int | 值：0、1、3（闪烁） |
-| fault | int | 报错提示DOUT绑定 |
+| fault | int | 报错提示 DOUT 绑定 |
 | faultIsFickler | int | 值：0、1、3（闪烁） |
-| mainJobFirstLine | int | 主程序首行DOUT绑定 |
+| mainJobFirstLine | int | 主程序首行 DOUT 绑定 |
 | mainJobFirstLine_value | int | 值 |
-| pause | int | 暂停DOUT绑定 |
+| pause | int | 暂停 DOUT 绑定 |
 | pause_value | int | 值 |
-| quickStopOut1 | int | 紧急急停1DOUT绑定 |
-| quickStopOut2 | int | 紧急急停2DOUT绑定 |
+| quickStopOut1 | int | 紧急急停1DOUT 绑定 |
+| quickStopOut2 | int | 紧急急停2DOUT 绑定 |
 | quickStopOutValue1 | int | 值 |
 | quickStopOutValue2 | int | 值 |
-| running | int | 运行DOUT绑定 |
+| running | int | 运行 DOUT 绑定 |
 | running_value | int | 值 |
-| stop | int | 停止DOUT绑定 |
+| stop | int | 停止 DOUT 绑定 |
 | stop_value | int | 值 |
-| teachBoxStateOut | int | 拔出示教盒DOUT绑定 |
+| teachBoxStateOut | int | 拔出示教盒 DOUT 绑定 |
 | teachBoxStateOutValue | int | 值 |
 
 ```json
@@ -2128,16 +2128,16 @@
 
 ---
 
-### 4.4 IO复位设置界面
+### 4.4 IO 复位设置界面
 
-#### 4.4.1 IO输出复位设置（示教盒发送）
+#### 4.4.1 IO 输出复位设置（示教盒发送）
 
 **命令码**: `0x2F0D` IO_CONTROL_IORESET_SET
 
 | 参数名 | 类型 | 必填 | 说明 |
 |--------|------|------|------|
 | robot | int | 是 | 机器人号 |
-| type | int | 是 | 1-IO复位，2-切模式停止，3-程序报错停止 |
+| type | int | 是 | 1-IO 复位，2-切模式停止，3-程序报错停止 |
 | enable | array | 是 | 16个元素，值为0或1，包含复位值及是否复位 |
 | value | array | 是 | 16个元素，值为0或1，包含复位值及是否复位 |
 
@@ -2152,7 +2152,7 @@
 
 ---
 
-#### 4.4.2 IO输出复位查询（示教盒发送）
+#### 4.4.2 IO 输出复位查询（示教盒发送）
 
 **命令码**: `0x2F0E` IO_CONTROL_IORESET_INQUIRE
 
@@ -2170,7 +2170,7 @@
 
 ---
 
-#### 4.4.3 IO输出复位响应（控制器返回）
+#### 4.4.3 IO 输出复位响应（控制器返回）
 
 **命令码**: `0x2F0F` IO_CONTROL_IORESET_RESPOND
 
@@ -2178,9 +2178,9 @@
 
 ---
 
-### 4.5 IO功能状态界面
+### 4.5 IO 功能状态界面
 
-#### 4.5.1 IO功能状态查询（示教盒发送）
+#### 4.5.1 IO 功能状态查询（示教盒发送）
 
 **命令码**: `0x2F12` IO_FUNCTION_INQUIRE
 
@@ -2196,7 +2196,7 @@
 
 ---
 
-#### 4.5.2 IO功能状态响应（控制器返回）
+#### 4.5.2 IO 功能状态响应（控制器返回）
 
 **命令码**: `0x2F13` IO_FUNCTION_RESPOND
 
@@ -2319,9 +2319,9 @@
 
 ---
 
-### 4.7 IO型号设置
+### 4.7 IO 型号设置
 
-#### 4.7.1 IO型号设置（示教盒发送）
+#### 4.7.1 IO 型号设置（示教盒发送）
 
 **命令码**: `0x2F21` IO_TYPE_SET
 
@@ -2329,7 +2329,7 @@
 
 | 参数名 | 类型 | 必填 | 说明 |
 |--------|------|------|------|
-| simuNum | int | 是 | 虚拟IO数量 |
+| simuNum | int | 是 | 虚拟 IO 数量 |
 | serialAnalog | object | 是 | 串口模拟量配置 |
 
 **serialAnalog 对象参数**:
@@ -2353,22 +2353,22 @@
 
 ---
 
-#### 4.7.2 IO型号查询（示教盒发送）
+#### 4.7.2 IO 型号查询（示教盒发送）
 
 **命令码**: `0x2F22` IO_TYPE_INQUIRE
 
 ---
 
-#### 4.7.3 IO型号响应（控制器返回）
+#### 4.7.3 IO 型号响应（控制器返回）
 
 **命令码**: `0x2F23` IO_TYPE_RESPOND
 
 | 参数名 | 类型 | 必填 | 说明 |
 |--------|------|------|------|
-| num | int | 是 | IO板数量 |
-| type | array | 是 | IO板类型列表 |
+| num | int | 是 | IO 板数量 |
+| type | array | 是 | IO 板类型列表 |
 | portNum | array | 是 | 端口配置 |
-| simuNum | int | 是 | 虚拟IO数量 |
+| simuNum | int | 是 | 虚拟 IO 数量 |
 | serialAnalog | object | 是 | 串口模拟量配置 |
 
 ```json
@@ -2402,10 +2402,10 @@
 
 | 参数名 | 类型 | 说明 |
 |--------|------|------|
-| outagerecover | int | 断电保持数据恢复DOUT1-2端口绑定 |
+| outagerecover | int | 断电保持数据恢复 DOUT1-2端口绑定 |
 | outagerecover_value | int | DOUT1-2端口值：0、1、2（2代表闪烁） |
-| program1~program10 | int | 远程IO程序DOUT端口绑定 |
-| program_value1~program_value10 | int | 远程IO程序DOUT输出端口值：0、1、2（2代表闪烁） |
+| program1~program10 | int | 远程 IO 程序 DOUT 端口绑定 |
+| program_value1~program_value10 | int | 远程 IO 程序 DOUT 输出端口值：0、1、2（2代表闪烁） |
 
 ```json
 {
@@ -2480,9 +2480,9 @@
 | 参数名 | 类型 | 说明 |
 |--------|------|------|
 | enable | bool | 使能安全光幕 |
-| port1 | int | 安全光幕1 DIN序号（1~16） |
-| value1 | int | IO电平参数：0-低电平，1-高电平 |
-| port2 | int | 安全光幕2 DIN序号（1~16） |
+| port1 | int | 安全光幕1 DIN 序号（1~16） |
+| value1 | int | IO 电平参数：0-低电平，1-高电平 |
+| port2 | int | 安全光幕2 DIN 序号（1~16） |
 
 ---
 
@@ -2537,7 +2537,7 @@
 }
 ```
 
-> **说明**: 如果是四轴机器人，最后两位补0。
+> **说明：** 如果是四轴机器人，最后两位补0。
 
 ---
 
@@ -2622,7 +2622,7 @@
 | varName | string | 是 | 变量名称 |
 | varType | int | 是 | 变量类型: 0-int, 1-double, 2-bool, 3-string |
 | varValue | double | 否 | 变量值（数值类型使用） |
-| varString | string | 否 | 变量值（string类型使用） |
+| varString | string | 否 | 变量值（string 类型使用） |
 | varNote | string | 否 | 注释 |
 
 ```json
@@ -2643,7 +2643,7 @@
 
 | 参数 | 类型 | 必填 | 说明 |
 |---|---|---|---|
-| varType | int | 是 | 变量类型: 1-布尔型, 2-int型, 3-double型 |
+| varType | int | 是 | 变量类型: 1-布尔型, 2-int 型, 3-double 型 |
 
 ```json
 {
@@ -2753,7 +2753,7 @@
 | varType | int | 变量类型 |
 | varName | string | 变量名称 |
 | varValue | mixed | 变量值 |
-| varString | string | 字符串值（string类型） |
+| varString | string | 字符串值（string 类型） |
 | identity | string | 来源标识 |
 | varNote | string | 注释 |
 
@@ -2770,7 +2770,7 @@
 
 ---
 
-### 5.9 局部变量位置变量P点查询
+### 5.9 局部变量位置变量 P 点查询
 
 **命令**: `0x5612` LOCAL_POS_P_VAR_INQUIRE
 
@@ -2812,7 +2812,7 @@
 
 ---
 
-### 5.10 局部变量位置变量E点查询
+### 5.10 局部变量位置变量 E 点查询
 
 **命令**: `0x5615` LOCAL_POS_E_VAR_INQUIRE
 
@@ -2911,7 +2911,7 @@
 
 ### 5.12 全局外部轴变量
 
-> **说明**: 全局外部轴变量结构: 点位信息(7) + 机器人位置(7) + 外部轴位置(5) + 预留(2) = 21元素
+> **说明：** 全局外部轴变量结构: 点位信息(7) + 机器人位置(7) + 外部轴位置(5) + 预留(2) = 21元素
 
 #### 5.12.1 设置全局外部轴变量
 
@@ -2929,8 +2929,8 @@
 | 索引范围 | 说明 |
 |---|---|
 | 0-6 | 点位信息 |
-| 7-13 | robot位置 |
-| 14-18 | sync外部轴位置 |
+| 7-13 | robot 位置 |
+| 14-18 | sync 外部轴位置 |
 | 19-20 | 预留 |
 
 ```json

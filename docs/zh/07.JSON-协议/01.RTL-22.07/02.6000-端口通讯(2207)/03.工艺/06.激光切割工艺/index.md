@@ -1,10 +1,10 @@
 # 激光切割工艺
 
-## IO端口设置
+## IO 端口设置
 
-### 0x4401 LASER_IOPORT_SET - IO端口设置
+### 0x4401 LASER_IOPORT_SET - IO 端口设置
 
-**说明**：设置激光切割工艺的IO端口配置
+**说明**：设置激光切割工艺的 IO 端口配置
 
 #### 请求参数
 
@@ -54,15 +54,15 @@
 }
 ```
 
-### 0x4402 LASER_IOPORT_INQUIRE - IO端口查询
+### 0x4402 LASER_IOPORT_INQUIRE - IO 端口查询
 
-**说明**：查询当前IO端口配置
+**说明**：查询当前 IO 端口配置
 
 - data：无
 
-### 0x4403 LASER_IOPORT_RESPOND - IO端口响应
+### 0x4403 LASER_IOPORT_RESPOND - IO 端口响应
 
-**说明**：控制器返回IO端口查询结果
+**说明**：控制器返回 IO 端口查询结果
 
 - 返回格式：同0x4401
 
@@ -143,19 +143,19 @@
 
 | 参数名 | 类型 | 描述 |
 |--------|------|------|
-| x1 | double | x轴第1个参数 |
-| x2 | double | x轴第2个参数 |
-| y1 | double | y轴第1个参数 |
-| y2 | double | y轴第2个参数 |
+| x1 | double | x 轴第1个参数 |
+| x2 | double | x 轴第2个参数 |
+| y1 | double | y 轴第1个参数 |
+| y2 | double | y 轴第2个参数 |
 
 #### pressure 参数
 
 | 参数名 | 类型 | 描述 |
 |--------|------|------|
-| x1 | double | x轴第1个参数 |
-| x2 | double | x轴第2个参数 |
-| y1 | double | y轴第1个参数 |
-| y2 | double | y轴第2个参数 |
+| x1 | double | x 轴第1个参数 |
+| x2 | double | x 轴第2个参数 |
+| y1 | double | y 轴第1个参数 |
+| y2 | double | y 轴第2个参数 |
 
 #### 请求示例
 

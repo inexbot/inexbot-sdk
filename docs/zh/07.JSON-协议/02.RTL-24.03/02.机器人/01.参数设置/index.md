@@ -36,34 +36,34 @@
 | 3 | 六轴喷涂机器人 |
 | 4 | 六轴异型二 |
 | 5 | 五轴机器人 |
-| 6 | 四轴SCARA机器人 |
-| 7 | 四轴SCARA异型一机器人 |
+| 6 | 四轴 SCARA 机器人 |
+| 7 | 四轴 SCARA 异型一机器人 |
 | 8 | 四轴连杆码垛机器人 |
 | 9 | 四轴码垛丝杆机器人 |
 | 10 | 四轴机器人 |
 | 11 | 四轴直角机器人 |
 | 12 | 四轴极坐标异形机器人 |
-| 13 | 三轴SCARA机器人 |
+| 13 | 三轴 SCARA 机器人 |
 | 14 | 三轴直角机器人 |
 | 15 | 三轴异形一机器人 |
-| 16 | 二轴SCARA机器人 |
+| 16 | 二轴 SCARA 机器人 |
 | 17 | 七轴通用机器人 |
 | 18 | 一轴机器人 |
 | 19 | 五轴龙门焊接机器人 |
-| 20 | delta机器人(四轴并联机器人) |
+| 20 | delta 机器人(四轴并联机器人) |
 | 21 | 酒槽机型 |
 | 22 | 五轴龙门焊接机器人类型2 |
 | 23 | 四轴直角异型一机器人 |
 | 24 | 六轴龙门焊接机器人 |
 | 25 | 五轴混动机器人 |
-| 26 | 四轴SCARA异型2 |
+| 26 | 四轴 SCARA 异型2 |
 | 27 | 六轴异型三 |
-| 28 | 三轴SCARA异型1 |
-| 29 | delta2D并联机器人模型 |
+| 28 | 三轴 SCARA 异型1 |
+| 29 | delta2D 并联机器人模型 |
 | 30 | 五轴龙门焊接机器人类型3 |
 | 31 | 三轴串联异形一 |
 | 32 | 五轴协作机器人 |
-| 33 | 四轴SCARA异型三机器人 |
+| 33 | 四轴 SCARA 异型三机器人 |
 | 34 | 六轴串联-CBBARA |
 | 35 | 高格立柱旋转四轴 |
 
@@ -111,7 +111,7 @@
 | 参数 | 类型 | 说明 |
 |------|------|------|
 | robotType | string | 机器人类型标识 |
-| servoMap | array | 伺服映射列表，int类型，长度为机器人轴数 |
+| servoMap | array | 伺服映射列表，int 类型，长度为机器人轴数 |
 | note | string | 注释 |
 
 **robotType 类型映射表：**
@@ -124,34 +124,34 @@
 | R_SIXAXIS_SPRAY_BBR | 六轴喷涂机器人 |
 | R_GENERAL_6S_2 | 六轴异型二 |
 | R_GENERAL_5S | 五轴机器人 |
-| R_SCARA | 四轴SCARA机器人 |
-| R_SCARA_1 | 四轴SCARA异型一机器人 |
+| R_SCARA | 四轴 SCARA 机器人 |
+| R_SCARA_1 | 四轴 SCARA 异型一机器人 |
 | R_FOURAXIS_PALLET | 四轴连杆码垛机器人 |
 | R_FOURAXIS_PALLET_1 | 四轴码垛丝杆机器人 |
 | R_FOURAXIS | 四轴机器人 |
 | R_FOUR_CARTESIAN_COORDINATE | 四轴直角机器人 |
 | R_FOUR_POLAR_COORDINATE_1 | 四轴极坐标异形机器人 |
-| R_SCARA_THREEAXIS | 三轴SCARA机器人 |
+| R_SCARA_THREEAXIS | 三轴 SCARA 机器人 |
 | R_THREE_CARTESIAN_COORDINATE | 三轴直角机器人 |
 | R_THREE_CARTESIAN_COORDINATE_1 | 三轴异形一机器人 |
-| R_SCARA_TWOAXIS | 二轴SCARA机器人 |
+| R_SCARA_TWOAXIS | 二轴 SCARA 机器人 |
 | R_GENERAL_7S | 七轴通用机器人 |
 | R_GENERAL_1S | 一轴机器人 |
 | R_GANTRY_WELD | 五轴龙门焊接机器人 |
-| R_DELTA | delta机器人(四轴并联机器人) |
+| R_DELTA | delta 机器人(四轴并联机器人) |
 | R_WINE_CHAMFER | 酒槽机型 |
 | R_GANTRY_WELD_2 | 五轴龙门焊接机器人类型2 |
 | R_FOUR_CARTESIAN_COORDINATE_1 | 四轴直角异型一机器人 |
 | R_GANTRY_WELD_6 | 六轴龙门焊接机器人 |
 | FIVE_AXLE_MIXED | 五轴混动机器人 |
-| R_SCARA_FOURAXIS_2 | 四轴SCARA异型2 |
+| R_SCARA_FOURAXIS_2 | 四轴 SCARA 异型2 |
 | R_SIX_AXLE_ABNORMITY_3 | 六轴异型三 |
-| R_SCARA_THREEAXIS_1 | 三轴SCARA异型1 |
-| R_DELTA_2D_ | delta2D并联机器人模型 |
+| R_SCARA_THREEAXIS_1 | 三轴 SCARA 异型1 |
+| R_DELTA_2D_ | delta2D 并联机器人模型 |
 | R_GANTRY_WELD_3 | 五轴龙门焊接机器人类型3 |
 | R_GENERAL_3S_1 | 三轴串联异形一 |
 | R_GENERAL_5S_COLLABORATIVE_ | 五轴协作机器人 |
-| R_SCARA_3_ | 四轴SCARA异型三机器人 |
+| R_SCARA_3_ | 四轴 SCARA 异型三机器人 |
 | R_GENERAL_6S_CBBARA_ | 六轴串联-CBBARA |
 | R_HEAVY_DUTY_FOUR_AXIS_ | 高格立柱旋转四轴 |
 
@@ -230,7 +230,7 @@
 
 ## 4. 机器人通讯周期
 
-**说明：** 机器人通讯周期、波特率、伺服控制字、丢帧容差参数的设置与查询。其中波特率、伺服控制字、丢帧容差在canopen通讯时起作用，控制器重启生效
+**说明：** 机器人通讯周期、波特率、伺服控制字、丢帧容差参数的设置与查询。其中波特率、伺服控制字、丢帧容差在 canopen 通讯时起作用，控制器重启生效
 
 ### 上位机设置机器人通讯周期
 
@@ -267,7 +267,7 @@
 | 参数 | 类型 | 说明 |
 |------|------|------|
 | baudRate | string | 波特率，范围："10K","20K","50K","100K","500K","800K","1000K" |
-| busType | int | 通讯方式，范围1,16；1为etherCat通讯，16为CanOpen通讯 |
+| busType | int | 通讯方式，范围1,16；1为 etherCat 通讯，16为 CanOpen 通讯 |
 | controlCycle | int | 通讯周期，范围1,2,4,8 ms |
 | control_word | int | 伺服控制字，范围[7,8] |
 | pdo_lost_tolerance | int | 丢帧容差，范围[1,5] |
@@ -302,7 +302,7 @@
 | 参数 | 类型 | 说明 |
 |------|------|------|
 | groupType | int | 外部轴类型，范围[0,5] |
-| servoMap | array | 伺服映射列表，int类型，长度为3 |
+| servoMap | array | 伺服映射列表，int 类型，长度为3 |
 | note | string | 注释 |
 
 **groupType 类型说明：**
@@ -714,7 +714,7 @@
 | 参数 | 类型 | 说明 |
 |------|------|------|
 | robot | int | 当前机器人号，范围[1,4] |
-| time | int | 运行时间，单位s |
+| time | int | 运行时间，单位 s |
 
 ```json
 {
@@ -736,7 +736,7 @@
 | 参数 | 类型 | 说明 |
 |------|------|------|
 | mainRobot | int | 复制参数的机器人号 |
-| copyToRobot | array | 参数复制到机器人列表，bool类型，长度为4；true为进行复制，false为不进行复制 |
+| copyToRobot | array | 参数复制到机器人列表，bool 类型，长度为4；true 为进行复制，false 为不进行复制 |
 
 ```json
 {
@@ -757,7 +757,7 @@
 
 | 参数 | 类型 | 说明 |
 |------|------|------|
-| cooperationRobots | bool | 是否启用双机同步模式，true为启用，false为不启用 |
+| cooperationRobots | bool | 是否启用双机同步模式，true 为启用，false 为不启用 |
 
 ```json
 {
@@ -789,7 +789,7 @@
 
 | 参数 | 类型 | 说明 |
 |------|------|------|
-| enable | bool | 防抱闸压紧使能开关，true为开启，false为关闭 |
+| enable | bool | 防抱闸压紧使能开关，true 为开启，false 为关闭 |
 
 ```json
 {
@@ -821,9 +821,9 @@
 
 | 参数 | 类型 | 说明 |
 |------|------|------|
-| enableDelay | double | 防抱闸压紧使能延时，单位s，范围[0,99999.99] |
-| brakeOnDelay | double | 开抱闸延时，单位s，范围[0,99999.99] |
-| brakeOffDelay | double | 抱闸关闭后延时，单位s，范围[0,99999.99] |
+| enableDelay | double | 防抱闸压紧使能延时，单位 s，范围[0,99999.99] |
+| brakeOnDelay | double | 开抱闸延时，单位 s，范围[0,99999.99] |
+| brakeOffDelay | double | 抱闸关闭后延时，单位 s，范围[0,99999.99] |
 
 ```json
 {
@@ -926,7 +926,7 @@
 
 | 参数 | 类型 | 说明 |
 |------|------|------|
-| torq | array | 静态力矩列表，double类型，长度为6 |
+| torq | array | 静态力矩列表，double 类型，长度为6 |
 
 ```json
 {
@@ -1016,7 +1016,7 @@
 |------|------|------|
 | robot | int | 当前机器人号，范围[1,4] |
 | axis | int | 外部轴轴号，范围[0,5]；0时为设置全部轴 |
-| offset | array | 轴零点偏移值列表，double类型，长度为5；当外部轴轴号非0时，仅对应位置有值，其他轴都该为0 |
+| offset | array | 轴零点偏移值列表，double 类型，长度为5；当外部轴轴号非0时，仅对应位置有值，其他轴都该为0 |
 
 ```json
 {
@@ -1085,8 +1085,8 @@
 | 参数 | 类型 | 说明 |
 |------|------|------|
 | robot | int | 当前机器人号，范围[1,4] |
-| isNotInsideRobot | bool | 当前控制对象是否为外部设备；非ide可不发 |
-| externalGroupNum | int | 外部轴组号，范围[1,3]；该参数最大为当前机器人绑定的外部轴数量；当"isNotInsideRobot"为true时，该参数表示总编号 |
+| isNotInsideRobot | bool | 当前控制对象是否为外部设备；非 ide 可不发 |
+| externalGroupNum | int | 外部轴组号，范围[1,3]；该参数最大为当前机器人绑定的外部轴数量；当"isNotInsideRobot"为 true 时，该参数表示总编号 |
 | joint | array | 关节参数列表，长度为当前外部轴的轴数 |
 
 **joint 子对象参数：**
@@ -1147,7 +1147,7 @@
 |------|------|------|
 | robot | int | 当前机器人号，范围[1,4] |
 | externalGroupNum | int | 轴组组合的组号；该参数最大为当前机器人绑定的外部轴数量 |
-| isNotInsideRobot | bool | 当前控制对象是否为外部设备；非ide可不发 |
+| isNotInsideRobot | bool | 当前控制对象是否为外部设备；非 ide 可不发 |
 
 ```json
 {
@@ -1198,7 +1198,7 @@
 |------|------|------|
 | robot | int | 当前机器人号，范围[1,4] |
 | externalGroupNum | int | 外部轴组号，范围[1,3] |
-| isNotInsideRobot | bool | 当前控制对象是否为外部设备；非ide可不发 |
+| isNotInsideRobot | bool | 当前控制对象是否为外部设备；非 ide 可不发 |
 | externalJogParameter | array | 关节点动速度列表，长度为当前外部轴轴数 |
 
 **externalJogParameter 子对象参数：**
@@ -1231,7 +1231,7 @@
 |------|------|------|
 | robot | int | 当前机器人号，范围[1,4] |
 | externalGroupNum | int | 轴组组合的组号 |
-| isNotInsideRobot | bool | 当前控制对象是否为外部设备；非ide可不发 |
+| isNotInsideRobot | bool | 当前控制对象是否为外部设备；非 ide 可不发 |
 
 ```json
 {
@@ -1284,7 +1284,7 @@
 |------|------|------|
 | syncPositionerNum | int | 外部轴号，范围[1,3] |
 | coordNum | int | 外部轴的坐标系标号，取值范围[0,3] |
-| pos | array | 点位数据，double数组，长度为6 |
+| pos | array | 点位数据，double 数组，长度为6 |
 
 ```json
 {

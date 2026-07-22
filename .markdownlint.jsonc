@@ -1,0 +1,12 @@
+{
+  "$schema": "https://raw.githubusercontent.com/DavidAnson/markdownlint/main/schema/markdownlint-config-schema.json",
+  "default": true,
+  "MD013": false,           // line-length: 中文文档不限制行长
+  "MD024": false,           // no-duplicate-heading: 先允许重复标题（渐进修复）
+  "MD025": false,           // single-title: 先允许重复H1（渐进修复）
+  "MD033": false,           // no-inline-html: 允许内联HTML
+  "MD036": false,           // no-emphasis-as-heading: 允许加粗当标题
+  "MD041": false,           // first-line-heading: 首行不要求是标题
+  "MD046": false,           // code-block-style: 不限制代码块风格(``` vs 缩进)
+  "MD047": false            // single-trailing-newline: 不要求文件末尾空行
+}

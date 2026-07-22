@@ -6,7 +6,7 @@
 
 | 示例 | 说明 |
 |------|------|
-| 使用servoJ进行关节控制.md | 关节空间实时跟踪，open_servoJ / set_servoJ_pos / stop_servoJ |
+| 使用 servoJ 进行关节控制.md | 关节空间实时跟踪，open_servoJ / set_servoJ_pos / stop_servoJ |
 | 使用-star_servo_point_position_motion_control()-来进行伺服控制运动.md | 伺服控制模式，逐周期下发点位 |
 
 ## servoJ 关节控制
