@@ -103,7 +103,7 @@ function checkEmptyPages(files) {
 function checkDuplicateH1(files) {
   const errors = [];
   for (const f of files) {
-    const h1s = read(f).match(/^#\s+(.+)$/gm);
+    const h1s = stripCodeBlocks(read(f)).match(/^#\s+(.+)$/gm);
     if (h1s && h1s.length > 1) {
       errors.push({ file: rel(f), msg: `重复H1 (${h1s.length}个): ${h1s.map(s => s.replace(/^#\s+/, '').slice(0, 30)).join(' | ')}` });
     }
