@@ -214,19 +214,19 @@ function checkFenceLanguage(files) {
 // ─── 7. 术语大小写
 
 const TERM_RULES = [
-  [/\bjson\b/g,                 'JSON',     '应用 JSON（全大写）'],
-  [/\bsdk\b(?!\s*：)/g,         'SDK',      '应用 SDK（全大写）'],
-  [/\bapi\b(?![-/])/g,          'API',      '应用 API（全大写）'],
-  [/\bros\b/g,                  'ROS',      '应用 ROS（全大写）'],
-  [/\bdemo\b/g,                 'Demo',     '应用 Demo（首字母大写）'],
-  [/\bpython\b/g,               'Python',   '应用 Python（首字母大写）'],
-  [/\blinux\b(?!\s*kernel)/g,   'Linux',    '应用 Linux（首字母大写）'],
-  [/\bwindows\b(?!\s*10)/g,     'Windows',  '应用 Windows（首字母大写）'],
-  [/\bethercat\b/gi,            'EtherCAT', '应用 EtherCAT'],
-  [/\bmingw\b/gi,               'MinGW',    '应用 MinGW'],
-  [/\bmsvc\b/gi,                'MSVC',     '应用 MSVC'],
-  [/\brelease\b/g,              'Release',  '应用 Release（首字母大写）'],
-  [/\bdebug\b(?!\s*模式)/g,     'Debug',    '应用 Debug（首字母大写）'],
+  [/(?<![/.\-])json(?![/.])/g,    'JSON',     '应用 JSON（全大写）'],
+  [/\bsdk\b(?!\s*：)/g,           'SDK',      '应用 SDK（全大写）'],
+  [/\bapi\b(?![-/])/g,            'API',      '应用 API（全大写）'],
+  [/\bros\b/g,                    'ROS',      '应用 ROS（全大写）'],
+  [/\bdemo\b/g,                   'Demo',     '应用 Demo（首字母大写）'],
+  [/\bpython\b/g,                 'Python',   '应用 Python（首字母大写）'],
+  [/\blinux\b(?!\s*kernel)/g,     'Linux',    '应用 Linux（首字母大写）'],
+  [/\bwindows\b(?!\s*10)/g,       'Windows',  '应用 Windows（首字母大写）'],
+  [/\bethercat\b/gi,              'EtherCAT', '应用 EtherCAT'],
+  [/\bmingw\b/gi,                 'MinGW',    '应用 MinGW'],
+  [/\bmsvc\b/gi,                  'MSVC',     '应用 MSVC'],
+  [/\brelease\b/g,                'Release',  '应用 Release（首字母大写）'],
+  [/\bdebug\b(?!\s*模式)/g,       'Debug',    '应用 Debug（首字母大写）'],
 ];
 
 function checkTermCase(files) {

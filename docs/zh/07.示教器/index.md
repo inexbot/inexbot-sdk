@@ -1,9 +1,7 @@
 ---
 title: 示教器
-description: 纳博特示教器（T30）二次开发指南，基于 Qt 静态库，支持 Windows、Linux、ARM-Linux 多平台。
+description: 纳博特示教器（T30）二次开发指南。
 ---
-
-# 示教器
 
 ## 简介
 

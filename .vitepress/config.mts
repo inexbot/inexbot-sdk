@@ -133,10 +133,10 @@ export default defineConfig({
           {
             text: '开发文档',
             items: [
-              { text: '控制器', link: '/zh/04.控制器/' },
-              { text: '示教器', link: '/zh/05.示教器/' },
-              { text: '上位机', link: '/zh/06.上位机/' },
-              { text: 'JSON协议', link: '/zh/07.JSON 协议/' },
+              { text: '上位机', link: '/zh/04.上位机/' },
+              { text: 'JSON协议', link: '/zh/05.JSON-协议/' },
+              { text: '控制器', link: '/zh/06.控制器/' },
+              { text: '示教器', link: '/zh/07.示教器/' },
               { text: 'ROS', link: '/zh/08.ROS/' },
             ]
           }
@@ -160,10 +160,10 @@ export default defineConfig({
           {
             text: 'Documentation',
             items: [
-              { text: 'Controller', link: '/en/04.Controller/' },
-              { text: 'Teach Pendant', link: '/en/05.Teach-Pendant/' },
-              { text: 'Host Computer', link: '/en/06.Host-Computer/' },
-              { text: 'JSON Protocol', link: '/en/07.JSON-Protocol/' },
+              { text: 'Host Computer', link: '/en/04.Host-Computer/' },
+              { text: 'JSON Protocol', link: '/en/05.JSON-Protocol/' },
+              { text: 'Controller', link: '/en/06.Controller/' },
+              { text: 'Teach Pendant', link: '/en/07.Teach-Pendant/' },
               { text: 'ROS', link: '/en/08.ROS/' },
             ]
           }
@@ -187,10 +187,10 @@ export default defineConfig({
           {
             text: '문서',
             items: [
-              { text: '컨트롤러', link: '/kr/04.컨트롤러/' },
-              { text: '티치 펜던트', link: '/kr/05.티치-펜던트/' },
-              { text: '호스트 컴퓨터', link: '/kr/06.호스트-컴퓨터/' },
-              { text: 'JSON 프로토콜', link: '/kr/07.JSON-프로토콜/' },
+              { text: '호스트 컴퓨터', link: '/kr/04.호스트-컴퓨터/' },
+              { text: 'JSON 프로토콜', link: '/kr/05.JSON-프로토콜/' },
+              { text: '컨트롤러', link: '/kr/06.컨트롤러/' },
+              { text: '티치 펜던트', link: '/kr/07.티치-펜던트/' },
               { text: 'ROS', link: '/kr/08.ROS/' },
             ]
           }

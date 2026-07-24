@@ -16,8 +16,8 @@ This repository is organized by technical domain and application scenario, makin
 ## Recommended Reading
 
 - [Getting Started](./02.Getting-Started.md)
-- [Secondary Development API Overview](./04.Controller/02.API-Robot-Basic-Parameters.md)
-- [JSON Protocol Index](./07.JSON-Protocol/01.RTL-22.07/02.Port-6000-Communication/01.Motion-Control/index.md)
+- [Secondary Development API Overview](./06.Controller/02.API-Robot-Basic-Parameters.md)
+- [JSON Protocol Index](./05.JSON-Protocol/01.RTL-22.07/02.Port-6000-Communication/01.Motion-Control/index.md)
 - [FAQ](./11.FAQ.md)
 
 ## Q&A
