@@ -1,6 +1,6 @@
 ---
 title: Teach Pendant
-description: Nabot Teach Pendant (T30) secondary development guide, based on Qt static library, supporting Windows, Linux, ARM-Linux multi-platform.
+description: iNexBot Teach Pendant (T30) secondary development guide, based on Qt static library, supporting Windows, Linux, ARM-Linux multi-platform.
 ---
 
 # Teach Pendant
@@ -34,5 +34,5 @@ If you do not have the above knowledge, we recommend the following tutorials:
 - C++ Tutorial - Qt Tutorial
 - Ubuntu Complete Tutorial, Make You an Ubuntu Expert!
 - Linux Ubuntu Basic Operation Commands
-- Nabot Classroom
-- Nabot Control System Operation Manual
+- iNexBot Classroom
+- iNexBot Control System Operation Manual

@@ -34,7 +34,7 @@ Click the local Windows debugger. If you are using a Release version of the libr
 
 If there are no errors, it means we have successfully imported the SDK.
 
-For more examples, see API Examples | Nabot Technology
+For more examples, see API Examples | iNexBot Technology
 
 - IDE used: Visual Studio 2022
 - Compilation build tool: .NET 8.0
