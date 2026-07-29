@@ -31,7 +31,7 @@ async function buildSidebar(dir: string, prefix = '', skipDirs: string[] = []): 
       if (children.length > 0) {
         items.push({
           text: entry,
-          collapsed: true,
+          collapsed: !hasIndex,
           link: dirLink,
           items: children
         })
