@@ -220,7 +220,7 @@ const TERM_RULES = [
   [/\bros\b/g,                    'ROS',      '应用 ROS（全大写）'],
   [/\bdemo\b/g,                   'Demo',     '应用 Demo（首字母大写）'],
   [/\bpython\b/g,                 'Python',   '应用 Python（首字母大写）'],
-  [/\blinux\b(?!\s*kernel)/g,     'Linux',    '应用 Linux（首字母大写）'],
+  [/(?<![-])\blinux\b(?!\s*kernel)/g,     'Linux',    '应用 Linux（首字母大写）'],
   [/\bwindows\b(?!\s*10)/g,       'Windows',  '应用 Windows（首字母大写）'],
   [/\bethercat\b/gi,              'EtherCAT', '应用 EtherCAT'],
   [/\bmingw\b/gi,                 'MinGW',    '应用 MinGW'],
