@@ -24,14 +24,14 @@ async function buildSidebar(dir: string, prefix = '', skipDirs: string[] = []): 
       } catch {}
 
       const dirLink = hasIndex
-        ? (prefix ? `${prefix}/${entry}` : `/${entry}`)
+        ? (prefix ? `${prefix}/${entry}/` : `/${entry}/`)
         : undefined
 
       const children = await buildSidebar(fullPath, prefix ? `${prefix}/${entry}` : `/${entry}`, skipDirs)
       if (children.length > 0) {
         items.push({
           text: entry,
-          collapsed: !hasIndex,
+          collapsed: true,
           link: dirLink,
           items: children
         })
