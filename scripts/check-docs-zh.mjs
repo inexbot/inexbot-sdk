@@ -136,7 +136,8 @@ function checkInternalLinks(files) {
       if (target.startsWith('/')) {
         resolved = target.slice(1).replace(/\.md$/, '');
       } else {
-        resolved = relative(DOCS, resolve(dirname(f), target)).replace(/\\/g, '').replace(/\.md$/, '');
+        // Windows 环境下 relative() 返回反斜杠路径，需转为正斜杠再比较（原 replace(/\\/g,'') 会误删分隔符导致误报）
+        resolved = relative(DOCS, resolve(dirname(f), target)).replace(/\\/g, '/').replace(/\.md$/, '');
       }
       // URL-decode percent-encoded characters (e.g., %28 → ()
       resolved = decodeURIComponent(resolved);
