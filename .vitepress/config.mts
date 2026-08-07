@@ -139,8 +139,10 @@ export default defineConfig({
               { text: '示教器', link: '/zh/07.示教器/' },
               { text: 'ROS', link: '/zh/08.ROS/' },
             ]
-          },
-          { text: 'GitHub', link: 'https://github.com/inexbot/inexbot-sdk', target: '_blank' }
+          }
+        ],
+        socialLinks: [
+          { icon: 'github', link: 'https://github.com/inexbot/inexbot-sdk' }
         ],
         sidebar: zhSidebar,
         search: {
@@ -167,8 +169,10 @@ export default defineConfig({
               { text: 'Teach Pendant', link: '/en/07.Teach-Pendant/' },
               { text: 'ROS', link: '/en/08.ROS/' },
             ]
-          },
-          { text: 'GitHub', link: 'https://github.com/inexbot/inexbot-sdk', target: '_blank' }
+          }
+        ],
+        socialLinks: [
+          { icon: 'github', link: 'https://github.com/inexbot/inexbot-sdk' }
         ],
         sidebar: enSidebar,
         search: {
@@ -195,8 +199,10 @@ export default defineConfig({
               { text: '티치 펜던트', link: '/kr/07.티치-펜던트/' },
               { text: 'ROS', link: '/kr/08.ROS/' },
             ]
-          },
-          { text: 'GitHub', link: 'https://github.com/inexbot/inexbot-sdk', target: '_blank' }
+          }
+        ],
+        socialLinks: [
+          { icon: 'github', link: 'https://github.com/inexbot/inexbot-sdk' }
         ],
         sidebar: krSidebar,
         search: {
