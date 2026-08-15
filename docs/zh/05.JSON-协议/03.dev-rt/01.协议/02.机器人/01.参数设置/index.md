@@ -75,89 +75,51 @@
 
 ### 上位机设置机器人类型及映射
 
-- **命令字：** `0x2002`
+- **命令字：** `0x2002`（ROBOTTYPE_AXISMAP_SET）
 
 | 参数 | 类型 | 说明 |
 |------|------|------|
-| sum | int | 机器人数目，取值范围[1,4] |
-| robot | array | 机器人参数列表，包含机器人类型、伺服映射、注释 |
+| robot | array | 机器人参数列表 |
+| robot.Num | int | 机器人编号 |
+| robot.servoMap | array | 伺服映射列表，int 类型，长度为机器人轴数 |
+| sum | int | 机器人总数 |
+| syncAxis | array | 外部轴参数列表 |
+| syncAxis.syncAxisSlave | array | 外部轴伺服类型，int 类型 |
+| syncAxisSum | int | 外部轴总数 |
 
 ```json
 {
-  "robot":
-  [
+  "robot": [
     {
-      "note":"",
-      "robotType":"R_GENERAL_7S",
-      "servoMap":[0,0,0,0,0,0,0]
+      "Num": 0,
+      "servoMap": [0, 0, 0, 0, 0, 0]
     },
     {
-      "note":"",
-      "robotType":"R_GENERAL_5S",
-      "servoMap":[0,0,0,0,0]
-    },
-    {
-      "note":"",
-      "robotType":"R_GENERAL_6S",
-      "servoMap":[0,0,0,0,0,0]
+      "Num": 1,
+      "servoMap": [0, 0, 0, 0, 0, 0]
     }
   ],
-  "sum":3
+  "sum": 1,
+  "syncAxis": [
+    {
+      "syncAxisSlave": [0]
+    },
+    {
+      "syncAxisSlave": [0, 0, 0]
+    },
+    {
+      "syncAxisSlave": [0]
+    }
+  ],
+  "syncAxisSum": 3
 }
 ```
 
-**robot 子对象参数：**
-
-| 参数 | 类型 | 说明 |
-|------|------|------|
-| robotType | string | 机器人类型标识 |
-| servoMap | array | 伺服映射列表，int 类型，长度为机器人轴数 |
-| note | string | 注释 |
-
-**robotType 类型映射表：**
-
-| 类型标识 | 说明 |
-|----------|------|
-| R_NULL | 未选择机器人类型 |
-| R_GENERAL_6S | 六轴串联多关节 |
-| R_GENERAL_6S_1 | 六轴协作 |
-| R_SIXAXIS_SPRAY_BBR | 六轴喷涂机器人 |
-| R_GENERAL_6S_2 | 六轴异型二 |
-| R_GENERAL_5S | 五轴机器人 |
-| R_SCARA | 四轴 SCARA 机器人 |
-| R_SCARA_1 | 四轴 SCARA 异型一机器人 |
-| R_FOURAXIS_PALLET | 四轴连杆码垛机器人 |
-| R_FOURAXIS_PALLET_1 | 四轴码垛丝杆机器人 |
-| R_FOURAXIS | 四轴机器人 |
-| R_FOUR_CARTESIAN_COORDINATE | 四轴直角机器人 |
-| R_FOUR_POLAR_COORDINATE_1 | 四轴极坐标异形机器人 |
-| R_SCARA_THREEAXIS | 三轴 SCARA 机器人 |
-| R_THREE_CARTESIAN_COORDINATE | 三轴直角机器人 |
-| R_THREE_CARTESIAN_COORDINATE_1 | 三轴异形一机器人 |
-| R_SCARA_TWOAXIS | 二轴 SCARA 机器人 |
-| R_GENERAL_7S | 七轴通用机器人 |
-| R_GENERAL_1S | 一轴机器人 |
-| R_GANTRY_WELD | 五轴龙门焊接机器人 |
-| R_DELTA | delta 机器人(四轴并联机器人) |
-| R_WINE_CHAMFER | 酒槽机型 |
-| R_GANTRY_WELD_2 | 五轴龙门焊接机器人类型2 |
-| R_FOUR_CARTESIAN_COORDINATE_1 | 四轴直角异型一机器人 |
-| R_GANTRY_WELD_6 | 六轴龙门焊接机器人 |
-| FIVE_AXLE_MIXED | 五轴混动机器人 |
-| R_SCARA_FOURAXIS_2 | 四轴 SCARA 异型2 |
-| R_SIX_AXLE_ABNORMITY_3 | 六轴异型三 |
-| R_SCARA_THREEAXIS_1 | 三轴 SCARA 异型1 |
-| R_DELTA_2D_ | delta2D 并联机器人模型 |
-| R_GANTRY_WELD_3 | 五轴龙门焊接机器人类型3 |
-| R_GENERAL_3S_1 | 三轴串联异形一 |
-| R_GENERAL_5S_COLLABORATIVE_ | 五轴协作机器人 |
-| R_SCARA_3_ | 四轴 SCARA 异型三机器人 |
-| R_GENERAL_6S_CBBARA_ | 六轴串联-CBBARA |
-| R_HEAVY_DUTY_FOUR_AXIS_ | 高格立柱旋转四轴 |
-
 ### 上位机查询机器人类型及映射
 
-- **命令字：** `0x2003`
+- **命令字：** `0x2003`（ROBOTTYPE_AXISMAP_INQUIRE）
+
+> 无请求参数
 
 ```json
 {}
@@ -165,36 +127,35 @@
 
 ### 控制器回复机器人类型及映射
 
-- **命令字：** `0x2004`
+- **命令字：** `0x2004`（ROBOTTYPE_AXISMAP_RESPOND）
 
-| 参数 | 类型 | 说明 |
-|------|------|------|
-| sum | int | 机器人数目，范围[1,4] |
-| servoSum | int | 伺服个数 |
-| robot | array | 机器人参数列表 |
+> 回复参数同设置参数一致。
 
 ```json
 {
-  "robot":
-  [
+  "robot": [
     {
-      "note":"",
-      "robotType":"R_GENERAL_7S",
-      "servoMap":[0,0,0,0,0,0,0]
+      "Num": 0,
+      "servoMap": [0, 0, 0, 0, 0, 0]
     },
     {
-      "note":"",
-      "robotType":"R_GENERAL_5S",
-      "servoMap":[0,0,0,0,0]
-    },
-    {
-      "note":"",
-      "robotType":"R_GENERAL_6S",
-      "servoMap":[0,0,0,0,0,0]
+      "Num": 1,
+      "servoMap": [0, 0, 0, 0, 0, 0]
     }
   ],
-  "servoSum":0,
-  "sum":3
+  "sum": 1,
+  "syncAxis": [
+    {
+      "syncAxisSlave": [0]
+    },
+    {
+      "syncAxisSlave": [0, 0, 0]
+    },
+    {
+      "syncAxisSlave": [0]
+    }
+  ],
+  "syncAxisSum": 3
 }
 ```
 
@@ -290,22 +251,15 @@
 
 ### 上位机设置机器人同步轴
 
-- **命令字：** `0x2030`
+- **命令字：** `0x2030`（EXTTYPE_AXISMAP_SET）
 
 | 参数 | 类型 | 说明 |
 |------|------|------|
-| sum | int | 外部轴组数，范围[0,12] |
-| extGroup | array | 外部轴参数列表，包含外部轴类型、伺服映射、注释 |
+| externAxisGroupSum | int | 外部轴数目 |
+| externAxisGroupType | array | 外部轴类型列表，int 类型，取值范围[0,6] |
+| note | array | 注释列表，string 类型 |
 
-**extGroup 子对象参数：**
-
-| 参数 | 类型 | 说明 |
-|------|------|------|
-| groupType | int | 外部轴类型，范围[0,5] |
-| servoMap | array | 伺服映射列表，int 类型，长度为3 |
-| note | string | 注释 |
-
-**groupType 类型说明：**
+**externAxisGroupType 类型说明：**
 
 | 类型值 | 说明 |
 |--------|------|
@@ -318,21 +272,17 @@
 
 ```json
 {
-  "extGroup":
-  [
-    {
-      "note":"",
-      "groupType":1,
-      "servoMap":[0,0,0]
-    },
-  ],
-  "sum":1
+  "externAxisGroupSum": 1,
+  "externAxisGroupType": [0, 1, 2, 3, 4, 5, 6],
+  "note": ["note1", "note2"]
 }
 ```
 
 ### 上位机查询机器人同步轴
 
-- **命令字：** `0x2031`
+- **命令字：** `0x2031`（EXTTYPE_AXISMAP_INQUIRE）
+
+> 无请求参数
 
 ```json
 {}
@@ -340,26 +290,15 @@
 
 ### 控制器回复机器人同步轴
 
-- **命令字：** `0x2032`
+- **命令字：** `0x2032`（EXTTYPE_AXISMAP_RESPOND）
 
-| 参数 | 类型 | 说明 |
-|------|------|------|
-| sum | int | 外部轴组数，范围[0,12] |
-| servoSum | int | 伺服个数 |
-| extGroup | array | 外部轴参数列表 |
+> 回复参数同设置参数一致。
 
 ```json
 {
-  "extGroup":
-  [
-    {
-      "note":"",
-      "groupType":1,
-      "servoMap":[0,0,0]
-    },
-  ],
-  "servoSum":0,
-  "sum":1
+  "externAxisGroupSum": 1,
+  "externAxisGroupType": [0, 1, 2, 3, 4, 5, 6],
+  "note": ["note1", "note2"]
 }
 ```
 
@@ -1080,113 +1019,94 @@
 
 ### 上位机设置外部轴关节参数
 
-- **命令字：** `0x20A6`
+- **命令字：** `0x20A6`（JOINTPARAMETER_SYNCPOSITIONER_SET）
 
 | 参数 | 类型 | 说明 |
 |------|------|------|
-| robot | int | 当前机器人号，范围[1,4] |
-| isNotInsideRobot | bool | 当前控制对象是否为外部设备；非 ide 可不发 |
-| externalGroupNum | int | 外部轴组号，范围[1,3]；该参数最大为当前机器人绑定的外部轴数量；当"isNotInsideRobot"为 true 时，该参数表示总编号 |
-| joint | array | 关节参数列表，长度为当前外部轴的轴数 |
-
-**joint 子对象参数：**
-
-| 参数 | 类型 | 说明 |
-|------|------|------|
-| backLash | double | 齿轮反向间隙，范围[0,10]；该功能还需完善，建议填写0.0 |
-| direction | int | 模型方向，范围[1,-1]；1为正方向，-1为负方向 |
-| encoderResolution | int | 编码器位数，范围[1,100] |
-| maxAcc | double | 关节最大加速度，范围[1,10000] |
-| maxDec | double | 关节最大减速度，范围[-10000,-1] |
-| maxJerkAcc | double | 最大加加速度，范围[1,20000]；机器人插补方式为加加速度时生效 |
-| maxJerkDec | double | 最大减减速度，范围[-20000,-1]；机器人插补方式为加加速度时生效 |
-| maxRPM | double | 最大正转速，范围[1,5] |
-| maxReverseRPM | double | 最大反转速，范围[-5,-1] |
-| positiveLimit | double | 关节正限位，范围[1,3000]°；值100000000表示不限速 |
-| ratedRPM | double | 额定正转速，范围[1,10000]rpm |
-| ratedReverseRPM | double | 额定反转速，范围[-10000,-1]rpm；数值为额定正速度的负值 |
-| ratedReverseSpeed | double | 关节额定反速度，单位°/s；旋转外部轴公式：额定反速度 / 关节减速比 * 6；直线外部轴公式：方向转换比 * (额定反速度 / 关节减速比 * 6) / 360 |
-| ratedSpeed | double | 关节额定正速度，单位°/s；旋转外部轴公式：额定正速度 / 关节减速比 * 6；直线外部轴公式：方向转换比 * (额定正速度 / 关节减速比 * 6) / 360 |
-| reducRatio | double | 关节减速比，范围(0,1000] |
-| reverseLimit | double | 关节反限位，范围[-3000,-1]°；值100000000表示不限速 |
+| externJointNum | int | 外部轴关节号 |
+| externJointParam | object | 外部轴关节参数对象 |
+| externJointParam.maxPos | double | 正限位，单位：度或毫米 |
+| externJointParam.minPos | double | 反限位，单位：度或毫米 |
+| externJointParam.reduceRatio | double | 硬件减速比，范围(0,1000]（开关关闭时按 1 计算） |
+| externJointParam.reduceRatioEnable | bool | 硬件减速比开关 |
+| externJointParam.encoderResolution | string | 编码器位数（可切换为编码器单圈值 * inc；通讯协议中 0 表示"位"，1 表示"inc"） |
+| externJointParam.encodeResolutionUnit | int | 编码器单位，范围[0,1] |
+| externJointParam.ratedRotSpeed | double | 额定正转速，单位：转/分（可切换为度或毫米/秒） |
+| externJointParam.maxRotSpeed | double | 最大正转速 |
+| externJointParam.maxAcc | double | 最大加速度 |
+| externJointParam.maxDec | double | 最大减速度 |
+| externJointParam.maxAccJerk | double | 最大加加速度 |
+| externJointParam.maxDecJerk | double | 最大减减速度 |
+| externJointParam.angleToDistance | double | 角度距离转换比（可切换为距离角度转换比，两者乘积为 1） |
+| externJointParam.reverseClearance | double | 机械间隙，单位：度或毫米 |
+| externJointParam.motorDirection | int | 电机方向（原模型方向），范围[-1,1] |
+| externJointParam.axisDirection | int | 关节方向（原关节实际方向），范围[-1,1] |
 
 ```json
 {
-  "externalGroupNum": 1,
-  "isNotInsideRobot":false,
-  "joint":
-  [
-    {
-      "backLash": 0.0,
-      "direction": 1,
-      "encoderResolution": 17,
-      "maxAcc": 1.50,
-      "maxDec": -1.50,
-      "maxJerkAcc": 1.0,
-      "maxJerkDec": -1.0,
-      "maxRPM": 1.0,
-      "maxReverseRPM": -1.0,
-      "positiveLimit": 999.0,
-      "ratedRPM": 3000.0,
-      "ratedReverseRPM": -3000.0,
-      "ratedReverseSpeed": -3600.0,
-      "ratedSpeed": 3600.0,
-      "reducRatio": 5.0,
-      "reverseLimit": -999.0
-    }
-  ],
-  "robot": 1
+  "externJointNum": 1,
+  "externJointParam": {
+    "maxPos": 180.0,
+    "minPos": -180.0,
+    "reduceRatio": 100.0,
+    "reduceRatioEnable": true,
+    "encoderResolution": "17",
+    "encodeResolutionUnit": 0,
+    "ratedRotSpeed": 3000,
+    "maxRotSpeed": 1.0,
+    "maxAcc": 1.0,
+    "maxDec": -1.0,
+    "maxAccJerk": 1.0,
+    "maxDecJerk": -1.0,
+    "angleToDistance": 1,
+    "reverseClearance": 0.0,
+    "motorDirection": 1,
+    "axisDirection": 1
+  }
 }
 ```
 
 ### 上位机查询外部轴关节参数
 
-- **命令字：** `0x20A7`
+- **命令字：** `0x20A7`（JOINTPARAMETER_SYNCPOSITIONER_INQUIRE）
 
 | 参数 | 类型 | 说明 |
 |------|------|------|
-| robot | int | 当前机器人号，范围[1,4] |
-| externalGroupNum | int | 轴组组合的组号；该参数最大为当前机器人绑定的外部轴数量 |
-| isNotInsideRobot | bool | 当前控制对象是否为外部设备；非 ide 可不发 |
+| externJointNum | int | 外部轴关节号 |
 
 ```json
 {
-  "robot": 1,
-  "externalGroupNum": 1,
-  "isNotInsideRobot": false
+  "externJointNum": 1
 }
 ```
 
 ### 控制器回复外部轴关节参数
 
-- **命令字：** `0x20A8`
+- **命令字：** `0x20A8`（JOINTPARAMETER_SYNCPOSITIONER_RESPOND）
+
+> 回复参数同设置参数一致。
 
 ```json
 {
-  "externalGroupNum": 1,
-  "isNotInsideRobot":false,
-  "joint":
-  [
-    {
-      "backLash": 0.0,
-      "direction": 1,
-      "encoderResolution": 17,
-      "maxAcc": 1.50,
-      "maxDec": -1.50,
-      "maxJerkAcc": 1.0,
-      "maxJerkDec": -1.0,
-      "maxRPM": 1.0,
-      "maxReverseRPM": -1.0,
-      "positiveLimit": 999.0,
-      "ratedRPM": 3000.0,
-      "ratedReverseRPM": -3000.0,
-      "ratedReverseSpeed": -3600.0,
-      "ratedSpeed": 3600.0,
-      "reducRatio": 5.0,
-      "reverseLimit": -999.0
-    }
-  ],
-  "robot": 1
+  "externJointNum": 1,
+  "externJointParam": {
+    "maxPos": 180.0,
+    "minPos": -180.0,
+    "reduceRatio": 100.0,
+    "reduceRatioEnable": true,
+    "encoderResolution": "17",
+    "encodeResolutionUnit": 0,
+    "ratedRotSpeed": 3000,
+    "maxRotSpeed": 1.0,
+    "maxAcc": 1.0,
+    "maxDec": -1.0,
+    "maxAccJerk": 1.0,
+    "maxDecJerk": -1.0,
+    "angleToDistance": 1,
+    "reverseClearance": 0.0,
+    "motorDirection": 1,
+    "axisDirection": 1
+  }
 }
 ```
 
