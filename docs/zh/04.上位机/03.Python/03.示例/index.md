@@ -7,7 +7,7 @@ Python SDK 使用示例。
 ## 适用范围
 
 - Python SDK（Python 3.x，x64）
-- RTL-22.07 / RTL-24.03 控制器
+- RTL-24.03 控制器
 
 ## 本页目录
 
