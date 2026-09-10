@@ -13,6 +13,7 @@
 - [finsTCP](./07.finsTCP)
 - [OPC UA](./08.OPCUA)
 - [EIP](./09.EIP)
+- [PLC](./10.PLC)
 
 ---
 

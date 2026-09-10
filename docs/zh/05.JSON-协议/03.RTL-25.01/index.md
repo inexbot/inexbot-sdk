@@ -76,6 +76,7 @@ RTL-24.03 是纳博特控制器的**当前主流出货版本**，在 RTL-22.07 �
 - 数据上传 (733x)
 - FinsTCP (734x)
 - OPC UA (735x)
+- PLC (74xx)：SoftPLC Socket 通信
 
 ### 自定义/其他 (1fxx ~ )
 
