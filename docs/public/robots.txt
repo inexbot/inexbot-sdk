@@ -1,0 +1,48 @@
+# open.inexbot.com · robots.txt
+# 本文件允许搜索引擎与 AI 助手抓取纳博特开放平台技术文档。
+# 机器可读入口：/llms.txt（索引）、/llms-full.txt（全量）、每页 .md 版本（将 .html 替换为 .md）。
+
+User-agent: *
+Allow: /
+
+# 主流 AI 助手 / 检索类爬虫（显式放行）
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-User
+Allow: /
+
+User-agent: Claude-SearchBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Bytespider
+Allow: /
+
+User-agent: Baiduspider
+Allow: /
+
+User-agent: Sogou web spider
+Allow: /
+
+User-agent: 360Spider
+Allow: /
+
+User-agent: YisouSpider
+Allow: /
+
+Sitemap: https://open.inexbot.com/sitemap.xml

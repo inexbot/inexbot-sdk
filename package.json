@@ -4,8 +4,9 @@
   },
   "scripts": {
     "docs:dev": "vitepress dev",
-    "docs:build": "NODE_OPTIONS=--max-old-space-size=4096 vitepress build",
+    "docs:build": "NODE_OPTIONS=--max-old-space-size=4096 vitepress build && node scripts/generate-llms.mjs",
     "docs:preview": "vitepress preview",
+    "docs:llms": "node scripts/generate-llms.mjs",
     "docs:lint": "markdownlint 'docs/zh/**/*.md' 'docs/en/**/*.md' 'docs/kr/**/*.md' --config .markdownlint.jsonc",
     "docs:check": "node scripts/check-docs.mjs > ../docs-check-result.txt 2>&1 && npm run docs:lint >> ../docs-check-result.txt 2>&1",
     "docs:ci": "npm ci && npm run docs:check && npm run docs:build",
