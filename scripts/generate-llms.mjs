@@ -30,6 +30,9 @@ const LANGS = ['zh']
 const SKIP_DIRS = new Set(['assets', 'assets_T31'])
 
 const SITE_TITLE = '纳博特 NexDroid 开放平台（二次开发文档）'
+
+// SDK 资源仓库：接口头文件 / 各平台库文件 / 示例工程（人工与 AI Agent 均可直接取用）
+const SDK_REPO = 'https://cnb.cool/inexbot/inexbot-sdk-devkit'
 const SITE_SUMMARY =
   '工业机器人控制器二次开发文档。默认开发方式：上位机 SDK（C++/C#/Python）；' +
   'JSON 协议、控制器/示教器、ROS、主站库、HAL 为进阶通道，仅在上位机无法满足或客户明确要求时使用。'
@@ -40,6 +43,7 @@ const QUICK_ENTRIES = [
   '04.上位机/01.C++/03.示例/01.快速开始.md',
   '13.Agent 开发指引.md',
   '14.编译与验证指南.md',
+  '15.生成前信息采集清单.md',
   '11.常见问题.md',
   '12.相关下载.md',
   '版本与兼容性.md',
@@ -148,7 +152,7 @@ function buildIndex(lang, pages) {
   }
 
   let out = `# ${SITE_TITLE}\n\n`
-  out += `> ${SITE_SUMMARY}\n>\n> 机器可读说明：本文件为文档索引；每页均提供纯 Markdown 版本（将链接中的 .html 替换为 .md 即为原文）。全量内容见 ${HOST}/llms-full.txt，站点地图见 ${HOST}/sitemap.xml。\n\n`
+  out += `> ${SITE_SUMMARY}\n>\n> SDK 资源仓库（接口头文件 / 各平台库文件 / 示例工程，可直接 git clone 取用）：${SDK_REPO}\n>\n> 机器可读说明：本文件为文档索引；每页均提供纯 Markdown 版本（将链接中的 .html 替换为 .md 即为原文）。全量内容见 ${HOST}/llms-full.txt，站点地图见 ${HOST}/sitemap.xml。\n\n`
 
   out += listSection('快速入口', QUICK_ENTRIES)
 
@@ -173,6 +177,7 @@ function buildFull(pages) {
     '> 本文件由构建脚本（scripts/generate-llms.mjs）自动生成，随站点更新；每页正文之间以分隔线隔开，标题下方给出原文 URL。',
     `> 单页 Markdown 版本：将 .html 替换为 .md（例如 ${HOST}/zh/01.概述.html → 01.概述.md）。`,
     `> 文档索引：${HOST}/llms.txt ｜ 站点入口：${HOST}/zh/`,
+    `> SDK 资源仓库（接口头文件 / 各平台库文件 / 示例工程）：${SDK_REPO}`,
     '',
   ].join('\n')
 
