@@ -9,18 +9,29 @@ const AI_HINT_ZH =
   '<div class="ai-entry-hint">🤖 AI 助手 / 自动化工具：先读 ' +
   `<a href="${AI_HINT_URL_13}">《Agent 开发指引》</a> 与 ` +
   `<a href="${AI_HINT_URL_15}">《生成前信息采集清单》</a>；机器可读入口 ` +
-  '<a href="/llms.txt">/llms.txt</a></div>'
+  '<a href="/llms.txt">/llms.txt</a>；本页纯文本版：把网址中的 .html 换成 .md</div>'
 const AI_HINT_EN =
   '<div class="ai-entry-hint">🤖 AI assistants / automation: start with the ' +
   `<a href="${AI_HINT_URL_13}">Agent Development Guide</a> and ` +
   `<a href="${AI_HINT_URL_15}">Pre-generation Checklist</a> (Chinese); machine-readable entry: ` +
-  '<a href="/llms.txt">/llms.txt</a></div>'
+  '<a href="/llms.txt">/llms.txt</a>; plain-text version: swap .html for .md in the URL</div>'
 const AI_HINT_SKIP = new Set(['index.md', 'zh/index.md', 'en/index.md', 'kr/index.md'])
 
 function aiEntryHint(md: any) {
   md.core.ruler.push('ai-entry-hint', (state: any) => {
+    // 只在整篇文档解析时注入：parseInline（::: 容器标题、行内渲染等）同样会触发 core 规则链，
+    // 不过滤会导致每个容器处重复注入（曾致单页出现 7 份提示）
+    if (state.inlineMode) return true
     const rel: string = state?.env?.relativePath ?? ''
     if (AI_HINT_SKIP.has(rel)) return true
+    // 幂等保护：本篇渲染中已注入过则跳过
+    if (
+      state.tokens.some(
+        (t: any) => t.type === 'html_block' && t.content.includes('ai-entry-hint')
+      )
+    ) {
+      return true
+    }
     const token = new state.Token('html_block', '', 0)
     token.block = true
     token.content =

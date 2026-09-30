@@ -1,0 +1,23 @@
+{
+  "redirects": [
+    { "source": "/06.上位机/01.C++/02.接口说明.html", "destination": "/zh/04.上位机/01.C++/02.接口/", "statusCode": 302 },
+    { "source": "/06.上位机/01.C++/03.接口示例/01.基础应用/02.不考虑平滑的单点运动.html", "destination": "/zh/04.上位机/01.C++/03.示例/02.基础应用/04.直接运动指令.html", "statusCode": 302 },
+    { "source": "/04.控制器/01.示例/01.自定义指令/02.控制器实现/01.接口介绍.html", "destination": "/zh/06.控制器/03.示例/02.自定义指令/", "statusCode": 302 },
+    { "source": "/07.JSON 协议/01.RTL-22.07/02.6000 端口通讯(2207)/01.运动控制/01.机器人运动.html", "destination": "/zh/05.JSON-协议/01.RTL-22.07/01.协议/02.6000-端口通讯(2207)/01.运动控制/01.机器人运动.html", "statusCode": 302 },
+
+    { "source": "/06.上位机/*", "destination": "/zh/04.上位机/", "statusCode": 301 },
+    { "source": "/04.控制器/*", "destination": "/zh/06.控制器/", "statusCode": 301 },
+    { "source": "/05.示教器/*", "destination": "/zh/07.示教器/", "statusCode": 301 },
+    { "source": "/07.JSON 协议/*", "destination": "/zh/05.JSON-协议/", "statusCode": 301 },
+
+    { "source": "/04.上位机/*", "destination": "/zh/04.上位机/:splat", "statusCode": 301 },
+    { "source": "/05.JSON-协议/*", "destination": "/zh/05.JSON-协议/:splat", "statusCode": 301 },
+    { "source": "/06.控制器/*", "destination": "/zh/06.控制器/:splat", "statusCode": 301 },
+    { "source": "/07.示教器/*", "destination": "/zh/07.示教器/:splat", "statusCode": 301 },
+    { "source": "/08.ROS/*", "destination": "/zh/08.ROS/:splat", "statusCode": 301 },
+    { "source": "/09.主站库/*", "destination": "/zh/09.主站库/:splat", "statusCode": 301 },
+    { "source": "/09.主站库.md", "destination": "/zh/09.主站库/", "statusCode": 301 },
+    { "source": "/10.HAL/*", "destination": "/zh/10.HAL/01.文档/", "statusCode": 301 },
+    { "source": "/10.HAL.md", "destination": "/zh/10.HAL/01.文档/", "statusCode": 301 }
+  ]
+}
