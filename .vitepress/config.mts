@@ -2,6 +2,34 @@ import { DefaultTheme, defineConfig } from 'vitepress'
 import { readdir, stat } from 'fs/promises'
 import { join, extname, basename } from 'path'
 
+// ── AI 助手入口提示：渲染时注入每篇文章末尾（位于 <main> 正文域内），不写入源文件 ──
+const AI_HINT_URL_13 = '/zh/13.Agent%20%E5%BC%80%E5%8F%91%E6%8C%87%E5%BC%95.html'
+const AI_HINT_URL_15 = '/zh/15.%E7%94%9F%E6%88%90%E5%89%8D%E4%BF%A1%E6%81%AF%E9%87%87%E9%9B%86%E6%B8%85%E5%8D%95.html'
+const AI_HINT_ZH =
+  '<div class="ai-entry-hint">🤖 AI 助手 / 自动化工具：先读 ' +
+  `<a href="${AI_HINT_URL_13}">《Agent 开发指引》</a> 与 ` +
+  `<a href="${AI_HINT_URL_15}">《生成前信息采集清单》</a>；机器可读入口 ` +
+  '<a href="/llms.txt">/llms.txt</a></div>'
+const AI_HINT_EN =
+  '<div class="ai-entry-hint">🤖 AI assistants / automation: start with the ' +
+  `<a href="${AI_HINT_URL_13}">Agent Development Guide</a> and ` +
+  `<a href="${AI_HINT_URL_15}">Pre-generation Checklist</a> (Chinese); machine-readable entry: ` +
+  '<a href="/llms.txt">/llms.txt</a></div>'
+const AI_HINT_SKIP = new Set(['index.md', 'zh/index.md', 'en/index.md', 'kr/index.md'])
+
+function aiEntryHint(md: any) {
+  md.core.ruler.push('ai-entry-hint', (state: any) => {
+    const rel: string = state?.env?.relativePath ?? ''
+    if (AI_HINT_SKIP.has(rel)) return true
+    const token = new state.Token('html_block', '', 0)
+    token.block = true
+    token.content =
+      (rel.startsWith('en/') || rel.startsWith('kr/') ? AI_HINT_EN : AI_HINT_ZH) + '\n'
+    state.tokens.push(token)
+    return true
+  })
+}
+
 // 递归扫描目录生成侧边栏
 async function buildSidebar(dir: string, prefix = '', skipDirs: string[] = []): Promise<DefaultTheme.SidebarItem[]> {
   const items: DefaultTheme.SidebarItem[] = []
@@ -109,6 +137,11 @@ function searchOptions(useChineseTokenizer: boolean) {
 export default defineConfig({
   srcDir: "./docs",
   ignoreDeadLinks: true,
+  markdown: {
+    config: (md: any) => {
+      md.use(aiEntryHint)
+    }
+  },
   outDir: "./dist",
   sitemap: {
     hostname: 'https://open.inexbot.com'

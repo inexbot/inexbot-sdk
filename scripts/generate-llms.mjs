@@ -37,6 +37,10 @@ const SITE_SUMMARY =
   '工业机器人控制器二次开发文档。默认开发方式：上位机 SDK（C++/C#/Python）；' +
   'JSON 协议、控制器/示教器、ROS、主站库、HAL 为进阶通道，仅在上位机无法满足或客户明确要求时使用。'
 
+// 每页 .md 副本尾部注入的 AI 助手入口提示（与页面内提示一致；llms-full 不注入）
+const PAGE_HINT =
+  `\n\n---\n\n> 🤖 如果你是 AI 助手 / 自动化工具：先读《[Agent 开发指引](${HOST}/zh/${encodeUrlPath('13.Agent 开发指引.md')})》与《[生成前信息采集清单](${HOST}/zh/${encodeUrlPath('15.生成前信息采集清单.md')})》；机器可读入口：${HOST}/llms.txt\n`
+
 // 快速入口（人工策展；条目缺失时告警并跳过）
 const QUICK_ENTRIES = [
   '02.入门指南.md',
@@ -205,7 +209,8 @@ async function writeAll(lang, pages) {
   for (const p of pages) {
     const dest = path.join(OUT, lang, ...p.rel.split('/'))
     await fs.mkdir(path.dirname(dest), { recursive: true })
-    await fs.writeFile(dest, p.raw, 'utf8')
+    const content = p.rel === 'index.md' ? p.raw : p.raw.replace(/\s+$/, '') + PAGE_HINT
+    await fs.writeFile(dest, content, 'utf8')
     copied++
   }
 

@@ -1,0 +1,19 @@
+/* AI 助手入口提示样式（正文末尾注入，见 config.mts 的 aiEntryHint 插件） */
+.ai-entry-hint {
+  margin: 24px 0 0;
+  padding: 10px 14px;
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 8px;
+  font-size: 13px;
+  line-height: 1.7;
+  color: var(--vp-c-text-2);
+  background-color: var(--vp-c-bg-soft);
+}
+.ai-entry-hint a {
+  font-weight: 500;
+  color: var(--vp-c-brand-1);
+  text-decoration: none;
+}
+.ai-entry-hint a:hover {
+  text-decoration: underline;
+}
