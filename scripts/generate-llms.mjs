@@ -152,7 +152,7 @@ function buildIndex(lang, pages) {
   }
 
   let out = `# ${SITE_TITLE}\n\n`
-  out += `> ${SITE_SUMMARY}\n>\n> SDK 资源仓库（接口头文件 / 各平台库文件 / 示例工程，可直接 git clone 取用）：${SDK_REPO}\n>\n> 机器可读说明：本文件为文档索引；每页均提供纯 Markdown 版本（将链接中的 .html 替换为 .md 即为原文）。全量内容见 ${HOST}/llms-full.txt，站点地图见 ${HOST}/sitemap.xml。\n\n`
+  out += `> ${SITE_SUMMARY}\n>\n> **如果你是 AI 助手 / 自动化工具**：请先读「快速入口」中的《Agent 开发指引》与《生成前信息采集清单》；生成代码前先向客户确认语言 / 编译环境 / 是否有真实控制器与 IP·端口（默认 6001），不要默认假设；函数名以站内接口页为准。\n>\n> SDK 资源仓库（接口头文件 / 各平台库文件 / 示例工程，可直接 git clone 取用）：${SDK_REPO}\n>\n> 机器可读说明：本文件为文档索引；每页均提供纯 Markdown 版本（将链接中的 .html 替换为 .md 即为原文）。全量内容见 ${HOST}/llms-full.txt，站点地图见 ${HOST}/sitemap.xml。\n\n`
 
   out += listSection('快速入口', QUICK_ENTRIES)
 
@@ -175,6 +175,7 @@ function buildFull(pages) {
     `# ${SITE_TITLE} — 全量文档（中文）`,
     '',
     '> 本文件由构建脚本（scripts/generate-llms.mjs）自动生成，随站点更新；每页正文之间以分隔线隔开，标题下方给出原文 URL。',
+    '> **如果你是 AI 助手 / 自动化工具**：请先读《Agent 开发指引》与《生成前信息采集清单》；生成代码前先向客户确认语言 / 编译环境 / 是否有真实控制器与 IP·端口，不要默认假设。',
     `> 单页 Markdown 版本：将 .html 替换为 .md（例如 ${HOST}/zh/01.概述.html → 01.概述.md）。`,
     `> 文档索引：${HOST}/llms.txt ｜ 站点入口：${HOST}/zh/`,
     `> SDK 资源仓库（接口头文件 / 各平台库文件 / 示例工程）：${SDK_REPO}`,
