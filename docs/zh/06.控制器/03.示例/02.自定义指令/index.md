@@ -109,7 +109,6 @@ void NRC_Jobrun_MoveLinearSync(int robotNum, const NRC_Position & pos, const NRC
 ![自定义指令使用示例整体流程示意图](assets/zd-01.svg)
 ```cpp
 #include "nrcAPI.h"
-#include "nrcAPI_advance.h"
 #include "json/json.h"
 #include <atomic>
 #include <chrono>

@@ -275,9 +275,10 @@
 ```json
 {
   "baudRate":"500K",
-  "busType":1,
+  "bustype":1,
   "controlCycle":1,
   "control_word":7,
+  "buildArch":"T507"
   "pdo_lost_tolerance":2
 }
 ```
