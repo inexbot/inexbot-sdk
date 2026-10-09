@@ -32,10 +32,16 @@ function aiEntryHint(md: any) {
     ) {
       return true
     }
+    const text = rel.startsWith('en/') || rel.startsWith('kr/') ? AI_HINT_EN : AI_HINT_ZH
+    // 顶部一行（低调样式）：置于正文最前（先于 H1）——专治「只看页面开头」与「抽取被截断」的 Agent
+    const top = new state.Token('html_block', '', 0)
+    top.block = true
+    top.content = text.replace('class="ai-entry-hint"', 'class="ai-entry-hint ai-entry-hint-top"') + '\n'
+    state.tokens.unshift(top)
+    // 页脚提示（保留）：文末完整版
     const token = new state.Token('html_block', '', 0)
     token.block = true
-    token.content =
-      (rel.startsWith('en/') || rel.startsWith('kr/') ? AI_HINT_EN : AI_HINT_ZH) + '\n'
+    token.content = text + '\n'
     state.tokens.push(token)
     return true
   })

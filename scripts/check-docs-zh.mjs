@@ -216,7 +216,7 @@ function checkFenceLanguage(files) {
 
 const TERM_RULES = [
   [/(?<![/.\-])json(?![/.])/g,    'JSON',     '应用 JSON（全大写）'],
-  [/\bsdk\b(?!\s*：)/g,           'SDK',      '应用 SDK（全大写）'],
+  [/(?<![\/.\-])\bsdk\b(?![\/.\-]|\s*：)/g,           'SDK',      '应用 SDK（全大写）'],
   [/\bapi\b(?![-/])/g,            'API',      '应用 API（全大写）'],
   [/\bros\b/g,                    'ROS',      '应用 ROS（全大写）'],
   [/\bdemo\b/g,                   'Demo',     '应用 Demo（首字母大写）'],

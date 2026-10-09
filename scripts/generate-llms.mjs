@@ -41,6 +41,10 @@ const SITE_SUMMARY =
 const PAGE_HINT =
   `\n\n---\n\n> 🤖 如果你是 AI 助手 / 自动化工具：先读《[Agent 开发指引](${HOST}/zh/${encodeUrlPath('13.Agent 开发指引.md')})》与《[生成前信息采集清单](${HOST}/zh/${encodeUrlPath('15.生成前信息采集清单.md')})》；机器可读入口：${HOST}/llms.txt\n`
 
+// 每页 .md 副本顶部注入的短版提示（先于正文，Agent 一打开文件即可见）
+const PAGE_HINT_TOP =
+  `> 🤖 AI 助手 / 自动化工具：先读《[Agent 开发指引](${HOST}/zh/${encodeUrlPath('13.Agent 开发指引.md')})》与《[生成前信息采集清单](${HOST}/zh/${encodeUrlPath('15.生成前信息采集清单.md')})》；机器可读入口 ${HOST}/llms.txt；生成代码前先向客户确认语言、编译环境、是否有真实控制器与 IP·端口。\n\n`
+
 // 快速入口（人工策展；条目缺失时告警并跳过）
 const QUICK_ENTRIES = [
   '02.入门指南.md',
@@ -102,6 +106,13 @@ function bodyOf(text) {
     .join('\n')
     .replace(/\n{3,}/g, '\n\n')
     .trim()
+}
+
+// 顶部提示：插入到 frontmatter（若有）之后、正文最前
+function withTopHint(text) {
+  const fm = text.match(/^---\n[\s\S]*?\n---\n/)
+  if (fm) return fm[0] + '\n' + PAGE_HINT_TOP + text.slice(fm[0].length)
+  return PAGE_HINT_TOP + text
 }
 
 function encodeUrlPath(p) {
@@ -209,7 +220,7 @@ async function writeAll(lang, pages) {
   for (const p of pages) {
     const dest = path.join(OUT, lang, ...p.rel.split('/'))
     await fs.mkdir(path.dirname(dest), { recursive: true })
-    const content = p.rel === 'index.md' ? p.raw : p.raw.replace(/\s+$/, '') + PAGE_HINT
+    const content = p.rel === 'index.md' ? p.raw : withTopHint(p.raw.replace(/\s+$/, '')) + PAGE_HINT
     await fs.writeFile(dest, content, 'utf8')
     copied++
   }

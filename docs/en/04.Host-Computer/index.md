@@ -4,15 +4,15 @@ libnrc_host is a C++ library built on top of the Socket_API communication protoc
 
 ## Technical Specifications
 
-| Item | Description |
-|------|------|
-| System Support | Windows, Linux; x86, x86_64, arm, arm64 |
-| Ports | 6000: Control/Query; 6001: Teach Programming; 7000: Servo Tracking Data |
-| API Documentation | https://doc.hmilib.inexbot.coision.cn/nrc__interface_8h.html |
+| Item              | Description                                                                                                                               |
+| ----------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
+| System Support    | Windows, Linux; x86, x86_64, arm, arm64                                                                                                   |
+| Ports             | 6001: JSON text command communication (host-computer SDK); 6000: Teach programming (teach pendant); 7000: Host-computer service functions |
+| API Documentation | <https://doc.hmilib.inexbot.coision.cn/nrc__interface_8h.html>                                                                            |
 
 ## Document Structure
 
-```
+```text
 Host-Computer
 ├── Python/
 │   ├── Getting-Started/         Build Python projects from scratch
@@ -32,11 +32,11 @@ Host-Computer
 
 ## Language Comparison
 
-| Language | Use Case | Compiler/Framework | Characteristics |
-|------|----------|-------------|------|
-| Python | Rapid prototyping, scripting | Python 3.x (must match SDK version) | Glue language, suitable for integration testing |
-| C++ | High performance, real-time control | MSVC 2017+, MinGW64, gcc aarch64 | Highest performance, suitable for production integration |
-| C# | Windows desktop applications | .NET Framework 4.8, .NET 8 | WinForms/WPF, convenient desktop integration |
+| Language | Use Case                            | Compiler/Framework                  | Characteristics                                          |
+| -------- | ----------------------------------- | ----------------------------------- | -------------------------------------------------------- |
+| Python   | Rapid prototyping, scripting        | Python 3.x (must match SDK version) | Glue language, suitable for integration testing          |
+| C++      | High performance, real-time control | MSVC 2017+, MinGW64, gcc aarch64    | Highest performance, suitable for production integration |
+| C#       | Windows desktop applications        | .NET Framework 4.8, .NET 8          | WinForms/WPF, convenient desktop integration             |
 
 ## SDK Download
 
