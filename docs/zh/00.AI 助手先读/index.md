@@ -5,9 +5,9 @@
 - [Agent 开发指引](../13.Agent%20开发指引.md)：任务到文档的索引、推荐生成流程、常见避坑
 - [生成前信息采集清单](../15.生成前信息采集清单.md)：生成前必须逐项向客户确认（语言 / 编译环境 / 版本 / 真机与 IP、端口）
 - [编译与验证指南](../14.编译与验证指南.md)：没有真实控制器时的编译级 / 仿真级验证方法
-**另附工具包（Agent 套件）**：
+**另附技能包（SKILL）**：
 
-- [Agent 套件](https://cnb.cool/inexbot/inexbot-sdk-devkit)：技能（`SKILL.md`）/ 通用规则（`AGENTS.md`）/ 避坑清单 / 三级自检；克隆该仓库即自带 `.agents/skills/`（支持技能的平台自动识别）
+- [技能包（SKILL）](https://cnb.cool/inexbot/inexbot-sdk-devkit)：技能本体 `inexbot-sdk-dev/`（`SKILL.md` ＋ 资料地图 / 问题索引 / 避坑清单 / 验证 SOP ＋ 三级自检脚本）/ 通用规则 `AGENTS.md`；克隆该仓库即自带 `.agents/skills/inexbot-sdk-dev/`（完整技能；支持技能的平台自动识别）
 
 **机器可读入口**：`/llms.txt`（文档索引）与 `/llms-full.txt`（全文合集）；本站每页都有纯文本版——把网址中的 `.html` 换成 `.md` 即为原文。
 

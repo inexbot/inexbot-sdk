@@ -8,6 +8,7 @@
  *   3. dist/<lang>/llms.txt         语言目录内同名副本
  *   4. dist/<lang>/llms-full.txt    同上
  *   5. dist/<lang>/<页面路径>.md    每页纯 Markdown 版本（与 .html 同路径）
+ *   6. dist/ai-prompt.txt           面向客户 AI 助手的「自装技能包」提示词（单一源：scripts/ai-prompt.mjs）
  *
  * 调用方式：
  *   - npm run docs:build 末尾自动执行（见 package.json）
@@ -21,6 +22,7 @@
  */
 import { promises as fs } from 'node:fs'
 import path from 'node:path'
+import { AI_PROMPT_ZH, AI_PROMPT_PLACEHOLDER } from './ai-prompt.mjs'
 
 const ROOT = process.cwd()
 const SRC = path.join(ROOT, 'docs')
@@ -40,7 +42,7 @@ const SITE_SUMMARY =
 
 // 每页 .md 副本顶部注入的短版提示（先于正文，Agent 一打开文件即可见）
 const PAGE_HINT_TOP =
-  `> 🤖 AI 助手 / 自动化工具：先读《[Agent 开发指引](${HOST}/zh/${encodeUrlPath('13.Agent 开发指引.md')})》与《[生成前信息采集清单](${HOST}/zh/${encodeUrlPath('15.生成前信息采集清单.md')})》；机器可读入口 ${HOST}/llms.txt；生成代码前先向客户确认语言、编译环境、是否有真实控制器与 IP·端口；Agent 套件（技能 / 避坑 / 自检）：见 13 页 §7。\n\n`
+  `> 🤖 AI 助手 / 自动化工具：先读《[Agent 开发指引](${HOST}/zh/${encodeUrlPath('13.Agent 开发指引.md')})》与《[生成前信息采集清单](${HOST}/zh/${encodeUrlPath('15.生成前信息采集清单.md')})》；机器可读入口 ${HOST}/llms.txt；生成代码前先向客户确认语言、编译环境、是否有真实控制器与 IP·端口；技能包（SKILL）：见 13 页 §7；抓取被截断时改用 ${HOST}/llms-full.txt（全文合集）。\n\n`
 
 // 快速入口（人工策展；条目缺失时告警并跳过）
 const QUICK_ENTRIES = [
@@ -164,9 +166,9 @@ function buildIndex(lang, pages) {
   }
 
   let out = `# ${SITE_TITLE}\n\n`
-  out += `> ${SITE_SUMMARY}\n>\n> **如果你是 AI 助手 / 自动化工具**：请先读「快速入口」中的《Agent 开发指引》与《生成前信息采集清单》；生成代码前先向客户确认语言 / 编译环境 / 是否有真实控制器与 IP·端口（默认 6001），不要默认假设；函数名以站内接口页为准。\n>\n> SDK 资源仓库（接口头文件 / 各平台库文件 / 示例工程，可直接 git clone 取用）：${SDK_REPO}\n>\n> 机器可读说明：本文件为文档索引；每页均提供纯 Markdown 版本（将链接中的 .html 替换为 .md 即为原文）。全量内容见 ${HOST}/llms-full.txt，站点地图见 ${HOST}/sitemap.xml。\n\n`
+  out += `> ${SITE_SUMMARY}\n>\n> **如果你是 AI 助手 / 自动化工具**：请先读「快速入口」中的《Agent 开发指引》与《生成前信息采集清单》；生成代码前先向客户确认语言 / 编译环境 / 是否有真实控制器与 IP·端口（默认 6001），不要默认假设；函数名以站内接口页为准。\n>\n> SDK 资源仓库（接口头文件 / 各平台库文件 / 示例工程，可直接 git clone 取用）：${SDK_REPO}\n>\n> 机器可读说明：本文件为文档索引；每页均提供纯 Markdown 版本（将链接中的 .html 替换为 .md 即为原文）。**若本文件在你的工具里被截断**（常见 10–20 KB 上限），请直接下载 ${HOST}/llms-full.txt（全文合集，约 4.6 MB）；站点地图见 ${HOST}/sitemap.xml。\n\n`
 
-  out += `> **Agent 套件**（技能 / 通用规则 / 避坑 / 自检）：SDK 资源仓库 ${SDK_REPO} 的 11-Agent套件/ 目录；克隆后根目录自带 .agents/skills/（支持 Agent Skills 的平台自动识别）——套件不含安装动作、无需执行脚本。
+  out += `> **技能包（SKILL）**（技能 / 通用规则 / 避坑 / 自检）：SDK 资源仓库 ${SDK_REPO} 的 11-SKILL技能包/ 目录（技能本体 inexbot-sdk-dev/）；克隆后根目录自带 .agents/skills/inexbot-sdk-dev/（完整技能：SKILL.md ＋ references/ ＋ scripts/；支持 Agent Skills 的平台自动识别）——技能包不含安装动作、无需执行脚本。
 
 `
   out += listSection('快速入口', QUICK_ENTRIES)
@@ -194,7 +196,7 @@ function buildFull(pages) {
     `> 单页 Markdown 版本：将 .html 替换为 .md（例如 ${HOST}/zh/01.概述.html → 01.概述.md）。`,
     `> 文档索引：${HOST}/llms.txt ｜ 站点入口：${HOST}/zh/`,
     `> SDK 资源仓库（接口头文件 / 各平台库文件 / 示例工程）：${SDK_REPO}`,
-    `> Agent 套件（技能 / 通用规则 / 避坑 / 自检）：SDK 资源仓库 ${SDK_REPO} 的 11-Agent套件/ 目录；克隆后根目录自带 .agents/skills/，支持 Agent Skills 的平台自动识别。`,
+    `> 技能包（SKILL）（技能 / 通用规则 / 避坑 / 自检）：SDK 资源仓库 ${SDK_REPO} 的 11-SKILL技能包/ 目录（技能本体 inexbot-sdk-dev/）；克隆后根目录自带 .agents/skills/inexbot-sdk-dev/（完整技能：SKILL.md ＋ references/ ＋ scripts/），支持 Agent Skills 的平台自动识别。`,
     '',
   ].join('\n')
 
@@ -217,11 +219,18 @@ async function writeAll(lang, pages) {
   await fs.writeFile(path.join(OUT, lang, 'llms.txt'), index, 'utf8')
   await fs.writeFile(path.join(OUT, lang, 'llms-full.txt'), full, 'utf8')
 
+  // 站点根：供客户/AI 助手直接抓取的提示词纯文本（单一源）
+  await fs.writeFile(path.join(OUT, 'ai-prompt.txt'), AI_PROMPT_ZH + '\n', 'utf8')
+
   let copied = 0
   for (const p of pages) {
     const dest = path.join(OUT, lang, ...p.rel.split('/'))
     await fs.mkdir(path.dirname(dest), { recursive: true })
-    const content = p.rel === 'index.md' ? p.raw : withTopHint(p.raw.replace(/\s+$/, ''))
+    // 首页占位符 → 提示词代码块（与网页渲染同一单一源）
+    const raw2 = p.raw.includes(AI_PROMPT_PLACEHOLDER)
+      ? p.raw.replace(AI_PROMPT_PLACEHOLDER, '```text\n' + AI_PROMPT_ZH + '\n```')
+      : p.raw
+    const content = p.rel === 'index.md' ? raw2 : withTopHint(raw2.replace(/\s+$/, ''))
     await fs.writeFile(dest, content, 'utf8')
     copied++
   }
@@ -238,7 +247,7 @@ async function main() {
       `[llms] ${lang}: 页面 ${s.pages} ｜ .md 副本 ${s.copied} ｜ llms.txt ${(s.indexBytes / 1024).toFixed(1)} KB ｜ llms-full.txt ${(s.fullBytes / 1024).toFixed(0)} KB`,
     )
   }
-  console.log('[llms] 完成 → dist/llms.txt、dist/llms-full.txt、dist/<lang>/llms*.txt、dist/<lang>/**/*.md')
+  console.log('[llms] 完成 → dist/llms.txt、dist/llms-full.txt、dist/<lang>/llms*.txt、dist/<lang>/**/*.md、dist/ai-prompt.txt')
 }
 
 main().catch((err) => {

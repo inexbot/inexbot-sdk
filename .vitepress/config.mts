@@ -1,6 +1,7 @@
 import { DefaultTheme, defineConfig } from 'vitepress'
 import { readdir, stat } from 'fs/promises'
 import { join, extname, basename } from 'path'
+import { AI_PROMPT_ZH, AI_PROMPT_PLACEHOLDER } from '../scripts/ai-prompt.mjs'
 
 // ── AI 助手入口提示：渲染时注入正文顶部（位于 <main> 正文域内、H1 之前），不写入源文件 ──
 const AI_HINT_URL_13 = '/zh/13.Agent%20%E5%BC%80%E5%8F%91%E6%8C%87%E5%BC%95.html'
@@ -9,7 +10,7 @@ const AI_HINT_ZH =
   '<div class="ai-entry-hint">🤖 AI 助手 / 自动化工具：先读 ' +
   `<a href="${AI_HINT_URL_13}">《Agent 开发指引》</a> 与 ` +
   `<a href="${AI_HINT_URL_15}">《生成前信息采集清单》</a>；机器可读入口 ` +
-  '<a href="/llms.txt">/llms.txt</a>；本页纯文本版：把网址中的 .html 换成 .md；Agent 套件（技能 / 避坑 / 自检）：见 13 页 §7</div>'
+  '<a href="/llms.txt">/llms.txt</a>；本页纯文本版：把网址中的 .html 换成 .md；技能包（SKILL）：见 13 页 §7；抓取被截断时改用 <a href="/llms-full.txt">/llms-full.txt</a>（全文合集）</div>'
 const AI_HINT_EN =
   '<div class="ai-entry-hint">🤖 AI assistants / automation: start with the ' +
   `<a href="${AI_HINT_URL_13}">Agent Development Guide</a> and ` +
@@ -38,6 +39,24 @@ function aiEntryHint(md: any) {
     top.block = true
     top.content = text.replace('class="ai-entry-hint"', 'class="ai-entry-hint ai-entry-hint-top"') + '\n'
     state.tokens.unshift(top)
+    return true
+  })
+}
+
+// ── 首页「让 AI 助手自己装上技能包」提示词：源文件只留占位符，构建时替换成可复制的代码块 ──
+//    单一源在 scripts/ai-prompt.mjs；改文案只改那一个文件
+function aiPromptBlock(md: any) {
+  md.core.ruler.push('ai-prompt-block', (state: any) => {
+    if (state.inlineMode) return true
+    for (const t of state.tokens) {
+      if (t.type === 'html_block' && t.content.includes(AI_PROMPT_PLACEHOLDER)) {
+        t.type = 'fence'
+        t.tag = 'code'
+        t.info = 'text'
+        t.content = AI_PROMPT_ZH
+        t.block = true
+      }
+    }
     return true
   })
 }
@@ -152,6 +171,7 @@ export default defineConfig({
   markdown: {
     config: (md: any) => {
       md.use(aiEntryHint)
+      md.use(aiPromptBlock)
     }
   },
   outDir: "./dist",

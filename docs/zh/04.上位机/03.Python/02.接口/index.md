@@ -36,10 +36,10 @@ int status;
 get_servo_state(fd, status);  // status 被填充
 ```
 
-Python 通过元组同时返回结果码和输出值：
+Python 通过列表同时返回结果码和输出值（**实测为 `list`，不是 `tuple`**；类型判断请写 `isinstance(x, (tuple, list))`）：
 ```python
 status = 0
-result, status = nrc.get_servo_state(fd, status)  # 返回 (结果码, 输出值)
+result, status = nrc.get_servo_state(fd, status)  # 返回 [结果码, 输出值]
 ```
 
 > **每次调用 getter 前必须重新初始化变量**，因为 Python 端通过引用修改原始对象的值。
