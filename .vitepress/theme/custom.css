@@ -1,4 +1,4 @@
-/* AI 助手入口提示样式（正文末尾注入，见 config.mts 的 aiEntryHint 插件） */
+/* AI 助手入口提示样式（正文顶部注入，见 config.mts 的 aiEntryHint 插件） */
 .ai-entry-hint {
   margin: 24px 0 0;
   padding: 10px 14px;

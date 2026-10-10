@@ -37,13 +37,10 @@ const SITE_SUMMARY =
   '工业机器人控制器二次开发文档。默认开发方式：上位机 SDK（C++/C#/Python）；' +
   'JSON 协议、控制器/示教器、ROS、主站库、HAL 为进阶通道，仅在上位机无法满足或客户明确要求时使用。'
 
-// 每页 .md 副本尾部注入的 AI 助手入口提示（与页面内提示一致；llms-full 不注入）
-const PAGE_HINT =
-  `\n\n---\n\n> 🤖 如果你是 AI 助手 / 自动化工具：先读《[Agent 开发指引](${HOST}/zh/${encodeUrlPath('13.Agent 开发指引.md')})》与《[生成前信息采集清单](${HOST}/zh/${encodeUrlPath('15.生成前信息采集清单.md')})》；机器可读入口：${HOST}/llms.txt\n`
 
 // 每页 .md 副本顶部注入的短版提示（先于正文，Agent 一打开文件即可见）
 const PAGE_HINT_TOP =
-  `> 🤖 AI 助手 / 自动化工具：先读《[Agent 开发指引](${HOST}/zh/${encodeUrlPath('13.Agent 开发指引.md')})》与《[生成前信息采集清单](${HOST}/zh/${encodeUrlPath('15.生成前信息采集清单.md')})》；机器可读入口 ${HOST}/llms.txt；生成代码前先向客户确认语言、编译环境、是否有真实控制器与 IP·端口。\n\n`
+  `> 🤖 AI 助手 / 自动化工具：先读《[Agent 开发指引](${HOST}/zh/${encodeUrlPath('13.Agent 开发指引.md')})》与《[生成前信息采集清单](${HOST}/zh/${encodeUrlPath('15.生成前信息采集清单.md')})》；机器可读入口 ${HOST}/llms.txt；生成代码前先向客户确认语言、编译环境、是否有真实控制器与 IP·端口；Agent 套件（技能 / 避坑 / 自检）：见 13 页 §7。\n\n`
 
 // 快速入口（人工策展；条目缺失时告警并跳过）
 const QUICK_ENTRIES = [
@@ -169,6 +166,9 @@ function buildIndex(lang, pages) {
   let out = `# ${SITE_TITLE}\n\n`
   out += `> ${SITE_SUMMARY}\n>\n> **如果你是 AI 助手 / 自动化工具**：请先读「快速入口」中的《Agent 开发指引》与《生成前信息采集清单》；生成代码前先向客户确认语言 / 编译环境 / 是否有真实控制器与 IP·端口（默认 6001），不要默认假设；函数名以站内接口页为准。\n>\n> SDK 资源仓库（接口头文件 / 各平台库文件 / 示例工程，可直接 git clone 取用）：${SDK_REPO}\n>\n> 机器可读说明：本文件为文档索引；每页均提供纯 Markdown 版本（将链接中的 .html 替换为 .md 即为原文）。全量内容见 ${HOST}/llms-full.txt，站点地图见 ${HOST}/sitemap.xml。\n\n`
 
+  out += `> **Agent 套件**（技能 / 通用规则 / 避坑 / 自检）：SDK 资源仓库 ${SDK_REPO} 的 11-Agent套件/ 目录；克隆后根目录自带 .agents/skills/（支持 Agent Skills 的平台自动识别）——套件不含安装动作、无需执行脚本。
+
+`
   out += listSection('快速入口', QUICK_ENTRIES)
 
   let host = ''
@@ -194,6 +194,7 @@ function buildFull(pages) {
     `> 单页 Markdown 版本：将 .html 替换为 .md（例如 ${HOST}/zh/01.概述.html → 01.概述.md）。`,
     `> 文档索引：${HOST}/llms.txt ｜ 站点入口：${HOST}/zh/`,
     `> SDK 资源仓库（接口头文件 / 各平台库文件 / 示例工程）：${SDK_REPO}`,
+    `> Agent 套件（技能 / 通用规则 / 避坑 / 自检）：SDK 资源仓库 ${SDK_REPO} 的 11-Agent套件/ 目录；克隆后根目录自带 .agents/skills/，支持 Agent Skills 的平台自动识别。`,
     '',
   ].join('\n')
 
@@ -220,7 +221,7 @@ async function writeAll(lang, pages) {
   for (const p of pages) {
     const dest = path.join(OUT, lang, ...p.rel.split('/'))
     await fs.mkdir(path.dirname(dest), { recursive: true })
-    const content = p.rel === 'index.md' ? p.raw : withTopHint(p.raw.replace(/\s+$/, '')) + PAGE_HINT
+    const content = p.rel === 'index.md' ? p.raw : withTopHint(p.raw.replace(/\s+$/, ''))
     await fs.writeFile(dest, content, 'utf8')
     copied++
   }

@@ -2,14 +2,14 @@ import { DefaultTheme, defineConfig } from 'vitepress'
 import { readdir, stat } from 'fs/promises'
 import { join, extname, basename } from 'path'
 
-// ── AI 助手入口提示：渲染时注入每篇文章末尾（位于 <main> 正文域内），不写入源文件 ──
+// ── AI 助手入口提示：渲染时注入正文顶部（位于 <main> 正文域内、H1 之前），不写入源文件 ──
 const AI_HINT_URL_13 = '/zh/13.Agent%20%E5%BC%80%E5%8F%91%E6%8C%87%E5%BC%95.html'
 const AI_HINT_URL_15 = '/zh/15.%E7%94%9F%E6%88%90%E5%89%8D%E4%BF%A1%E6%81%AF%E9%87%87%E9%9B%86%E6%B8%85%E5%8D%95.html'
 const AI_HINT_ZH =
   '<div class="ai-entry-hint">🤖 AI 助手 / 自动化工具：先读 ' +
   `<a href="${AI_HINT_URL_13}">《Agent 开发指引》</a> 与 ` +
   `<a href="${AI_HINT_URL_15}">《生成前信息采集清单》</a>；机器可读入口 ` +
-  '<a href="/llms.txt">/llms.txt</a>；本页纯文本版：把网址中的 .html 换成 .md</div>'
+  '<a href="/llms.txt">/llms.txt</a>；本页纯文本版：把网址中的 .html 换成 .md；Agent 套件（技能 / 避坑 / 自检）：见 13 页 §7</div>'
 const AI_HINT_EN =
   '<div class="ai-entry-hint">🤖 AI assistants / automation: start with the ' +
   `<a href="${AI_HINT_URL_13}">Agent Development Guide</a> and ` +
@@ -38,11 +38,6 @@ function aiEntryHint(md: any) {
     top.block = true
     top.content = text.replace('class="ai-entry-hint"', 'class="ai-entry-hint ai-entry-hint-top"') + '\n'
     state.tokens.unshift(top)
-    // 页脚提示（保留）：文末完整版
-    const token = new state.Token('html_block', '', 0)
-    token.block = true
-    token.content = text + '\n'
-    state.tokens.push(token)
     return true
   })
 }
