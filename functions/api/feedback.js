@@ -2,7 +2,8 @@
  * EdgeOne Pages Function —— POST /api/feedback
  * ============================================================
  * 「无秘密端点」：本文件与最终 URL 都是公开的，**不含任何凭据**。
- *   限流（每 IP 每 10 分钟上限）+ 体积上限 + 载荷白名单提取纯文本
+ *   限流（每 IP 每 10 分钟上限，**实例内尽力而为**）+ 体积上限 + 载荷白名单提取纯文本
+ *   + 关键词门槛（正文须含「反馈」/feedback，零成本反垃圾；与钉钉关键词策略对齐）
  *   → 转发到服务端环境变量配置的群机器人 webhook（钉钉/飞书）
  *   → 无论是否配置 webhook，都会写一条日志（可在 EdgeOne 控制台实时日志查看）
  *
@@ -84,6 +85,8 @@ export async function onRequest({ request }) {
   try { text = pickText(JSON.parse(raw)); } catch (e) { /* 非 JSON：按纯文本处理 */ }
   text = clean(text).slice(0, 12000);
   if (!text) return json({ ok: false, error: 'empty' }, 400);
+  // 关键词门槛（零成本反垃圾）：载荷须自报为反馈；与钉钉群机器人「自定义关键词」策略对齐
+  if (!/反馈|feedback/i.test(text)) return json({ ok: false, error: 'not_feedback', hint: '请在正文中包含「反馈」或 feedback' }, 400);
 
   let forwarded = false;
   let ferr = '';
