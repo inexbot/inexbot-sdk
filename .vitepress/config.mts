@@ -6,16 +6,20 @@ import { AI_PROMPT_ZH, AI_PROMPT_PLACEHOLDER } from '../scripts/ai-prompt.mjs'
 // ── AI 助手入口提示：渲染时注入正文顶部（位于 <main> 正文域内、H1 之前），不写入源文件 ──
 const AI_HINT_URL_13 = '/zh/13.Agent%20%E5%BC%80%E5%8F%91%E6%8C%87%E5%BC%95.html'
 const AI_HINT_URL_15 = '/zh/15.%E7%94%9F%E6%88%90%E5%89%8D%E4%BF%A1%E6%81%AF%E9%87%87%E9%9B%86%E6%B8%85%E5%8D%95.html'
+const AI_HINT_URL_AI = '/zh/00.AI%20%E5%8A%A9%E6%89%8B%E5%85%88%E8%AF%BB/index.md'
+const AI_HINT_SKILL = 'https://cnb.cool/inexbot/inexbot-sdk-devkit/-/git/raw/main/11-SKILL%E6%8A%80%E8%83%BD%E5%8C%85/inexbot-sdk-dev/SKILL.md'
 const AI_HINT_ZH =
   '<div class="ai-entry-hint">🤖 AI 助手 / 自动化工具：先读 ' +
-  `<a href="${AI_HINT_URL_13}">《Agent 开发指引》</a> 与 ` +
+  `<a href="${AI_HINT_URL_AI}">《AI 助手先读》</a> ` +
+  `<a href="${AI_HINT_URL_13}">《Agent 开发指引》</a> ` +
   `<a href="${AI_HINT_URL_15}">《生成前信息采集清单》</a>；机器可读入口 ` +
-  '<a href="/llms.txt">/llms.txt</a>；本页纯文本版：把网址中的 .html 换成 .md；技能包（SKILL）：见 13 页 §7；抓取被截断时改用 <a href="/llms-full.txt">/llms-full.txt</a>（全文合集）</div>'
+  '<a href="/llms.txt">/llms.txt</a>；技能包（SKILL）直链：<a href="' + AI_HINT_SKILL + '">SKILL.md</a></div>'
 const AI_HINT_EN =
-  '<div class="ai-entry-hint">🤖 AI assistants / automation: start with the ' +
-  `<a href="${AI_HINT_URL_13}">Agent Development Guide</a> and ` +
-  `<a href="${AI_HINT_URL_15}">Pre-generation Checklist</a> (Chinese); machine-readable entry: ` +
-  '<a href="/llms.txt">/llms.txt</a>; plain-text version: swap .html for .md in the URL</div>'
+  '<div class="ai-entry-hint">🤖 AI assistants / automation: start with ' +
+  `<a href="${AI_HINT_URL_AI}">AI Entry Page</a> · ` +
+  `<a href="${AI_HINT_URL_13}">Agent Development Guide</a> · ` +
+  `<a href="${AI_HINT_URL_15}">Pre-generation Checklist</a> (zh); index: ` +
+  '<a href="/llms.txt">/llms.txt</a>; SKILL: <a href="' + AI_HINT_SKILL + '">SKILL.md</a></div>'
 const AI_HINT_SKIP = new Set(['index.md', 'zh/index.md', 'en/index.md', 'kr/index.md'])
 
 function aiEntryHint(md: any) {

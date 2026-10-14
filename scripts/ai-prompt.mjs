@@ -15,7 +15,11 @@
  *      `093988f`，13/13 直链回读 200）已恢复三件套**：已有 devkit 直接取 / `git clone` / 远端纯文本直链前缀，
  *      让「只能抓取、不能克隆」的 Agent 也能装（实录六/七的实测约束）。同页 13 页 §7 的 10 条远端直链保持不动。
  *   ② 百分号编码（`11-SKILL技能包` → `11-SKILL%E6%8A%80%E8%83%BD%E5%8C%85`）；
- *   ③ 技能包内文件数（当前 8 个：SKILL.md ＋ references/×4 ＋ scripts/×3）。
+ *   ③ 本提示词**只给入口与要点**，详细取法/判据/排查都在 devkit 的
+*      `11-SKILL技能包/安装与取包.md`（唯一详版）。**改那个文件时，回来核对本提示词的 3 条要点**
+*      （文件数 10 ／ 取全判据 ／ 兜底路径）；
+*   ④ 技能包内文件数（当前 **10** 个：SKILL.md 1 ＋ references×5 ＋ scripts×4）；
+*      取全判据以仓库内 `11-SKILL技能包/文件清单与校验值.txt` 为准（字节数 + SHA256 前 12）。
  *   核对对象：11-SKILL技能包/投放说明.txt 与 sdk-docs-workflow 技能的
  *   references/agent-platform-skill-matrix.md、references/agent-kit-devkit-package.md。
  */
@@ -25,20 +29,13 @@ export const AI_PROMPT_PLACEHOLDER = '<!--AI_PROMPT_ZH-->'
 export const AI_PROMPT_ZH = [
   '你是可以联网、可以读写本地文件的 AI 编程助手。请帮我安装「纳博特（iNexbot）工业机器人二次开发」技能包（SKILL），之后我做二次开发时按它工作。',
   '',
-  '【第 1 步】取回技能包（共 8 个文件：SKILL.md ＋ references/ ×4 ＋ scripts/ ×3；要全部取回，不要只取 SKILL.md）',
-  '  位置：SDK 资源仓库 devkit（https://cnb.cool/inexbot/inexbot-sdk-devkit）→ 11-SKILL技能包/inexbot-sdk-dev/',
-  '  取法任选一种：',
-  '   · 已经有 devkit：直接取上面这个目录',
-  '   · 克隆：git clone --depth 1 https://cnb.cool/inexbot/inexbot-sdk-devkit ，再取 11-SKILL技能包/inexbot-sdk-dev/',
-  '   · 只要文件（纯文本直链前缀，逐个取；%E6%8A%80%E8%83%BD%E5%8C%85 已是编码，请勿改动）：',
-  '     https://cnb.cool/inexbot/inexbot-sdk-devkit/-/git/raw/main/11-SKILL%E6%8A%80%E8%83%BD%E5%8C%85/inexbot-sdk-dev/<文件相对路径>',
+  '【第 1 步】取回《安装与取包》说明（**这是唯一详版，请按它操作**）：',
+  '  https://cnb.cool/inexbot/inexbot-sdk-devkit/-/git/raw/main/11-SKILL%E6%8A%80%E8%83%BD%E5%8C%85/%E5%AE%89%E8%A3%85%E4%B8%8E%E5%8F%96%E5%8C%85.md',
+  '  取不到该文件时，任选一条兜底：① 克隆 https://cnb.cool/inexbot/inexbot-sdk-devkit ，再读 11-SKILL技能包/安装与取包.md；② 打开 https://open.inexbot.com/zh/13.Agent%20%E5%BC%80%E5%8F%91%E6%8C%87%E5%BC%95.md 看第 7 节。',
   '',
-  '【第 2 步】装到你自己的技能目录 —— 按你的平台的约定自行判断该放哪',
-  '  以技能方式安装（目录名保持 inexbot-sdk-dev；取回的内容要完整：目录内 SKILL.md 与 references/、scripts/ 必须同时存在，只放 SKILL.md 会导致附件全丢）',
-  '  若你的平台不支持技能机制，则改用技能包根部的 AGENTS.md（复制到项目根，或按你的平台约定改名）',
-  '  装完把实际路径告诉我。',
+  '【第 2 步】按该说明把技能包**取全**（共 10 个文件：SKILL.md 1 个 ＋ references/ 5 个 ＋ scripts/ 4 个；不要只取 SKILL.md），并装到你自己的技能目录（放哪按你平台的约定自行判断）。',
   '',
-  '【第 3 步】装好后：① 确认取到的是完整目录（SKILL.md ＋ references/ 4 个文件 ＋ scripts/ 3 个文件，共 8 个）；② 读一遍 SKILL.md 与 references/doc-map.md；③ 向我复述：你装到了哪里、以及正式开发前你需要我提供哪些信息。',
+  '【第 3 步】装完向我复述：你装到了哪里、取自哪个地址、以及正式开发前需要我提供哪些信息。',
   '',
-  '【后续开发时】按 SKILL.md 的流程与 references/ 里的资料地图、避坑清单、验证 SOP 工作；文档权威来源是 https://open.inexbot.com（另有 llms.txt / llms-full.txt，任意页面把 .html 换成 .md 即纯文本）；接口名、端口、版本一律以官网页面为准，不要臆造。',
+  '【后续开发时】按技能包 SKILL.md 的流程与 references/ 工作；文档权威来源是 https://open.inexbot.com（另有 llms.txt / llms-full.txt，任意页面把 .html 换成 .md 即纯文本）；接口名、端口、版本一律以官网页面为准，不要臆造。',
 ].join('\n')

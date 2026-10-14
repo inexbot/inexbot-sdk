@@ -41,11 +41,15 @@ const SITE_SUMMARY =
 
 
 // 每页 .md 副本顶部注入的短版提示（先于正文，Agent 一打开文件即可见）
+const SKILL_MD_RAW = 'https://cnb.cool/inexbot/inexbot-sdk-devkit/-/git/raw/main/11-SKILL%E6%8A%80%E8%83%BD%E5%8C%85/inexbot-sdk-dev/SKILL.md'
+
 const PAGE_HINT_TOP =
-  `> 🤖 AI 助手 / 自动化工具：先读《[Agent 开发指引](${HOST}/zh/${encodeUrlPath('13.Agent 开发指引.md')})》与《[生成前信息采集清单](${HOST}/zh/${encodeUrlPath('15.生成前信息采集清单.md')})》；机器可读入口 ${HOST}/llms.txt；生成代码前先向客户确认语言、编译环境、是否有真实控制器与 IP·端口；技能包（SKILL）：见 13 页 §7；抓取被截断时改用 ${HOST}/llms-full.txt（全文合集）。\n\n`
+  `> 🤖 AI 助手 / 自动化工具：先读《[AI 助手先读](${HOST}/zh/${encodeUrlPath('00.AI 助手先读/index.md')})》《[Agent 开发指引](${HOST}/zh/${encodeUrlPath('13.Agent 开发指引.md')})》与《[生成前信息采集清单](${HOST}/zh/${encodeUrlPath('15.生成前信息采集清单.md')})》；机器可读入口 ${HOST}/llms.txt；生成代码前先向客户确认语言、编译环境、是否有真实控制器与 IP·端口；**技能包（SKILL）直链**：<${SKILL_MD_RAW}>（说明见 13 页 §7）；抓取被截断时改用 ${HOST}/llms-full.txt（全文合集）。\n\n`
 
 // 快速入口（人工策展；条目缺失时告警并跳过）
 const QUICK_ENTRIES = [
+  '00.AI 助手先读/index.md',
+  '04.上位机/00.AI 助手先读.md',
   '02.入门指南.md',
   '04.上位机/01.C++/03.示例/01.快速开始.md',
   '13.Agent 开发指引.md',
@@ -201,7 +205,7 @@ function buildFull(pages) {
   ].join('\n')
 
   const parts = pages
-    .filter((p) => !p.rel.endsWith('index.md'))
+    .filter((p) => !p.rel.endsWith('index.md') || p.rel.startsWith('00.AI '))
     .map((p) => `---\n\n# ${p.title}\n\n> 原文：${p.url}\n\n${bodyOf(p.raw)}`)
 
   return `${head}\n${parts.join('\n\n')}\n`
