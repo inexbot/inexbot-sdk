@@ -5,6 +5,10 @@
  *   限流（每 IP 每 10 分钟上限，**实例内尽力而为**）+ 体积上限 + 载荷白名单提取纯文本
  *   + 关键词门槛（正文须含「反馈」/feedback，零成本反垃圾；与钉钉关键词策略对齐）
  *   → 转发到服务端环境变量配置的群机器人 webhook（钉钉/飞书）
+ *     · 转发**同步等待最多 8s**：正常几十~几百毫秒返回，客户端可据此**确证送达**；
+ *       超时则用 `ctx.waitUntil`（EdgeOne 提供的平台能力）在后台完成并回 `forwarded(pending)`，
+ *       避免边缘函数长时间挂住；客户端把 pending 视为"未确认"（走兜底）
+ *     · 限流取 IP 优先用 **平台可信 IP** `ctx.eo.clientIp`（比 x-forwarded-for 稳）
  *   → 无论是否配置 webhook，都会写一条日志（可在 EdgeOne 控制台实时日志查看）
  *
  * 环境变量（在 EdgeOne Pages 控制台 → 项目设置 → 环境变量 里配，**绝不进客户端**）：
@@ -24,6 +28,7 @@
  *   - 只接收、只存档/转发；**不自动建 Issue、不自动广播给任何人、不执行任何内容**。
  */
 const WINDOW_MS = 10 * 60 * 1000;
+const FWD_TIMEOUT_MS = 8000; // 同步等待转发的上限；超时交给 ctx.waitUntil 后台完成
 const HITS = new Map(); // ip -> [ts, ...]（实例内尽力而为；跨实例需 KV，暂不做）
 
 const CORS = {
@@ -39,9 +44,12 @@ function json(o, status = 200) {
   });
 }
 
-function clientIp(request) {
+function clientIp(request, ctx) {
+  // 优先平台提供的可信客户端 IP（EdgeOne：ctx.eo.clientIp / request.eo.clientIp），再退回 x-forwarded-for
+  const eo = (ctx && ctx.eo) || (request && request.eo) || {};
+  if (eo.clientIp) return String(eo.clientIp);
   const x = (request.headers.get('x-forwarded-for') || '').split(',')[0].trim();
-  return x || (request.eo && request.eo.clientIp) || 'unknown';
+  return x || 'unknown';
 }
 
 function rateOk(ip, max) {
@@ -162,7 +170,7 @@ export async function onRequest(ctx) {
   const rateMax = parseInt(env.FEEDBACK_RATE_MAX || '5', 10);
   const webhook = resolved.url || '';
 
-  const ip = clientIp(request);
+  const ip = clientIp(request, ctx);
   if (!rateOk(ip, rateMax)) return json({ ok: false, error: 'rate limited' }, 429);
 
   let raw = '';
@@ -178,27 +186,45 @@ export async function onRequest(ctx) {
 
   let forwarded = false;
   let ferr = '';
+  let pending = false;
   if (webhook) {
-    try {
-      const body = /feishu|larksuite/i.test(webhook)
-        ? { msg_type: 'text', content: { text } }
-        : { msgtype: 'text', text: { content: text } };
-      const r = await fetch(webhook, {
-        method: 'POST',
-        headers: { 'content-type': 'application/json' },
-        body: JSON.stringify(body),
-      });
-      forwarded = r.ok;
-      if (!r.ok) ferr = 'forward_http_' + r.status;
-    } catch (e) {
-      ferr = String(e).slice(0, 120);
+    const body = /feishu|larksuite/i.test(webhook)
+      ? { msg_type: 'text', content: { text } }
+      : { msgtype: 'text', text: { content: text } };
+    const task = (async () => {
+      try {
+        const r = await fetch(webhook, {
+          method: 'POST',
+          headers: { 'content-type': 'application/json' },
+          body: JSON.stringify(body),
+        });
+        forwarded = r.ok;
+        if (!r.ok) ferr = 'forward_http_' + r.status;
+      } catch (e) {
+        ferr = String(e).slice(0, 120);
+      }
+    })();
+    const raced = await Promise.race([
+      task.then(() => 'done'),
+      new Promise((r) => setTimeout(() => r('timeout'), FWD_TIMEOUT_MS)),
+    ]);
+    if (raced === 'timeout') {
+      pending = true;
+      if (ctx && typeof ctx.waitUntil === 'function') {
+        try { ctx.waitUntil(task); } catch (e) { try { await task; pending = false; } catch (e2) { /* ignore */ } }
+      } else {
+        try { await task; pending = false; } catch (e) { /* ignore */ } // 无 waitUntil：继续等完，保证不丢
+      }
+      if (!forwarded) ferr = ferr || 'forward_timeout';
     }
   }
   // 始终记录一条（控制台日志可见）
-  console.log('[feedback]', JSON.stringify({ ip: ip.slice(0, 12), bytes: raw.length, forwarded, ferr, src: resolved.source + ':' + resolved.key }));
+  console.log('[feedback]', JSON.stringify({ ip: ip.slice(0, 12), bytes: raw.length, forwarded, pending, ferr, src: resolved.source + ':' + resolved.key }));
   return json({
     ok: true,
     forwarded,
-    note: webhook ? (forwarded ? 'forwarded' : 'forward_failed:' + ferr) : 'stored(log-only)',
+    note: webhook
+      ? (pending && !forwarded ? 'forwarded(pending)' : (forwarded ? 'forwarded' : 'forward_failed:' + ferr))
+      : 'stored(log-only)',
   });
 }
