@@ -65,7 +65,9 @@ function clean(t) {
   return String(t).replace(/[\u0000-\u0008\u000B\u000C\u000E-\u001F]/g, '').trim();
 }
 
-export async function onRequest({ request }) {
+export async function onRequest(ctx) {
+  // 兼容两种调用形态：onRequest({ request }) 与 onRequest(request)
+  const request = (ctx && ctx.request) || ctx;
   const env0 = (typeof process !== 'undefined' && process.env) || {};
 
   // 诊断口：GET /api/feedback?diag=1
@@ -74,13 +76,35 @@ export async function onRequest({ request }) {
     let diag = null;
     try { diag = new URL(request.url).searchParams.get('diag'); } catch (e) { diag = null; }
     if (diag === '1') {
+      const hit = (o) => Object.keys(o || {}).filter((k) => /FEEDBACK|WEBHOOK|DING|TALK|FEISHU|ENV|VAR|SECRET|TOKEN/i.test(k));
       const keys = Object.keys(env0);
       const hook = env0.FEEDBACK_WEBHOOK || '';
+      // 多载体探测：变量可能不在 process.env，而在平台扩展 / handler 参数 / globalThis 上
+      const carriers = {
+        'process.env': { keyCount: keys.length, hit: hit(env0) },
+      };
+      try {
+        const ctxKeys = Object.keys(ctx || {});
+        carriers['handler-arg'] = { keyCount: ctxKeys.length, keys: ctxKeys.slice(0, 12) };
+        const argEnv = (ctx && (ctx.env || (ctx.context && ctx.context.env))) || null;
+        carriers['handler-arg.env'] = argEnv ? { keyCount: Object.keys(argEnv).length, hit: hit(argEnv) } : null;
+      } catch (e) { carriers['handler-arg'] = 'err:' + String(e).slice(0, 60); }
+      try {
+        const eo = (request && request.eo) || null;
+        carriers['request.eo'] = eo ? { keyCount: Object.keys(eo).length, keys: Object.keys(eo).slice(0, 12) } : null;
+        carriers['request.eo.env'] = eo && eo.env ? { keyCount: Object.keys(eo.env).length, hit: hit(eo.env) } : null;
+      } catch (e) { carriers['request.eo'] = 'err:' + String(e).slice(0, 60); }
+      try {
+        const g = typeof globalThis !== 'undefined' ? globalThis : {};
+        carriers['globalThis.env'] = g.env ? { keyCount: Object.keys(g.env).length, hit: hit(g.env) } : null;
+        carriers['globalThis 相关键'] = Object.keys(g).filter((k) => /env|edge|eo|kv|config|secret/i.test(k)).slice(0, 12);
+      } catch (e) { carriers['globalThis'] = 'err:' + String(e).slice(0, 60); }
       return json({
         ok: true,
         diag: true,
         runtime: { hasEnv: keys.length > 0, envKeyCount: keys.length },
-        envKeysHit: keys.filter((k) => /FEEDBACK|WEBHOOK|DING|TALK|FEISHU/i.test(k)),
+        envKeysHit: hit(env0),
+        carriers,
         webhook: {
           present: !!hook,
           length: hook.length,
@@ -88,8 +112,8 @@ export async function onRequest({ request }) {
           looksFeishu: /feishu|larksuite/i.test(hook),
         },
         hint: hook
-          ? 'webhook 已读到：POST 应可转发'
-          : '未读到 FEEDBACK_WEBHOOK。若控制台已配置，请确认本次部署是在配置之后触发的（EdgeOne：环境变量变更在下一次部署生效）；envKeyCount=0 表示运行时完全没有环境变量。',
+          ? 'webhook 已在 process.env 读到：POST 应可转发'
+          : 'process.env 里没有 FEEDBACK_WEBHOOK；请看 carriers 各载体的 keyCount/hit，判断变量是否注到了别处（如 request.eo / handler 参数 / globalThis.env）。',
       });
     }
     return json({ ok: false, error: 'POST only（诊断用：GET ?diag=1）' }, 405);
