@@ -66,6 +66,34 @@ function clean(t) {
 }
 
 export async function onRequest({ request }) {
+  const env0 = (typeof process !== 'undefined' && process.env) || {};
+
+  // 诊断口：GET /api/feedback?diag=1
+  // 只回「有没有 / 多长 / 键名筛选」——**不含任何取值**，可安全公开（用于确认部署是否注入环境变量）
+  if (request.method === 'GET') {
+    let diag = null;
+    try { diag = new URL(request.url).searchParams.get('diag'); } catch (e) { diag = null; }
+    if (diag === '1') {
+      const keys = Object.keys(env0);
+      const hook = env0.FEEDBACK_WEBHOOK || '';
+      return json({
+        ok: true,
+        diag: true,
+        runtime: { hasEnv: keys.length > 0, envKeyCount: keys.length },
+        envKeysHit: keys.filter((k) => /FEEDBACK|WEBHOOK|DING|TALK|FEISHU/i.test(k)),
+        webhook: {
+          present: !!hook,
+          length: hook.length,
+          looksDingtalk: /oapi\.dingtalk\.com/i.test(hook),
+          looksFeishu: /feishu|larksuite/i.test(hook),
+        },
+        hint: hook
+          ? 'webhook 已读到：POST 应可转发'
+          : '未读到 FEEDBACK_WEBHOOK。若控制台已配置，请确认本次部署是在配置之后触发的（EdgeOne：环境变量变更在下一次部署生效）；envKeyCount=0 表示运行时完全没有环境变量。',
+      });
+    }
+    return json({ ok: false, error: 'POST only（诊断用：GET ?diag=1）' }, 405);
+  }
   if (request.method === 'OPTIONS') return new Response(null, { status: 204, headers: CORS });
   if (request.method !== 'POST') return json({ ok: false, error: 'POST only' }, 405);
 
