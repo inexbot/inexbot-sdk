@@ -8,7 +8,13 @@
  *   → 无论是否配置 webhook，都会写一条日志（可在 EdgeOne 控制台实时日志查看）
  *
  * 环境变量（在 EdgeOne Pages 控制台 → 项目设置 → 环境变量 里配，**绝不进客户端**）：
- *   FEEDBACK_WEBHOOK     群机器人 webhook（钉钉或飞书；缺省＝只记日志）
+ *   读取载体（实测结论）：**优先 `ctx.env`** —— EdgeOne Pages Functions 把控制台变量
+ *   注入在 **handler 参数的 env 属性**上，**不在 `process.env`**（后者实测为空对象）；
+ *   兼容顺序：ctx.env → ctx.context.env → request.eo.env → process.env
+ *   FEEDBACK_WEBHOOK     群机器人完整 webhook（钉钉/飞书；缺省＝只记日志）
+ *   DINGTALK_TOKEN       也可只配 token（惯例：地址写代码、密钥放 env）→ 代码拼
+ *                        https://oapi.dingtalk.com/robot/send?access_token=<token>
+ *   FEISHU_WEBHOOK       飞书群机器人 webhook（可选）
  *   FEEDBACK_RATE_MAX    可选：每 IP / 10 分钟上限，默认 5
  *   FEEDBACK_SIZE_MAX    可选：请求体字节上限，默认 16384
  *
@@ -65,6 +71,30 @@ function clean(t) {
   return String(t).replace(/[\u0000-\u0008\u000B\u000C\u000E-\u001F]/g, '').trim();
 }
 
+/** 钉钉机器人基址（地址写代码、密钥放 env —— 惯例） */
+const DINGTALK_BASE = 'https://oapi.dingtalk.com/robot/send?access_token=';
+
+/**
+ * 多载体解析 webhook（按优先级），并返回命中的载体与键名（便于诊断）：
+ *   ctx.env（EdgeOne Pages 实测载体）→ ctx.context.env → request.eo.env → process.env
+ * 键优先级：FEEDBACK_WEBHOOK（完整 URL）→ DINGTALK_TOKEN（仅 token，代码拼地址）→ FEISHU_WEBHOOK
+ */
+function resolveWebhook(ctx, request) {
+  const cands = [
+    ['ctx.env', ctx && ctx.env],
+    ['ctx.context.env', ctx && ctx.context && ctx.context.env],
+    ['request.eo.env', request && request.eo && request.eo.env],
+    ['process.env', (typeof process !== 'undefined' && process.env) || null],
+  ];
+  for (const [source, c] of cands) {
+    if (!c) continue;
+    if (c.FEEDBACK_WEBHOOK) return { url: String(c.FEEDBACK_WEBHOOK), source, key: 'FEEDBACK_WEBHOOK', env: c };
+    if (c.DINGTALK_TOKEN) return { url: DINGTALK_BASE + String(c.DINGTALK_TOKEN), source, key: 'DINGTALK_TOKEN', env: c };
+    if (c.FEISHU_WEBHOOK) return { url: String(c.FEISHU_WEBHOOK), source, key: 'FEISHU_WEBHOOK', env: c };
+  }
+  return { url: '', source: 'none', key: '', env: (ctx && ctx.env) || {} };
+}
+
 export async function onRequest(ctx) {
   // 兼容两种调用形态：onRequest({ request }) 与 onRequest(request)
   const request = (ctx && ctx.request) || ctx;
@@ -78,7 +108,9 @@ export async function onRequest(ctx) {
     if (diag === '1') {
       const hit = (o) => Object.keys(o || {}).filter((k) => /FEEDBACK|WEBHOOK|DING|TALK|FEISHU|ENV|VAR|SECRET|TOKEN/i.test(k));
       const keys = Object.keys(env0);
-      const hook = env0.FEEDBACK_WEBHOOK || '';
+      const resolved = resolveWebhook(ctx, request);
+      const hook = resolved.url || '';
+      const carrier0 = (ctx && ctx.env) || {};
       // 多载体探测：变量可能不在 process.env，而在平台扩展 / handler 参数 / globalThis 上
       const carriers = {
         'process.env': { keyCount: keys.length, hit: hit(env0) },
@@ -107,13 +139,16 @@ export async function onRequest(ctx) {
         carriers,
         webhook: {
           present: !!hook,
+          source: resolved.source,
+          key: resolved.key,
           length: hook.length,
           looksDingtalk: /oapi\.dingtalk\.com/i.test(hook),
           looksFeishu: /feishu|larksuite/i.test(hook),
         },
+        carrierKeys: Object.keys(carrier0).length,
         hint: hook
-          ? 'webhook 已在 process.env 读到：POST 应可转发'
-          : 'process.env 里没有 FEEDBACK_WEBHOOK；请看 carriers 各载体的 keyCount/hit，判断变量是否注到了别处（如 request.eo / handler 参数 / globalThis.env）。',
+          ? 'webhook 已从 ' + resolved.source + ' 读到（键 ' + resolved.key + '）：POST 应可转发'
+          : '各载体都没读到 webhook。请确认控制台已配置该变量，且本次部署发生在配置之后。',
       });
     }
     return json({ ok: false, error: 'POST only（诊断用：GET ?diag=1）' }, 405);
@@ -121,10 +156,11 @@ export async function onRequest(ctx) {
   if (request.method === 'OPTIONS') return new Response(null, { status: 204, headers: CORS });
   if (request.method !== 'POST') return json({ ok: false, error: 'POST only' }, 405);
 
-  const env = (typeof process !== 'undefined' && process.env) || {};
+  const resolved = resolveWebhook(ctx, request);
+  const env = resolved.env || {};
   const sizeMax = parseInt(env.FEEDBACK_SIZE_MAX || '16384', 10);
   const rateMax = parseInt(env.FEEDBACK_RATE_MAX || '5', 10);
-  const webhook = env.FEEDBACK_WEBHOOK || '';
+  const webhook = resolved.url || '';
 
   const ip = clientIp(request);
   if (!rateOk(ip, rateMax)) return json({ ok: false, error: 'rate limited' }, 429);
@@ -159,7 +195,7 @@ export async function onRequest(ctx) {
     }
   }
   // 始终记录一条（控制台日志可见）
-  console.log('[feedback]', JSON.stringify({ ip: ip.slice(0, 12), bytes: raw.length, forwarded, ferr }));
+  console.log('[feedback]', JSON.stringify({ ip: ip.slice(0, 12), bytes: raw.length, forwarded, ferr, src: resolved.source + ':' + resolved.key }));
   return json({
     ok: true,
     forwarded,
