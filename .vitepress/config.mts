@@ -2,6 +2,40 @@ import { DefaultTheme, defineConfig } from 'vitepress'
 import { readdir, stat } from 'fs/promises'
 import { join, extname, basename } from 'path'
 import { AI_PROMPT_ZH, AI_PROMPT_PLACEHOLDER } from '../scripts/ai-prompt.mjs'
+import { UMAMI_ENABLED, UMAMI_HOST, UMAMI_SITE_HOST, UMAMI_WEBSITE_ID, UMAMI_RECORDER_ENABLED, UMAMI_RECORDER_DOMAINS } from './umami.mjs'
+
+// ── 访问统计：umami tracker（配置单一源在 .vitepress/umami.mjs）──
+// 只采页面访问 + 4 个业务事件（事件层在 theme/analytics.ts）；data-domains 限定生产域，
+// 本地 dev/preview 不上报；data-exclude-search 不把搜索参数写进 url path。
+// recorder.js = 会话回放（186 KB/页）
+const UMAMI_HEAD: any[] = []
+if (UMAMI_ENABLED) {
+  UMAMI_HEAD.push([
+    'script',
+    {
+      src: `${UMAMI_HOST}/script.js`,
+      defer: '',
+      'data-website-id': UMAMI_WEBSITE_ID,
+      'data-domains': UMAMI_SITE_HOST,
+      'data-do-not-track': 'true',
+      'data-exclude-search': 'true',
+      'data-exclude-hash': 'true'
+    }
+  ])
+  if (UMAMI_RECORDER_ENABLED) {
+    UMAMI_HEAD.push([
+      'script',
+      {
+        src: `${UMAMI_HOST}/recorder.js`,
+        defer: '',
+        'data-website-id': UMAMI_WEBSITE_ID,
+        'data-domains': UMAMI_RECORDER_DOMAINS
+      }
+    ])
+  }
+}
+
+
 
 // ── AI 助手入口提示：渲染时注入正文顶部（位于 <main> 正文域内、H1 之前），不写入源文件 ──
 const AI_HINT_URL_13 = '/zh/13.Agent%20%E5%BC%80%E5%8F%91%E6%8C%87%E5%BC%95.html'
@@ -171,6 +205,7 @@ function searchOptions(useChineseTokenizer: boolean) {
 
 export default defineConfig({
   srcDir: "./docs",
+  head: UMAMI_HEAD,
   ignoreDeadLinks: true,
   markdown: {
     config: (md: any) => {
