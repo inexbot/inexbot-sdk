@@ -9,7 +9,7 @@
 
 - [技能包（SKILL）](https://cnb.cool/inexbot/inexbot-sdk-devkit)：技能本体 `inexbot-sdk-dev/`（`SKILL.md` ＋ 资料地图 / 问题索引 / 避坑清单 / 验证 SOP ＋ 三级自检脚本）/ 通用规则 `AGENTS.md`；克隆该仓库即自带 `.agents/skills/inexbot-sdk-dev/`（完整技能；支持技能的平台自动识别）
 
-**机器可读入口**：`/llms.txt`（文档索引）与 `/llms-full.txt`（全文合集）；本站每页都有纯文本版——把网址中的 `.html` 换成 `.md` 即为原文。
+**机器可读入口**：`/llms.txt`（文档索引）与 `/llms-full.txt`（全文合集）；本站每页都有纯文本版——把网址中的 `.html` 换成 `.md` 即为原文（**仅此单向**，反向拼成 `.html` 会 404）。
 
 **默认开发方式**：上位机 SDK（C++ / C# / Python）；JSON 协议、控制器、示教器、ROS、主站库、HAL 等通道，仅在上位机无法满足或客户主动提出时使用。
 

@@ -135,7 +135,10 @@ function readHits(): string | null {
   if (!IS_BROWSER) return null
   const box = document.querySelector('.VPLocalSearchBox')
   if (!box) return null
-  if (box.querySelector('.search-loading')) return null
+  // ⚠ 踩坑：VitePress 的 .search-loading 元素「常驻 DOM」，只在搜索进行中加 .active
+  // ⇒ 不能只判断元素是否存在（首版这么写，导致 hits 100% unknown）。
+  const loading = box.querySelector('.search-loading')
+  if (loading && loading.classList.contains('active')) return null
   if (box.querySelector('.no-results')) return '0'
   const list = box.querySelector('.results')
   if (!list) return null
@@ -178,7 +181,7 @@ function installGlobalHandlers() {
         let tries = 0
         const settle = () => {
           const hits = readHits()
-          if (hits === null && tries < 15) {
+          if (hits === null && tries < 24) {
             tries++
             setTimeout(settle, 200)
             return
