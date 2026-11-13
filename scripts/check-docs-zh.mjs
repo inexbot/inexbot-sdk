@@ -14,6 +14,9 @@
  *   8. 中英文间距规范（警告）
  *   9. 文件命名规范（警告）
  *  10. 警告/提示格式规范（警告）
+ *  11. 三语言结构对应（警告）
+ *  12. 环境检查（注意项）
+ *  13. Vue 插值语法冲突：正文裸 {{ 会让 docs:build 失败（错误）
  *
  * 用法: node scripts/check-docs.mjs
  * 退出码: 0=通过, 1=有错误, 2=仅有警告
@@ -334,6 +337,28 @@ function checkAdmonition(files) {
   return errors;
 }
 
+// ─── 13. Vue 插值语法冲突（构建级错误）
+
+function checkVueInterpolation() {
+  const errors = [];
+  const allDocs = join(ROOT, 'docs');
+  for (const f of getAllMdFiles(allDocs)) {
+    const lines = read(f).split('\n');
+    let inFence = false;
+    for (let i = 0; i < lines.length; i++) {
+      if (/^\s*```/.test(lines[i])) { inFence = !inFence; continue; }
+      if (inFence) continue;
+      if (lines[i].includes('{{')) {
+        errors.push({
+          file: rel(f), line: i + 1,
+          msg: `Vue 插值冲突: 正文含 "{{"，会被当作 JS 表达式编译并使 docs:build 失败；改用 &#123;&#123; 转义，或放进代码块`
+        });
+      }
+    }
+  }
+  return errors;
+}
+
 // ─── Reporter
 
 function report(name, errors, isWarning) {
@@ -401,6 +426,8 @@ const langIssues = report('11. 三语言结构对应', checkLangStructure(), tru
 const envIssues = checkVitepressVersion();
 console.log(`\n  ${envIssues.length ? '⚠️' : '✅'} 12. 环境检查 — ${envIssues.length ? envIssues.length + ' 个注意项' : '通过'}`);
 for (const e of envIssues) console.log(`       ${e.file}  ${e.msg}`);
+
+err += report('13. Vue 插值语法冲突（构建级）', checkVueInterpolation());
 
 const totalWarnings = w1 + w2 + w3 + w4 + w5 + langIssues;
 process.exit(err > 0 ? 1 : (w1+w2+w3+w4+w5 > 0 ? 2 : 0));
