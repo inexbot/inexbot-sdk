@@ -4,6 +4,30 @@
 
 ---
 
+## 接口章节导航
+
+Python 接口按 C++ 的模块结构分章组织，逐章给出 **Python 真实签名、参数表、返回值形态与可直接运行的示例**：
+
+| 章节 | 内容 | Python 覆盖情况 |
+|------|------|-----------------|
+| [01.基础连接与系统接口](./01.基础连接与系统接口.md) | 连接、伺服、位置、标定、系统参数 | 162 个接口全部可用 |
+| [02.IO控制](./02.IO控制.md) | 数字量/模拟量输入输出、IO 类型 | 27 个接口可用 |
+| [03.Modbus通讯](./03.Modbus通讯.md) | Modbus TCP/RTU/主站读写 | 11 个可用，2 个未提供 |
+| [04.轨迹记录与回放](./04.轨迹记录与回放.md) | 轨迹录制、回放、文件管理 | 12 个接口可用 |
+| [05.双臂机器人](./05.双臂机器人.md) | 双臂协同控制 | ⚠️ **Python SDK 未提供该接口族** |
+| [06.VFD主轴变频器](./06.VFD主轴变频器.md) | 主轴变频器控制 | ⚠️ **Python SDK 未提供该接口族** |
+| [07.作业文件操作](./07.作业文件操作.md) | 作业文件上传/下载/编辑/运行 | 47 个接口可用 |
+| [08.队列运动模式](./08.队列运动模式.md) | 队列指令插入与下发、数据结构 | 20 个接口可用 |
+| [09.焊接工艺](./09.焊接工艺.md) | 焊接工艺参数与流程 | 22 个接口可用 |
+| [10.码垛工艺](./10.码垛工艺.md) | 码垛工艺 | ⚠️ **Python SDK 未提供该接口族** |
+| [11.视觉工艺](./11.视觉工艺.md) | 视觉标定、识别、定位 | 18 个接口可用 |
+| [12.激光切割工艺](./12.激光切割工艺.md) | 激光切割参数与流程 | 16 个接口可用 |
+| [13.传送带跟踪工艺](./13.传送带跟踪工艺.md) | 传送带跟踪标定与使能 | 26 个接口可用 |
+
+> 统计口径：C++ 文档共 386 个接口，Python 侧 **361 个可直接调用、25 个未提供、12 个因 SWIG 绑定限制不可调用**。逐条依据为对 `nrc_interface` 的真实调用实测，未做推断。不可调用的接口在各页已明确标注，不会写成"可正常调用"。
+
+---
+
 ## 导入方式
 
 ```python
@@ -28,21 +52,47 @@ import nrc_interface as nrc
 | `std::vector<int>` | `VectorInt` | 整数数组 |
 | `std::vector<std::string>` | `VectorString` | 字符串数组 |
 
-### 返回值差异（重要）
+### 返回值形态（实测，重要）
 
-C++ 通过引用参数输出数据：
+C++ 通过引用参数输出数据，Python 侧因 SWIG 绑定差异，**返回值形态有 3 类，必须逐接口区分**：
+
+**① 标量出参 → 返回 `list`**（`[结果码, 输出值]`）
+
+适用于 C++ 出参为 `int&` / `double&` 等标量引用的接口。
+
 ```cpp
+// C++
 int status;
-get_servo_state(fd, status);  // status 被填充
+get_servo_state(fd, status);   // status 被填充
 ```
-
-Python 通过列表同时返回结果码和输出值（**实测为 `list`，不是 `tuple`**；类型判断请写 `isinstance(x, (tuple, list))`）：
 ```python
-status = 0
-result, status = nrc.get_servo_state(fd, status)  # 返回 [结果码, 输出值]
+# Python：返回 list（不是 tuple）
+ret, status = nrc.get_servo_state(fd, 0)   # [-2, 0]
 ```
 
-> **每次调用 getter 前必须重新初始化变量**，因为 Python 端通过引用修改原始对象的值。
+**② 容器 / 结构体出参 → 返回 `int` 结果码，数据原地填充**
+
+先创建对应对象传入，调用后从对象里取数据。
+
+```python
+pos = nrc.VectorDouble()
+ret = nrc.get_current_position(fd, 0, pos)
+print(ret, list(pos))          # 容器用 list() 读取
+```
+
+```python
+io_t = nrc.IOtype()
+ret = nrc.get_io_type(fd, io_t)
+print(ret, io_t.type, io_t.num)   # 结构体按字段读取，不能 list()
+```
+
+**③ 部分接口因 SWIG 绑定限制不可调用**
+
+如 `get_axis_sum(fd, 0)` 抛 `TypeError: argument 2 of type 'int &'`。这类接口在各章节已明确标注，**请改用 C++ SDK**。
+
+> `bool&` 出参是特例：SWIG 把它转成**传值 bool 参数**，值从返回值取 `[结果码, bool]`，例如 `ret, connected = nrc.get_teachbox_connection_status(fd, False)`。
+
+> 类型判断请写 `isinstance(x, (tuple, list))`，实测返回的是 `list`。
 
 ### 结构体
 
