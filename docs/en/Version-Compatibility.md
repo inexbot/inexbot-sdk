@@ -8,15 +8,15 @@ This document explains the compatibility between iNexBot controller RTL versions
 
 > RTL-22.07 and RTL-24.03 are both **stable versions**. Both use the same port system. RTL-24.03 is the current mainstream shipping version with more features. Documentation for both versions is continuously maintained.
 
-| Feature | RTL-22.07 | RTL-24.03 |
-|------|-----------|-----------|
-| Version Status | Stable, critical bug fixes only | Stable, bug fixes + key feature merges |
-| Shipment | Large installed base | **Current mainstream version** |
-| Communication Format | JSON text | JSON text |
-| System Features | Motion control, status, process, job files | All RTL-22.07 + system config, safety params, collaborative robot |
-| Process Support | Palletizing, grinding, welding, spraying, laser, stamping, conveyor | Same as RTL-22.07, updated interfaces |
-| Program Management | Job file CRUD | Instruction-level CRUD + remote program start |
-| Recommended Use | Existing RTL-22.07 device maintenance | New projects, advanced features |
+| Feature              | RTL-22.07                                                           | RTL-24.03                                                         |
+| -------------------- | ------------------------------------------------------------------- | ----------------------------------------------------------------- |
+| Version Status       | Stable, critical bug fixes only                                     | Stable, bug fixes + key feature merges                            |
+| Shipment             | Large installed base                                                | **Current mainstream version**                                    |
+| Communication Format | TLV frame (JSON payload)                                            | TLV frame (JSON payload)                                          |
+| System Features      | Motion control, status, process, job files                          | All RTL-22.07 + system config, safety params, collaborative robot |
+| Process Support      | Palletizing, grinding, welding, spraying, laser, stamping, conveyor | Same as RTL-22.07, updated interfaces                             |
+| Program Management   | Job file CRUD                                                       | Instruction-level CRUD + remote program start                     |
+| Recommended Use      | Existing RTL-22.07 device maintenance                               | New projects, advanced features                                   |
 
 > Later versions (e.g. 2501) are not yet stable and SDK documentation is not available.
 
@@ -24,12 +24,12 @@ This document explains the compatibility between iNexBot controller RTL versions
 
 Both versions use the same ports:
 
-| Port | Protocol | Purpose | User |
-|------|---------|------|--------|
-| 5000 | TCP | **File transfer** (upload/download/backup) | Tools, HTTP clients |
-| 6000 | JSON text | **Command communication** (usually teach pendant) | JSON protocol users (teach pendant) |
-| 6001 | JSON text | **Command communication** (usually host computer) | C++/C#/Python SDK |
-| 7000 | TCP | **Host computer service function port** | Host computer, tools |
+| Port | Protocol                 | Purpose                                           | User                                |
+| ---- | ------------------------ | ------------------------------------------------- | ----------------------------------- |
+| 5000 | TCP                      | **File transfer** (upload/download/backup)        | Tools, HTTP clients                 |
+| 6000 | TLV frame (JSON payload) | **Command communication** (usually teach pendant) | JSON protocol users (teach pendant) |
+| 6001 | TLV frame (JSON payload) | **Command communication** (usually host computer) | C++/C#/Python SDK                   |
+| 7000 | TCP                      | **Host computer service function port**           | Host computer, tools                |
 
 > 💡 **SDK Users**: Always use **port 6001**, no manual switching needed.
 
@@ -46,26 +46,26 @@ When migrating from RTL-22.07 to RTL-24.03:
 
 ### C++ SDK
 
-| Platform | Compiler | ABI | Architecture | Configuration |
-|------|--------|-----|------|------|
-| Windows | MinGW (GCC 8.3+) | MinGW ABI | x64 | Release / Debug |
-| Windows | MSVC (VS 2019+) | MSVC ABI | x64 | Release / Debug |
-| Linux | GCC 8.3+ | GCC ABI | x64 / ARM64 | Release |
+| Platform | Compiler         | ABI       | Architecture | Configuration   |
+| -------- | ---------------- | --------- | ------------ | --------------- |
+| Windows  | MinGW (GCC 8.3+) | MinGW ABI | x64          | Release / Debug |
+| Windows  | MSVC (VS 2019+)  | MSVC ABI  | x64          | Release / Debug |
+| Linux    | GCC 8.3+         | GCC ABI   | x64 / ARM64  | Release         |
 
 > MinGW and MSVC libraries **cannot be mixed**. Download the SDK matching your compiler.
 
 ### C# SDK
 
-| Platform | .NET Version | Architecture | Native Library |
-|------|----------|------|--------|
-| Windows | .NET 8.0 | x64 | Depends on `nrc_host.dll` |
+| Platform | .NET Version | Architecture | Native Library            |
+| -------- | ------------ | ------------ | ------------------------- |
+| Windows  | .NET 8.0     | x64          | Depends on `nrc_host.dll` |
 
 ### Python SDK
 
-| Platform | Python Version | Architecture | Native Library |
-|------|------------|------|--------|
-| Windows | Contact R&D | x64 | SDK bundled native library |
-| Linux | Contact R&D | x64 | `_nrc_host.so` |
+| Platform | Python Version | Architecture | Native Library             |
+| -------- | -------------- | ------------ | -------------------------- |
+| Windows  | Contact R&D    | x64          | SDK bundled native library |
+| Linux    | Contact R&D    | x64          | `_nrc_host.so`             |
 
 ---
 

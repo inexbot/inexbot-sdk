@@ -7,7 +7,7 @@ libnrc_host is a C++ library built on top of the Socket_API communication protoc
 | Item              | Description                                                                                                                               |
 | ----------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
 | System Support    | Windows, Linux; x86, x86_64, arm, arm64                                                                                                   |
-| Ports             | 6001: JSON text command communication (host-computer SDK); 6000: Teach programming (teach pendant); 7000: Host-computer service functions |
+| Ports             | 6001: TLV frame communication, JSON in the value field (host-computer SDK); 6000: Teach programming (teach pendant); 7000: Host-computer service functions |
 | API Documentation | <https://doc.hmilib.inexbot.coision.cn/nrc__interface_8h.html>                                                                            |
 
 ## Document Structure
