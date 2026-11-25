@@ -252,7 +252,7 @@ Lua 文件存放在 `~/robot/job/lua` 目录内。
 
 ### 1. 设置 Modbus 程序
 
-**命令字**: `0x5701` `EXTERN_PROGRAM_SET`
+**命令字**: `0x5701`
 
 ```json
 {
@@ -272,7 +272,7 @@ Lua 文件存放在 `~/robot/job/lua` 目录内。
 
 ### 2. 查询 Modbus 程序
 
-**命令字**: `0x5702` `EXTERN_PROGRAM_INQUIRE`
+**命令字**: `0x5702`
 
 ```json
 {
@@ -292,7 +292,7 @@ Lua 文件存放在 `~/robot/job/lua` 目录内。
 
 ### 3. 查询 Modbus 程序响应
 
-**命令字**: `0x5703` `EXTERN_PROGRAM_RESPOND`
+**命令字**: `0x5703`
 
 ```json
 {
@@ -408,7 +408,7 @@ Lua 文件存放在 `~/robot/job/lua` 目录内。
 
 ### 7. 设置 Modbus 心跳检测
 
-**命令字**: `0x5715` `MODBUS_CHECKHEART_SET`
+**命令字**: `0x5715`
 
 ```json
 {
@@ -424,7 +424,7 @@ Lua 文件存放在 `~/robot/job/lua` 目录内。
 
 ### 8. 查询 Modbus 心跳检测
 
-**命令字**: `0x5716` `MODBUS_CHECKHEART_INQUIRE`
+**命令字**: `0x5716`
 
 ```json
 {}

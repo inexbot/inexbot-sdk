@@ -270,6 +270,7 @@
 | busType | int | 通讯方式，范围1,16；1为 EtherCAT 通讯，16为 CanOpen 通讯 |
 | controlCycle | int | 通讯周期，范围1,2,4,8 ms |
 | control_word | int | 伺服控制字，范围[7,8] |
+| buildArch | string | 控制器架构 |
 | pdo_lost_tolerance | int | 丢帧容差，范围[1,5] |
 
 ```json
@@ -278,7 +279,7 @@
   "bustype":1,
   "controlCycle":1,
   "control_word":7,
-  "buildArch":"T507"
+  "buildArch":"T507",
   "pdo_lost_tolerance":2
 }
 ```
@@ -710,7 +711,7 @@
 
 ### 控制器回复机器人主程序运行时间
 
-- **命令字：** `0x2055`
+- **命令字：** `0x2061`
 
 | 参数 | 类型 | 说明 |
 |------|------|------|
@@ -898,7 +899,18 @@
 
 ### 控制器回复抱闸参数
 
-- **命令字：** `0x2079`
+- **命令字：** `0x207B`
+
+| 参数 | 类型 | 说明 |
+|------|------|------|
+| jointNum | int | 当前关节号，范围[1,6] |
+| EncodeNum | int | 编码器个数，范围[1,2] |
+| Encode1Resolusion | int | 编码器1位数 |
+| Encode2Resolusion | int | 编码器2位数 |
+| BrakeType | int | 抱闸类型，1 为插销式，2 为刹片式 |
+| Distance | double | 运动距离 |
+| CheckDistance | double | 检测距离 |
+| CheckTorq | double | 检测力矩 |
 
 ```json
 {

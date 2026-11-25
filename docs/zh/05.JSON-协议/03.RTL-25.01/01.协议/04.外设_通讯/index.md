@@ -1,6 +1,6 @@
 # 外设与通讯
 
-本章介绍 RTL-24.03 协议中外设控制与通讯接口，包括总线、IO、Modbus、TCP、OPC UA 等。
+本章介绍 RTL-25.01 协议中外设控制与通讯接口，包括总线、IO、Modbus、TCP、OPC UA、Ethernet/IP、PROFINET 与软 PLC。
 
 ## 本页目录
 
@@ -14,6 +14,7 @@
 - [OPC UA](./08.OPCUA)
 - [EIP](./09.EIP)
 - [PLC](./10.PLC)
+- [PROFINET](./11.PROFINET)
 
 ---
 

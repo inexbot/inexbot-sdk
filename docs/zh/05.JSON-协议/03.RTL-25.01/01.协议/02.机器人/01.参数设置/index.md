@@ -270,6 +270,7 @@
 | busType | int | 通讯方式，范围1,16；1为 EtherCAT 通讯，16为 CanOpen 通讯 |
 | controlCycle | int | 通讯周期，范围1,2,4,8 ms |
 | control_word | int | 伺服控制字，范围[7,8] |
+| buildArch | string | 控制器架构 |
 | pdo_lost_tolerance | int | 丢帧容差，范围[1,5] |
 
 ```json
@@ -278,6 +279,7 @@
   "busType":1,
   "controlCycle":1,
   "control_word":7,
+  "buildArch":"T507",
   "pdo_lost_tolerance":2
 }
 ```
@@ -1291,5 +1293,64 @@
   "syncPositionerNum":1,
   "coordNum":1,
   "pos":[0,0,0,0,0,0]
+}
+```
+
+### 运行时间应答
+
+| 命令字 | 方向 | 含义 |
+|--------|------|------|
+| `0x2061` | 控制器 → 上位机 | 运行时间应答 |
+
+> `0x2061`：发送该命令的代码没有通过 `rootSend` 写入数据区字段。
+
+### 抱闸防压参数
+
+| 命令字 | 方向 | 含义 |
+|--------|------|------|
+| `0x207B` | 控制器 → 上位机 | 抱闸防压参数 |
+
+**应答参数（0x207B）**
+
+| 字段 | 类型 | 说明 |
+|---|---|---|
+| `jointNum` | int | 关节编号 |
+| `EncodeNum` | — | 编码器编号 |
+| `Encode1Resolusion` | — | 编码分辨率 |
+| `Encode2Resolusion` | int | 编码器2分辨率 |
+| `BrakeType` | int | 抱闸类型 |
+| `Distance` | int | 距离 |
+| `CheckDistance` | int | 校验距离 |
+| `CheckTorq` | double | 校验力矩 |
+
+```json
+{
+    "jointNum": 1,
+    "Encode2Resolusion": 1,
+    "BrakeType": 1,
+    "Distance": 1,
+    "CheckDistance": 1,
+    "CheckTorq": 1.0
+}
+```
+
+### 查询轴绑定标志
+
+| 命令字 | 方向 | 含义 |
+|--------|------|------|
+| `0x20D4` | 上位机 → 控制器 | 查询轴绑定标志 |
+| `0x20D5` | 控制器 → 上位机 | 轴绑定标志应答 |
+
+> `0x20D4`：该命令的处理器未读取 `rootRecv` 中的字段。
+
+**应答参数（0x20D5）**
+
+| 字段 | 类型 | 说明 |
+|---|---|---|
+| `axisBindFlag` | bool | 轴绑定标志 |
+
+```json
+{
+    "axisBindFlag": true
 }
 ```

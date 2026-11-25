@@ -12,7 +12,8 @@
 ├── 接口说明                           # API 参考文档
 │   ├── 机器人基本参数设置               # 系统/伺服/坐标系/IO/变量等核心接口
 │   ├── 作业文件-指令操作                # 作业文件管理、指令插入、队列运行
-│   └── 码垛工艺                         # 码垛工艺参数设置与控制
+│   ├── 码垛工艺                         # 码垛工艺参数设置与控制
+│   └── 焊接工艺                         # 焊接使能、送丝/退丝、状态查询
 └── 接口示例
     ├── 自定义指令
     │   ├── 控制器实现                   # 控制器侧自定义指令开发
@@ -256,6 +257,18 @@
 | NRC_Pallet_SetSimpleNumParm / NRC_Pallet_GetSimpleNumParm | 数量参数 |
 | NRC_Pallet_ClearCurrentStatus | 清除码垛状态 |
 | NRC_Pallet_SetPalletedWpNum / NRC_Pallet_GetPalletedWpNum | 已码个数 |
+
+### 焊接工艺
+
+| 函数 | 说明 |
+|------|------|
+| NRC_WeldEnabled | 焊接使能 |
+| NRC_SpotWeldOp | 手动电焊 |
+| NRC_FeedWire / NRC_ReturnWire | 送丝 / 退丝 |
+| NRC_Aspirated | 送气 |
+| NRC_WeldFaultReset | 焊机故障复位 |
+| NRC_WeldState | 焊接状态查询 |
+| NRC_GetMultipassWeldParm | 多重多道焊接参数 |
 
 ### 运动状态查询
 

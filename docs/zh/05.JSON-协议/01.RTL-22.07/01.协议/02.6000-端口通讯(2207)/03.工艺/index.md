@@ -52,7 +52,7 @@
 | 消息 ID | 名称 | 说明 |
 |--------|------|------|
 | 0x5731 | SCREWDRIVER_PARM_SET | 修改电批参数 |
-| 0x5732 | SCREWDRIVER_PARM_INQUIRE | 示教器查询电批参数 |
+| 0x5732 | SCREWDRIVER_PARM_INQUIRE | 上位机查询电批参数 |
 | 0x5733 | SCREWDRIVER_PARM_RESPOND | 发送电批参数 |
 | 0x5735 | SCREWDRIVER_IOSTATUS_INQUIRE | 电批 IO 状态查询 |
 | 0x5736 | SCREWDRIVER_IOSTATUS_RESPOND | 发送 IO 状态 |
