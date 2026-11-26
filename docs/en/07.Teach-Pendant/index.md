@@ -1,6 +1,6 @@
 ---
 title: Teach Pendant
-description: iNexBot Teach Pendant (T30) secondary development guide, based on Qt static library, supporting Windows, Linux, ARM-Linux multi-platform.
+description: iNexBot Teach Pendant (T30 / T40) secondary development guide, based on Qt static library, supporting Windows, Linux, ARM-Linux multi-platform.
 ---
 
 # Teach Pendant
@@ -9,13 +9,13 @@ description: iNexBot Teach Pendant (T30) secondary development guide, based on Q
 
 Teach Pendant secondary development is based on the interfaces provided by the static library of the teach pendant software.
 
-The secondary development static library supports development on three system platforms: Windows, Linux, and ARM-Linux (T30 Teach Pendant):
+The secondary development static library supports development on three system platforms: Windows, Linux, and ARM-Linux (T30 / T40 Teach Pendant):
 
 Windows-based development can be used to create host computer programs;
 
 Programs developed using the Linux-based secondary development static library can be used for debugging or to generate host computer software for Linux systems;
 
-Programs generated using the ARM-Linux (T30) version of the secondary development static library are only supported for running on the company's T30 Teach Pendant.
+Programs generated using the ARM-Linux version of the secondary development static library run only on iNexBot teach pendants, and must match the pendant model (T30 and T40 use different cross-compilation kits; see Environment Setup).
 
 It provides complete basic teach pendant functionality, allowing users to customize the required process interfaces, provide user-defined custom instructions, insert custom interfaces, and offer a universal data transceiver interface (communication data format is unified as JSON format).
 
